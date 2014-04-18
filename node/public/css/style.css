@@ -1,46 +1,38 @@
 /****************
 	general
 ****************/
-
-h1{
-	font-family: 'Lato', sans-serif;
-	font-weight: 700;
-	text-transform: uppercase;
-	color: #fff !important;
+ h1 {
+    font-family:'Lato', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff !important;
 }
-
-.col-centered{
-	float: none;
-	margin: 0 auto;
-	text-align: center;
+.col-centered {
+    float: none;
+    margin: 0 auto;
+    text-align: center;
 }
-
 /****************
 	header
 ****************/
-
-#background{
-  background: url(../images/slider/bg.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+ #background {
+    background: url(../images/slider/bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
-
-
 /****************
 	body
 ****************/
-
-.post{
-	text-align: center;
-	margin: 5em 0;
+ .post {
+    text-align: center;
+    margin: 5em 0;
 }
-
-.postimage{
-	width: 200px;
-	height: 200px;
-	background-color: #00ebbd;
-	border-radius: 50%;
-	overflow: hidden;
+.postimage {
+    width: 200px;
+    height: 200px;
+    background-color: #00ebbd;
+    border-radius: 50%;
+    overflow: hidden;
 }

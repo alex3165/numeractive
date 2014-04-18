@@ -22,9 +22,8 @@ app.put('/api/post/:id', api.editPost);
 app.delete('/api/post/:id', api.deletePost);
 
 /* categories */
-app.get('/api/categories',api.categories);
+app.get('/api/categories', api.categories);
 app.get('/api/category/:id', api.category);
 app.post('/api/category', api.addCategory);
 app.put('/api/category/:id', api.editCategory);
 app.delete('/api/category/:id', api.deleteCategory);
-
