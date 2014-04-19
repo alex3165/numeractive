@@ -1,9 +1,16 @@
 /****************
 	general
 ****************/
+*{
+    font-family:'Lato', sans-serif;
+    font-weight: 400;
+}
+
  h1 {
     font-family:'Lato', sans-serif;
     font-weight: 700;
+    font-size: 18pt;
+    letter-spacing: 2px;
     text-transform: uppercase;
     color: #fff !important;
 }
@@ -12,19 +19,49 @@
     margin: 0 auto;
     text-align: center;
 }
+
+.mg-top{
+    margin-top: 80px;
+}
 /****************
 	header
 ****************/
+.containbg{
+    padding: 30px;
+    height: 400px;
+}
+
+.contactlink{
+    padding-left: 45px;
+}
+
+.contactlink a{
+   color: #fff;
+   font-size: 14pt;
+}
+
+
  #background {
-    background: url(../images/slider/bg.jpg) no-repeat center center fixed;
+    background: url(../images/slider/bg1.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
+
+.containbg #logo{
+    margin-top: 64px;
+    width: 180px;
+}
+
 /****************
 	body
 ****************/
+
+.contain-menu{
+    margin-top: 70px;
+}
+
  .post {
     text-align: center;
     margin: 5em 0;
@@ -35,4 +72,16 @@
     background-color: #00ebbd;
     border-radius: 50%;
     overflow: hidden;
+}
+
+.menu{
+}
+
+.menu li{
+    list-style-type: none;
+    margin: 10px 0;
+}
+
+.menu li a{
+    text-decoration: none;
 }

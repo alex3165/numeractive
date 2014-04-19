@@ -10,21 +10,26 @@ html(lang='fr', data-ng-app='numeractive')
 		script(src='third_party/angular-ui-router.min.js')
 		script(src='third_party/angular-strap-2.0.1/angular-strap.min.js')
 		script(src='third_party/angular-strap-2.0.1/angular-strap.tpl.min.js')
+		script(src='js/script.js')
 		script(src='js/app.js')
 	body
 		.container-full
-			.jumbotron#background
+			.containbg#background
 				.row
 					.col-lg-12.col-centered
-						img(src="images/logo.svg",alt="logo numeractive",width="180")
+						img(src="images/logo.svg", id="logo",alt="logo numeractive")
 				.row
 					.col-lg-12.col-centered
 						h1 numeractive
+				.row.mg-top
+					.col-lg-3
+						span.contactlink
+							a(href="#",alt="contact link") contact
 			.container-fluid
-				.col-lg-3(data-ng-controller="categoriesMenu")
-					ul(role="menu")
+				.col-lg-3(data-ng-controller="categoriesMenu").contain-menu
+					ul(role="menu").menu
 						li(role="presentation")
 							a(data-ui-sref='home') Accueil
 						li(data-ng-repeat="(i, category) in categories track by $index",role="presentation")
 							a(data-ui-sref='category({categoryId: i})') {{category.type}}
-			main(data-ui-view)
+				main(data-ui-view)

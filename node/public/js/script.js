@@ -1,18 +1,20 @@
-var slide = 0;
-
+var slide = 2;
 
 $(document).ready(function() {
     setInterval(function() {
-        timerslide(4);
-    }, 2000);
+        timerslide(6);
+    }, 10000);
 });
 
 function timerslide(nbmax) {
-    if (slide < nbmax) {
-        $('#background').css('background', '');
+	var url = '../images/slider/bg'+slide+'.jpg';
+    if (slide <= nbmax) {
+    	$('#background').fadeTo('slow',0.3, function() {
+    		$(this).css({background: 'url('+url+')'});
+    	}).fadeTo('slow',1);
         slide++;
     } else {
-        slide = 0;
+        slide = 1;
     }
 
 }

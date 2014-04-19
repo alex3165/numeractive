@@ -34,7 +34,7 @@ exports.posts = function(req, res) {
         posts.push({
             id: i,
             title: post.title,
-            text: post.text.substr(0, 200) + '...',
+            text: post.text.substr(0, 300) + ' ...',
             category: post.category,
             img: post.img,
             creationDate: post.creationDate
@@ -110,7 +110,7 @@ exports.category = function(req, res) {
                 posts.push({
                     id: i,
                     title: post.title,
-                    text: post.text.substr(0, 200) + '...',
+                    text: post.text.substr(0, 300) + ' ...',
                     category: post.category,
                     img: post.img,
                     creationDate: post.creationDate

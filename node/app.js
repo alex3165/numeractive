@@ -14,6 +14,9 @@ app.listen(8080);
 app.get('/', routes.index);
 app.get('/partials/:page', routes.partials);
 
+
+app.get('/admin', routes.admin);
+
 /* posts */
 app.get('/api/posts', api.posts);
 app.get('/api/post/:id', api.post);
