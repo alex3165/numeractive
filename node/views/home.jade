@@ -1,7 +1,7 @@
 .col-lg-6
 	article(data-ng-repeat="post in posts").post
 		.postimage.col-centered
-			img(src="{{post.img}}",alt="post image")
+			img(src="{{post.img}}",alt="post image",width="300")
 		span.category{{post.category}}
 		h2.title{{post.title}}
 		p.preview{{post.text}}

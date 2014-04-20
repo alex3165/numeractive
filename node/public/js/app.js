@@ -1,7 +1,6 @@
 var numApp = angular.module('numeractive', ['ui.router']);
 
-numApp.config(['$urlRouterProvider', '$stateProvider',
-    function($urlRouterProvider, $stateProvider) {
+numApp.config( function($urlRouterProvider, $stateProvider) { //['$urlRouterProvider', '$stateProvider',
         $urlRouterProvider.otherwise('/');
 
         $stateProvider
@@ -14,7 +13,7 @@ numApp.config(['$urlRouterProvider', '$stateProvider',
                         function($http) {
                             return $http.get('/api/posts').then(function(res) {
                                 return res.data;
-                            })
+                            });
                         }
                     ]
                 }
@@ -29,13 +28,13 @@ numApp.config(['$urlRouterProvider', '$stateProvider',
                             return $http.get('/api/category/' + $stateParams.categoryId)
                                 .then(function(res) {
                                     return res.data;
-                                })
+                                });
                         }
                     ]
                 }
-            })
+            });
     }
-]);
+); //]
 
 numApp.controller('categoriesMenu', ['$scope', '$http',
     function($scope, $http) {
@@ -50,3 +49,10 @@ numApp.controller('home', ['$scope', 'posts',
         $scope.posts = posts;
     }
 ]);
+
+ // numApp.service('categoriesService', ['utilsService','$http',
+ //    function(utilsService,$http){
+ //         $http.get('/api/categories').then(function(res) {
+ //             return res.data;
+ //         });
+ // }]);
