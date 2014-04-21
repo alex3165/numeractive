@@ -1,5 +1,6 @@
 var http = require('http');
 var express = require('express');
+var mysql = require('mysql');
 var app = express();
 var routes = require('./routes');
 var api = require('./routes/api');
@@ -9,11 +10,32 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.engine('jade', require('jade').__express);
 
+var connection = mysql.createConnection({
+    host : 'db463017905.db.1and1.com',
+    user : 'dbo463017905',
+    password : '12ldhbh07',
+    database : 'db463017905'
+});
+
+
 app.listen(8080);
 
 app.get('/', routes.index);
 app.get('/partials/:page', routes.partials);
 
+app.get('/db',function(req, res) {
+    //connection.query('USE db463017905');
+    connection.connect();
+    connection.query('SELECT * FROM `posts`', function(err, rows){
+        if (err) {
+            res.send(err);
+        }else{
+            res.send({posts : rows});
+        }
+    });
+    connection.end();
+
+});
 
 app.get('/admin', routes.admin);
 
@@ -30,3 +52,5 @@ app.get('/api/category/:id', api.category);
 app.post('/api/category', api.addCategory);
 app.put('/api/category/:id', api.editCategory);
 app.delete('/api/category/:id', api.deleteCategory);
+
+

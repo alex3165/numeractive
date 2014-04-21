@@ -14,6 +14,7 @@ var data = {
     }]
 };
 
+
 var datacat = {
     "categories": [{
         "type": "programmation"
@@ -26,10 +27,15 @@ var datacat = {
     }]
 };
 
+
+
+
 /*  POST PART OF APPI  */
 
 exports.posts = function(req, res) {
     var posts = [];
+    //var database = 
+
     data.posts.forEach(function(post, i) {
         posts.push({
             id: i,
