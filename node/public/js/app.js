@@ -33,6 +33,12 @@ numApp.config( function($urlRouterProvider, $stateProvider) { //['$urlRouterProv
                     ]
                 }
             });
+            .state('admin', {
+                url: '/admin',
+                templateUrl: 'partials/admin',
+                controller: 'admin'
+                }
+            });
     }
 ); //]
 
@@ -47,6 +53,18 @@ numApp.controller('categoriesMenu', ['$scope', '$http',
 numApp.controller('home', ['$scope', 'posts',
     function($scope, posts) {
         $scope.posts = posts;
+    }
+]);
+
+numApp.controller('admin', ['$scope', '$http',
+    function($scope, $http) {
+//	$scope.user = {};
+//	data-ng-submit="login()"
+//      input(data-ng-model="user.password")
+
+	$scope.login = function() {
+	    
+	}
     }
 ]);
 

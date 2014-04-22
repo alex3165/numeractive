@@ -11,10 +11,10 @@ app.set('view engine', 'jade');
 app.engine('jade', require('jade').__express);
 
 var connection = mysql.createConnection({
-    host : 'db463017905.db.1and1.com',
-    user : 'dbo463017905',
-    password : '12ldhbh07',
-    database : 'db463017905'
+    host : 'localhost',
+    user : 'numeractive',
+    password : '89906311',
+    database : 'numeractive'
 });
 
 
@@ -24,7 +24,7 @@ app.get('/', routes.index);
 app.get('/partials/:page', routes.partials);
 
 app.get('/db',function(req, res) {
-    //connection.query('USE db463017905');
+    //connection.query('USE numeractive');
     connection.connect();
     connection.query('SELECT * FROM `posts`', function(err, rows){
         if (err) {
