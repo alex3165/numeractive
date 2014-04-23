@@ -1,6 +1,6 @@
 var numApp = angular.module('numeractive', ['ui.router']);
 
-numApp.config( function($urlRouterProvider, $stateProvider) { //['$urlRouterProvider', '$stateProvider',
+numApp.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) { //
         $urlRouterProvider.otherwise('/');
 
         $stateProvider
@@ -33,14 +33,14 @@ numApp.config( function($urlRouterProvider, $stateProvider) { //['$urlRouterProv
                     ]
                 }
             });
-            .state('admin', {
-                url: '/admin',
-                templateUrl: 'partials/admin',
-                controller: 'admin'
-                }
-            });
+            // .state('admin', {
+            //     url: '/admin',
+            //     templateUrl: 'partials/admin',
+            //     controller: 'admin'
+            //     }
+            // });
     }
-); //]
+]);
 
 numApp.controller('categoriesMenu', ['$scope', '$http',
     function($scope, $http) {
@@ -58,13 +58,13 @@ numApp.controller('home', ['$scope', 'posts',
 
 numApp.controller('admin', ['$scope', '$http',
     function($scope, $http) {
-//	$scope.user = {};
-//	data-ng-submit="login()"
-//      input(data-ng-model="user.password")
+ $scope.user = {};
+ //data-ng-submit="login()"
+     //input(data-ng-model="user.password")
 
-	$scope.login = function() {
-	    
-	}
+    $scope.login = function() {
+        
+    };
     }
 ]);
 

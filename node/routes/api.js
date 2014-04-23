@@ -26,16 +26,20 @@ var datacat = {
         "type": "vie quotidienne"
     }]
 };
-
-
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+    host : 'localhost',
+    user : 'numeractive',
+    password : '89906311',
+    database : 'numeractive'
+});
+//var app = require('../app');
 
 
 /*  POST PART OF APPI  */
 
 exports.posts = function(req, res) {
     var posts = [];
-    //var database = 
-
     data.posts.forEach(function(post, i) {
         posts.push({
             id: i,
@@ -160,4 +164,31 @@ exports.deleteCategory = function(req, res) {
         res.send(404, {
             status: "error"
         });
+};
+
+
+exports.users = function(req, res) {
+    connection.connect();
+    connection.query('SELECT * FROM users', function(err, rows){
+        if (err) {
+            res.send(err);
+        }else{
+            res.send({posts : rows});
+        }
+    });
+    connection.end();
+};
+
+exports.users = function(req, res) {
+    var login = req.params.login;
+
+    
+    connection.query('SELECT * FROM users WHERE login ', function(err, rows){
+        if (err) {
+            res.send(err);
+        }else{
+            res.send({posts : rows});
+        }
+    });
+    //connection.end();
 };

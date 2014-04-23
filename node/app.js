@@ -1,6 +1,5 @@
 var http = require('http');
 var express = require('express');
-var mysql = require('mysql');
 var app = express();
 var routes = require('./routes');
 var api = require('./routes/api');
@@ -9,14 +8,6 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.engine('jade', require('jade').__express);
-
-var connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'numeractive',
-    password : '89906311',
-    database : 'numeractive'
-});
-
 
 app.listen(8080);
 
@@ -53,4 +44,9 @@ app.post('/api/category', api.addCategory);
 app.put('/api/category/:id', api.editCategory);
 app.delete('/api/category/:id', api.deleteCategory);
 
-
+/* users */
+app.get('/api/users', api.users);
+// app.get('/api/user/:login', api.user);
+// app.post('/api/user', api.addUser);
+// app.put('/api/user/:login', api.editUser);
+// app.delete('/api/category/:login', api.deleteUser);
