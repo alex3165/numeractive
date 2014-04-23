@@ -26,7 +26,7 @@ app.get('/partials/:page', routes.partials);
 app.get('/db',function(req, res) {
     //connection.query('USE db463017905');
     connection.connect();
-    connection.query('SELECT * FROM `posts`', function(err, rows){
+    connection.query('SELECT * FROM posts', function(err, rows){
         if (err) {
             res.send(err);
         }else{
