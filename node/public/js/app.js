@@ -1,4 +1,5 @@
 var numApp = angular.module('numeractive', ['ui.router']);
+var loading = true;
 
 numApp.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) { //
         $urlRouterProvider.otherwise('/');
@@ -12,6 +13,7 @@ numApp.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvid
                     posts: ['$http',
                         function($http) {
                             return $http.get('/api/posts').then(function(res) {
+                                
                                 return res.data;
                             });
                         }
@@ -45,6 +47,7 @@ numApp.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvid
 numApp.controller('categoriesMenu', ['$scope', '$http',
     function($scope, $http) {
         $http.get('/api/categories').then(function(res) {
+            $scope.loading = false;
             $scope.categories = res.data;
         });
     }

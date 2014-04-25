@@ -13,8 +13,9 @@ html(lang='fr', data-ng-app='numeractive')
 		script(src='js/script.js')
 		script(src='js/app.js')
 	body
-		.container-full
-			.containbg#background
+		.loading(data-ng-show=('loading')) Chargement ...
+		.container-full(data-ng-hide=('loading'))
+			.containbg
 				.row
 					.col-lg-12.col-centered
 						img(src="images/logo.svg", id="logo",alt="logo numeractive")

@@ -179,16 +179,16 @@ exports.users = function(req, res) {
     connection.end();
 };
 
-exports.users = function(req, res) {
-    var login = req.params.login;
+// exports.users = function(req, res) {
+//     var login = req.params.login;
 
     
-    connection.query('SELECT * FROM users WHERE login ', function(err, rows){
-        if (err) {
-            res.send(err);
-        }else{
-            res.send({posts : rows});
-        }
-    });
-    //connection.end();
-};
+//     connection.query('SELECT * FROM users WHERE login ', function(err, rows){
+//         if (err) {
+//             res.send(err);
+//         }else{
+//             res.send({posts : rows});
+//         }
+//     });
+//     //connection.end();
+// };
