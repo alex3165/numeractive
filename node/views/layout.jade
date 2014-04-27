@@ -10,22 +10,25 @@ html(lang='fr', data-ng-app='numeractive')
 		script(src='third_party/angular-ui-router.min.js')
 		script(src='third_party/angular-strap-2.0.1/angular-strap.min.js')
 		script(src='third_party/angular-strap-2.0.1/angular-strap.tpl.min.js')
+		script(src="https://code.angularjs.org/1.2.9/angular-animate.min.js")
 		script(src='js/script.js')
 		script(src='js/app.js')
 	body
 		.loading(data-ng-show=('loading')) Chargement ...
 		.container-full(data-ng-hide=('loading'))
-			.containbg
-				.row
-					.col-lg-12.col-centered
-						img(src="images/logo.svg", id="logo",alt="logo numeractive")
-				.row
-					.col-lg-12.col-centered
-						h1 numeractive
-				.row.mg-top
-					.col-lg-3
-						span.contactlink
-							a(href="#",alt="contact link") contact
+			header(data-ng-controller="SliderController")
+				slider(data-images="images",class="clearfix")
+				.containbg
+					.row
+						.col-lg-12.col-centered
+							img(src="images/logo.svg", id="logo",alt="logo numeractive")
+					.row
+						.col-lg-12.col-centered
+							h1 numeractive
+					.row.mg-top
+						.col-lg-3
+							span.contactlink
+								a(href="#",alt="contact link") contact
 			.container-fluid
 				.col-lg-3(data-ng-controller="categoriesMenu").contain-menu
 					ul(role="menu").menu

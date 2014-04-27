@@ -1,4 +1,4 @@
-var numApp = angular.module('numeractive', ['ui.router']);
+var numApp = angular.module('numeractive', ['ui.router','ngAnimate']);
 var loading = true;
 
 numApp.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) { //
@@ -55,7 +55,13 @@ numApp.controller('categoriesMenu', ['$scope', '$http',
 
 numApp.controller('home', ['$scope', 'posts',
     function($scope, posts) {
+        if ($scope.posts.category == 0) {
+            // css rouge
+        }else if($scope.posts.category == 2){
+
+        }
         $scope.posts = posts;
+
     }
 ]);
 
@@ -71,9 +77,71 @@ numApp.controller('admin', ['$scope', '$http',
     }
 ]);
 
- // numApp.service('categoriesService', ['utilsService','$http',
- //    function(utilsService,$http){
- //         $http.get('/api/categories').then(function(res) {
- //             return res.data;
- //         });
- // }]);
+/******************
+      SLIDER
+*******************/
+
+numApp.controller('SliderController', function($scope) {
+    $scope.images = [{
+      src: 'bg1.jpg',
+      title: 'Pic 1'
+    }, {
+      src: 'bg2.jpg',
+      title: 'Pic 2'
+    }, {
+      src: 'bg3.jpg',
+      title: 'Pic 3'
+    }, {
+      src: 'bg4.jpg',
+      title: 'Pic 4'
+    }, {
+      src: 'bg5.jpg',
+      title: 'Pic 5'
+    }];
+
+});
+
+numApp.directive('slider', function($timeout) {
+
+  return {
+    restrict: 'AE',
+    replace: true,
+    scope: {
+        images: '='
+    },
+    link: function(scope, elem, attrs) {
+        scope.currentIndex = 0;
+
+        scope.next = function() {
+            scope.currentIndex < scope.images.length - 1 ? scope.currentIndex++ : scope.currentIndex = 0;
+        };
+        scope.prev = function() {
+            scope.currentIndex > 0 ? scope.currentIndex-- : scope.currentIndex = scope.images.length - 1;
+        };
+        scope.$watch('currentIndex', function() {
+          scope.images.forEach(function(image) {
+            image.visible = false;
+          });
+         
+          scope.images[scope.currentIndex].visible = true;
+        });
+        var timer;
+        
+        var sliderFunc=function(){
+            timer=$timeout(function(){
+                scope.next();
+                timer=$timeout(sliderFunc,5000);
+            },5000);
+        };
+        
+        sliderFunc();
+        
+        scope.$on('$destroy',function(){
+            $timeout.cancel(timer);
+        });
+    },
+    templateUrl: '/templates/slider.html'
+
+  };
+
+});

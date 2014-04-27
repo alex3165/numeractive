@@ -26,13 +26,13 @@ var datacat = {
         "type": "vie quotidienne"
     }]
 };
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'numeractive',
-    password : '89906311',
-    database : 'numeractive'
-});
+// var mysql = require('mysql');
+// var connection = mysql.createConnection({
+//     host : 'localhost',
+//     user : 'numeractive',
+//     password : '89906311',
+//     database : 'numeractive'
+// });
 //var app = require('../app');
 
 
@@ -183,13 +183,13 @@ exports.users = function(req, res) {
 //     var login = req.params.login;
 
 
-    connection.connect();
-    connection.query('SELECT * FROM users WHERE login ', function(err, rows){
-        if (err) {
-            res.send(err);
-        }else{
-            res.send({posts : rows});
-        }
-    });
-    //connection.end();
-};
+//     connection.connect();
+//     connection.query('SELECT * FROM users WHERE login ', function(err, rows){
+//         if (err) {
+//             res.send(err);
+//         }else{
+//             res.send({posts : rows});
+//         }
+//     });
+//     //connection.end();
+// };
