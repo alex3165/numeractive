@@ -1,7 +1,7 @@
 /****************
 	general
 ****************/
-*{
+html,p,h1,h2,li,a{
     font-family:'Lato', sans-serif;
     font-weight: 400;
 }
@@ -39,9 +39,6 @@
 /****************
 	header
 ****************/
-
-header{
-}
 
 /* slider */
 .slider{
@@ -104,20 +101,31 @@ header{
     margin-top: 70px;
 }
 
- .post {
-    text-align: center;
-    margin: 5em 0;
+.post {
+    text-align: left;
+    margin: 100px 0;
 }
 .postimage {
     width: 200px;
     height: 200px;
-    background-color: #00ebbd;
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 3px 3px 0px #fff;
+    display: block;
+    margin-bottom: 14px;
 }
 
-.menu{
+.post .category{
+    text-align: center;
+}
+
+.post h2{
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 40px;
+}
+
+.post p{
+    line-height: 26px;
 }
 
 .menu li{
@@ -128,6 +136,33 @@ header{
 .menu li a{
     text-decoration: none;
 }
+
+article{
+    margin: 100px 20px;
+}
+
+.seperate{
+    width: 200px;
+    height: 1px;
+    margin: 0 auto;
+    background-color: #000;
+}
+
+/* Shadows categories */
+
+.greenshadow{
+    box-shadow: 3px 3px 0px #00ebbd;
+}
+.blueshadow{
+    box-shadow: 3px 3px 0px #3498db;
+}
+.redshadow{
+    box-shadow: 3px 3px 0px #fc4c34;
+}
+.yellowshadow{
+    box-shadow: 3px 3px 0px #fbdf26;
+}
+
 
 
 /************

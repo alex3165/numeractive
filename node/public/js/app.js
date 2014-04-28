@@ -1,4 +1,4 @@
-var numApp = angular.module('numeractive', ['ui.router','ngAnimate']);
+var numApp = angular.module('numeractive', ['ui.router','ngAnimate','infinite-scroll']);
 var loading = true;
 
 numApp.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) { //
@@ -35,10 +35,17 @@ numApp.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvid
                     ]
                 }
             });
-            // .state('admin', {
-            //     url: '/admin',
-            //     templateUrl: 'partials/admin',
-            //     controller: 'admin'
+            // .state('contact', {
+            //     url: '/contact',
+            //     templateUrl: 'partials/contact',
+            //     controller: 'contact',
+            //     resolve: {
+            //         posts: ['$stateParams', '$http',
+            //             function($stateParams, $http) {
+                            
+            //             }
+            //         ]
+            //     }
             //     }
             // });
     }
@@ -55,25 +62,31 @@ numApp.controller('categoriesMenu', ['$scope', '$http',
 
 numApp.controller('home', ['$scope', 'posts',
     function($scope, posts) {
-        if ($scope.posts.category == 0) {
-            // css rouge
-        }else if($scope.posts.category == 2){
-
-        }
+        $scope.currentPage = 0;
+        $scope.pageSize = 4;
         $scope.posts = posts;
+        $scope.shadow={
+            0 : 'greenshadow',
+            1 : 'blueshadow',
+            2 : 'redshadow',
+            3 : 'yellowshadow'
+        };
+        $scope.numberOfPages=function(){
+            return Math.ceil($scope.posts.length/$scope.pageSize);
+        };
 
     }
 ]);
 
 numApp.controller('admin', ['$scope', '$http',
     function($scope, $http) {
- $scope.user = {};
- //data-ng-submit="login()"
-     //input(data-ng-model="user.password")
+        $scope.user = {};
+        //data-ng-submit="login()"
+         //input(data-ng-model="user.password")
 
-    $scope.login = function() {
-        
-    };
+        $scope.login = function() {
+            
+        };
     }
 ]);
 

@@ -11,6 +11,18 @@ var data = {
         "category": 0,
         "img": "images/img1.jpg",
         "creationDate": " 38 decembre 8999"
+    },{
+        "title": "Leave dead animals as gifts climb leg sun bathe",
+        "text": "Hate dog climb leg or chase imaginary bugs. Nap all day. Swat at dog sleep on keyboard yet leave dead animals as gifts so hunt anything that moves leave dead animals as gifts or intrigued by the shower chase imaginary bugs. Hate dog destroy couch and need to chase tail. Stick butt in face destroy couch for leave hair everywhere and shake treat bag chew iPad power cord for throwup on your pillow for missing until dinner time. Chase imaginary bugs.",
+        "category": 3,
+        "img": "images/img5.jpg",
+        "creationDate": " 78 aout 1111"
+    },{
+        "title": "Mark territory hide when guests come over flop over so stretch leave dead animals as gifts",
+        "text": "Rub face on everything intently stare at the same spot so claw drapes and mark territory but need to chase tail use lap as chair. Why must they do that swat at dog. Climb leg stick butt in face yet intently sniff hand but flop over for play time find something else more interesting. Chew iPad power cord climb leg under the bed chew foot leave dead animals as gifts chase imaginary bugs hopped up on goofballs. Inspect anything brought into the house climb leg for give attitude yet hunt anything that moves inspect anything brought into the house but stick butt in face.",
+        "category": 1,
+        "img": "images/img4.jpg",
+        "creationDate": " 20 septembre 2010"
     }]
 };
 
@@ -26,13 +38,7 @@ var datacat = {
         "type": "vie quotidienne"
     }]
 };
-// var mysql = require('mysql');
-// var connection = mysql.createConnection({
-//     host : 'localhost',
-//     user : 'numeractive',
-//     password : '89906311',
-//     database : 'numeractive'
-// });
+
 //var app = require('../app');
 
 
@@ -179,17 +185,17 @@ exports.users = function(req, res) {
     connection.end();
 };
 
-// exports.users = function(req, res) {
-//     var login = req.params.login;
+exports.users = function(req, res) {
+    var login = req.params.login;
 
 
-//     connection.connect();
-//     connection.query('SELECT * FROM users WHERE login ', function(err, rows){
-//         if (err) {
-//             res.send(err);
-//         }else{
-//             res.send({posts : rows});
-//         }
-//     });
-//     //connection.end();
-// };
+    connection.connect();
+    connection.query('SELECT * FROM users WHERE login ', function(err, rows){
+        if (err) {
+            res.send(err);
+        }else{
+            res.send({posts : rows});
+        }
+    });
+    connection.end();
+};
