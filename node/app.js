@@ -41,7 +41,6 @@ app.get('/api/login',function(req, res){
         if (!err) {
             db.query('SELECT * FROM users WHERE login="'+user.login+'"',function(err,rows){
                 if (!err) {
-                    console.log(rows);
                     if (user.mdp == rows[0].mdp) {
                         res.send({status : 'success'});
                     }
@@ -70,7 +69,7 @@ app.get('/api/posts',function(req,res){
                             id: i,
                             title: post.title,
                             text: post.text.substr(0, 300) + ' ...',
-                            category: post.category,
+                            category: post.id_cat,
                             img: post.img,
                             creationDate: post.creation
                         });
