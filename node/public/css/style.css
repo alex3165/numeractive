@@ -48,6 +48,11 @@ html,p,h1,h2,li,a{
     overflow: hidden;
     margin: auto;
 }
+
+.slider-login{
+    height: 100% !important;
+}
+
 .slide{
     position:absolute;
     top:0;
@@ -96,6 +101,10 @@ html,p,h1,h2,li,a{
 /****************
 	body
 ****************/
+
+.container-login{
+    padding-top: 14%;
+}
 
 .contain-menu{
     margin-top: 70px;
@@ -172,7 +181,8 @@ article{
 .login-container{
     position: relative;
     width: 300px;
-    margin: 80px auto;
+    margin: 0px auto;
+    margin-bottom: 80px;
     padding: 20px 40px 40px;
     text-align: center;
     background: #fff;

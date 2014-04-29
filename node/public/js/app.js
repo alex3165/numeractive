@@ -60,8 +60,7 @@ numApp.controller('categoriesMenu', ['$scope', '$http',
     }
 ]);
 
-numApp.controller('home', ['$scope', 'posts',
-    function($scope, posts) {
+numApp.controller('home', ['$scope', 'posts', function($scope, posts) {
         $scope.currentPage = 0;
         $scope.pageSize = 4;
         $scope.posts = posts;
@@ -75,20 +74,17 @@ numApp.controller('home', ['$scope', 'posts',
             return Math.ceil($scope.posts.length/$scope.pageSize);
         };
 
-    }
-]);
+}]);
 
-numApp.controller('admin', ['$scope', '$http',
-    function($scope, $http) {
-        $scope.user = {};
-        //data-ng-submit="login()"
-         //input(data-ng-model="user.password")
-
-        $scope.login = function() {
-            
-        };
-    }
-]);
+numApp.controller('loginController', ['$scope', '$http', function(){
+    $scope.login = function (username, password) {
+        $http.get('/api/login?login='+username+'&mdp='+password).then(function(res){
+            if (res.status == 'success') {
+                console.log('on accède à l\'admin');
+            }
+        });
+    };
+}]);
 
 /******************
       SLIDER

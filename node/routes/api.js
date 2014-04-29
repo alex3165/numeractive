@@ -39,7 +39,7 @@ var datacat = {
     }]
 };
 
-//var app = require('../app');
+
 
 
 /*  POST PART OF APPI  */
@@ -170,6 +170,23 @@ exports.deleteCategory = function(req, res) {
         res.send(404, {
             status: "error"
         });
+};
+
+
+exports.db = function(req, res){
+    
+    db.getConnection(function(err,db){
+        if (!err) {
+            db.query('SELECT * FROM posts',function(err,rows){
+                if (err) {
+                    res.send(err);
+                }else{
+                    res.send({posts : rows});
+                }
+                db.end();
+            });
+        }
+    });
 };
 
 

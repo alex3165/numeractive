@@ -1,9 +1,10 @@
 var http = require('http');
 var express = require('express');
-//var mysql = require('mysql');
 var app = express();
 var routes = require('./routes');
 var api = require('./routes/api');
+/* access to database file */
+var db = require('./db');
 
 app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
@@ -15,14 +16,11 @@ app.listen(8080);
 app.get('/', routes.index);
 app.get('/partials/:page', routes.partials);
 
-
-var connection = require('./connection.js');
-
 app.get('/admin', routes.admin);
 
 /* posts */
-app.get('/api/posts', api.posts);
-app.get('/api/post/:id', api.post);
+//app.get('/api/posts', api.posts);
+//app.get('/api/post/:id', api.post);
 app.post('/api/post', api.addPost);
 app.put('/api/post/:id', api.editPost);
 app.delete('/api/post/:id', api.deletePost);
@@ -34,65 +32,113 @@ app.post('/api/category', api.addCategory);
 app.put('/api/category/:id', api.editCategory);
 app.delete('/api/category/:id', api.deleteCategory);
 
-/* users */
-app.get('/db',function(req, res) {
-    
-    connection.connect(function(err) {
-      if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-      }
-
-      console.log('connected as id ' + connection.threadId);
-    });
-    connection.query('SELECT * FROM posts', function(err, rows){
-        if (err) {
-            res.send(err);
+app.get('/api/login',function(req, res){
+    var user = {
+        login : req.query.login,
+        mdp : req.query.mdp
+    };
+    db.getConnection(function(err,db){
+        if (!err) {
+            db.query('SELECT * FROM users WHERE login="'+user.login+'"',function(err,rows){
+                if (!err) {
+                    console.log(rows);
+                    if (user.mdp == rows[0].mdp) {
+                        res.send({status : 'success'});
+                    }
+                }else{
+                    res.send(err);
+                }
+                db.end();
+            });
         }else{
-            res.send({posts : rows});
+            res.send(err);
         }
     });
-    //connection.end();
+});
+
+/* get posts using database */
+app.get('/api/posts',function(req,res){
+    db.getConnection(function(err,db){
+        if (!err) {
+            db.query('SELECT * FROM posts',function(err,rows){
+                if (err) {
+                    res.send(err);
+                }else{
+                    var posts = [];
+                    rows.forEach(function(post, i) {
+                        posts.push({
+                            id: i,
+                            title: post.title,
+                            text: post.text.substr(0, 300) + ' ...',
+                            category: post.category,
+                            img: post.img,
+                            creationDate: post.creation
+                        });
+                    });
+                    res.send(posts);
+                }
+                db.end();
+            });
+        }
+    });
+});
+app.get('/api/post/:id', function(req, res){
+    var id = req.param('id');
+    db.getConnection(function(err,db){
+        if (!err) {
+            db.query('SELECT * FROM posts WHERE id="'+id+'"',function(err,rows){
+                if (err) {
+                    res.send(err);
+                }else{
+                    res.send({posts : rows});
+                }
+                db.release();
+            });
+        }else{
+            res.send(err);
+        }
+    });
 
 });
 
-app.get('/api/users', function(req, res){
-    connection.connect(function(err) {
-      if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-      }
+// app.post('/api/post', function(req, res){
 
-      console.log('connected as id ' + connection.threadId);
-    });
-    connection.query('SELECT * FROM users', function(err, rows){
-        if (err) {
-            res.send(err);
+// });
+/* CRUD USER */
+
+app.get('/api/users', function(req, res){
+    db.getConnection(function(err,db){
+        if (!err) {
+            db.query('SELECT * FROM users',function(err,rows){
+                if (err) {
+                    res.send(err);
+                }else{
+                    res.send({posts : rows});
+                }
+                db.end();
+            });
         }else{
-            res.send({posts : rows});
+            res.send(err);
         }
     });
-    //connection.end();
 });
 
 app.get('/api/user/:login', function(req, res){
-    var login = req.params.login;
-    connection.connect(function(err) {
-      if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-      }
-
-      console.log('connected as id ' + connection.threadId);
-    });
-    connection.query('SELECT * FROM users WHERE login="'+login+'"', function(err, rows){
-        if (err) {
-            res.send(err);
+    var login = req.param('login');
+    db.getConnection(function(err,db){
+        if (!err) {
+            db.query('SELECT * FROM users WHERE login="'+login+'"',function(err,rows){
+                if (err) {
+                    res.send(err);
+                }else{
+                    res.send({posts : rows});
+                }
+                db.end();
+            });
         }else{
-            res.send({posts : rows});
+            res.send(err);
         }
     });
-    //connection.end();
 });
 
 app.post('/api/user', function(req, res){
@@ -101,20 +147,18 @@ app.post('/api/user', function(req, res){
         login : req.body.login,
         mdp : req.body.mdp
     };
-
-    connection.connect(function(err) {
-      if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-      }
-
-      console.log('connected as id ' + connection.threadId);
-    });
-    connection.query('INSERT INTO users SET ?', user, function(err, rows){
-        if (err) {
-            res.send(err);
+    db.getConnection(function(err,db){
+        if (!err) {
+            db.query('INSERT INTO users SET ?', user,function(err,rows){
+                if (err) {
+                    res.send(err);
+                }else{
+                    res.send({posts : rows});
+                }
+                db.end();
+            });
         }else{
-            res.send({posts : rows});
+            res.send(err);
         }
     });
 });
@@ -126,38 +170,37 @@ app.put('/api/user/:login', function(req, res){
         login : req.body.login,
         mdp : req.body.mdp
     };
-    connection.connect(function(err) {
-      if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-      }
-
-      console.log('connected as id ' + connection.threadId);
-    });
-    connection.query('UPDATE users SET ? WHERE login="'+login+'"', newuser, function(err, rows){
-        if (err) {
-            res.send(err);
+    db.getConnection(function(err,db){
+        if (!err) {
+            db.query('UPDATE users SET ? WHERE login="'+login+'"', newuser,function(err,rows){
+                if (err) {
+                    res.send(err);
+                }else{
+                    res.send({posts : rows});
+                }
+                db.end();
+            });
         }else{
-            res.send({posts : rows});
+            res.send(err);
         }
     });
+
 });
 
-app.delete('/api/category/:login', function(req, res){
+app.delete('/api/user/:login', function(req, res){
     var login = req.params.login;
-    connection.connect(function(err) {
-      if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-      }
-
-      console.log('connected as id ' + connection.threadId);
-    });
-    connection.query('DELETE FROM users WHERE login="'+login+'"', function(err, rows){
-        if (err) {
-            res.send(err);
+    db.getConnection(function(err,db){
+        if (!err) {
+            db.query('DELETE FROM users WHERE login="'+login+'"',function(err,rows){
+                if (err) {
+                    res.send(err);
+                }else{
+                    res.send({posts : rows});
+                }
+                db.end();
+            });
         }else{
-            res.send({posts : rows});
+            res.send(err);
         }
     });
 });
