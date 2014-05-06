@@ -14,7 +14,7 @@ app.listen(8080);
 app.get('/', routes.index);
 app.get('/partials/:page', routes.partials);
 
-app.get('/admin', routes.admin);
+//app.get('/admin', routes.admin);
 
 /************ API ******************/
 app.get('/api/login', api.login); // try login and password connection 
@@ -27,8 +27,8 @@ app.post('/api/post', api.addPost); // Add post
 // app.delete('/api/post/:id', api.deletePost);
 
 /* categories */
-// app.get('/api/categories', api.categories);
-// app.get('/api/category/:id', api.category);
+app.get('/api/categories', api.categories); // Get all categories
+app.get('/api/category/:id', api.category); // Get selected categorie
 // app.post('/api/category', api.addCategory);
 // app.put('/api/category/:id', api.editCategory);
 // app.delete('/api/category/:id', api.deleteCategory);

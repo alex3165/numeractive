@@ -2,7 +2,7 @@ var numApp = angular.module('numeractive', ['ui.router', 'ngAnimate', 'infinite-
 var loading = true;
 
 numApp.config(['$urlRouterProvider', '$stateProvider',
-    function($urlRouterProvider, $stateProvider) { //
+    function($urlRouterProvider, $stateProvider) {
         $urlRouterProvider.otherwise('/');
 
         $stateProvider
@@ -35,20 +35,18 @@ numApp.config(['$urlRouterProvider', '$stateProvider',
                         }
                     ]
                 }
-            });
-        // .state('contact', {
-        //     url: '/contact',
-        //     templateUrl: 'partials/contact',
-        //     controller: 'contact',
-        //     resolve: {
-        //         posts: ['$stateParams', '$http',
-        //             function($stateParams, $http) {
+            }).state('admin', {
+                url: '/admin',
+                templateUrl: 'partials/admin',
+                controller: 'admin',
+                resolve: {
+                    posts: ['$stateParams', '$http',
+                        function($stateParams, $http) {
 
-        //             }
-        //         ]
-        //     }
-        //     }
-        // });
+                        }
+                    ]
+                }
+            });
     }
 ]);
 
@@ -65,10 +63,10 @@ numApp.controller('home', ['$scope', 'posts',
     function($scope, posts) {
         $scope.posts = posts;
         $scope.shadow = {
-            0: 'greenshadow',
-            1: 'blueshadow',
-            2: 'redshadow',
-            3: 'yellowshadow'
+            1: 'greenshadow',
+            2: 'blueshadow',
+            3: 'redshadow',
+            4: 'yellowshadow'
         };
     }
 ]);
