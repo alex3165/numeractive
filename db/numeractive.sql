@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:8889
--- Généré le :  Mar 29 Avril 2014 à 22:49
+-- Généré le :  Mar 06 Mai 2014 à 21:56
 -- Version du serveur :  5.5.34
 -- Version de PHP :  5.5.10
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `categories` (
   `id_cat` int(255) NOT NULL AUTO_INCREMENT,
   `type` varchar(255) COLLATE utf8_bin NOT NULL,
+  `color` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id_cat`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
@@ -36,11 +37,12 @@ CREATE TABLE `categories` (
 -- Contenu de la table `categories`
 --
 
-INSERT INTO `categories` (`id_cat`, `type`) VALUES
-(1, 'programmation'),
-(2, 'creative coding'),
-(3, 'design'),
-(4, 'vie quotidienne');
+INSERT INTO `categories` (`id_cat`, `type`, `color`) VALUES
+(0, 'programmation', 'blue'),
+(1, 'inspiration', 'yellow'),
+(2, 'creative coding', 'purple'),
+(3, 'design', 'red'),
+(4, 'vie quotidienne', 'green');
 
 -- --------------------------------------------------------
 
@@ -53,7 +55,7 @@ CREATE TABLE `posts` (
   `title` text CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `text` mediumtext CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `img` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `creation` datetime NOT NULL,
   `id_cat` int(255) NOT NULL,
   `id_user` int(255) NOT NULL,
   PRIMARY KEY (`id`),
@@ -66,10 +68,10 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `title`, `text`, `img`, `creation`, `id_cat`, `id_user`) VALUES
-(4, 'blablabla c''est le premier article', 'In Kazakhstan, it is illegal for more than five woman to be in the same place except for in brothel or in grave. In US and A, many womens meet in a groups called feminists.\n\nI arrived in America''s airport with clothings, US dollars, and a jar of gypsy tears to protect me from AIDS.', 'images/img7.png', '2014-04-23 16:30:59', 2, 1),
-(5, 'Qui frappuccino trifecta to go milk', 'Extraction skinny, sweet plunger pot wings turkish saucer single shot cappuccino, fair trade coffee as in, mazagran, caramelization cortado est acerbic cortado roast sit siphon. Siphon fair trade, est filter est siphon extraction instant crema, cup, shop, aged sugar to go filter variety at roast seasonal barista seasonal. Macchiato, half and half iced medium chicory single shot, whipped, galão, strong aromatic, a bar milk americano plunger pot. Carajillo half and half sweet et cappuccino est chicory, steamed aftertaste instant in spoon rich spoon galão frappuccino, organic, café au lait in shop dripper eu steamed. Blue mountain instant, as roast extraction arabica brewed cup, body iced, pumpkin spice to go id organic frappuccino caffeine percolator cup qui percolator cream.', 'images/img2.png', '2014-04-29 16:19:09', 3, 1),
-(6, 'Skinny, coffee aromatic, acerbic crema eu acerbic single shot', 'Aromatic, sit french press cinnamon, aftertaste java aroma and, dripper variety qui to go, at to go affogato macchiato extra carajillo saucer affogato con panna. Grounds, frappuccino cinnamon turkish espresso filter seasonal, so whipped, spoon to go that aromatic flavour. Spoon trifecta latte, flavour macchiato brewed strong so whipped spoon acerbic mocha rich. Milk, cream seasonal decaffeinated fair trade et robust to go grounds, extra galão, mocha latte cup, aged shop beans, cortado crema macchiato mocha steamed.', 'images/img1.jpg', '2014-04-29 16:20:09', 2, 3),
-(7, 'Leave dead animals as gifts climb leg sun bathe', 'Hate dog climb leg or chase imaginary bugs. Nap all day. Swat at dog sleep on keyboard yet leave dead animals as gifts so hunt anything that moves leave dead animals as gifts or intrigued by the shower chase imaginary bugs. Hate dog destroy couch and need to chase tail. Stick butt in face destroy couch for leave hair everywhere and shake treat bag chew iPad power cord for throwup on your pillow for missing until dinner time. Chase imaginary bugs.', 'images/img5.jpg', '2014-04-29 16:20:57', 4, 1);
+(4, 'blablabla c''est le premier article', 'In Kazakhstan, it is illegal for more than five woman to be in the same place except for in brothel or in grave. In US and A, many womens meet in a groups called feminists.\n\nI arrived in America''s airport with clothings, US dollars, and a jar of gypsy tears to protect me from AIDS.', 'images/img7.png', '2014-04-23 18:30:59', 2, 1),
+(5, 'Qui frappuccino trifecta to go milk', 'Extraction skinny, sweet plunger pot wings turkish saucer single shot cappuccino, fair trade coffee as in, mazagran, caramelization cortado est acerbic cortado roast sit siphon. Siphon fair trade, est filter est siphon extraction instant crema, cup, shop, aged sugar to go filter variety at roast seasonal barista seasonal. Macchiato, half and half iced medium chicory single shot, whipped, galão, strong aromatic, a bar milk americano plunger pot. Carajillo half and half sweet et cappuccino est chicory, steamed aftertaste instant in spoon rich spoon galão frappuccino, organic, café au lait in shop dripper eu steamed. Blue mountain instant, as roast extraction arabica brewed cup, body iced, pumpkin spice to go id organic frappuccino caffeine percolator cup qui percolator cream.', 'images/img2.png', '2014-04-29 18:19:09', 3, 1),
+(6, 'Skinny, coffee aromatic, acerbic crema eu acerbic single shot', 'Aromatic, sit french press cinnamon, aftertaste java aroma and, dripper variety qui to go, at to go affogato macchiato extra carajillo saucer affogato con panna. Grounds, frappuccino cinnamon turkish espresso filter seasonal, so whipped, spoon to go that aromatic flavour. Spoon trifecta latte, flavour macchiato brewed strong so whipped spoon acerbic mocha rich. Milk, cream seasonal decaffeinated fair trade et robust to go grounds, extra galão, mocha latte cup, aged shop beans, cortado crema macchiato mocha steamed.', 'images/img1.jpg', '2014-04-29 18:20:09', 2, 3),
+(7, 'Leave dead animals as gifts climb leg sun bathe', 'Hate dog climb leg or chase imaginary bugs. Nap all day. Swat at dog sleep on keyboard yet leave dead animals as gifts so hunt anything that moves leave dead animals as gifts or intrigued by the shower chase imaginary bugs. Hate dog destroy couch and need to chase tail. Stick butt in face destroy couch for leave hair everywhere and shake treat bag chew iPad power cord for throwup on your pillow for missing until dinner time. Chase imaginary bugs.', 'images/img5.jpg', '2014-04-29 18:20:57', 4, 1);
 
 -- --------------------------------------------------------
 

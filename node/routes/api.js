@@ -1,10 +1,6 @@
 var db = require('./db');
 
 
-var categories = [];
-var posts = [];
-
-
 /* Login for API */
 
 exports.login = function(req, res){
@@ -35,9 +31,39 @@ exports.login = function(req, res){
 /*  POST PART OF APPI  */
 
 exports.posts = function(req, res) {
+    var posts = [];
     db.getConnection(function(err,db){
         if (!err) {
-            db.query('SELECT * FROM posts',function(err,rows){
+            db.query('SELECT * FROM posts JOIN categories ON posts.id_cat = categories.id_cat',function(err,rows){
+                if (err) {
+                    res.send(err);
+                }else{
+                    rows.forEach(function(post, i) {
+                        posts.push({
+                            id: i,
+                            title: post.title,
+                            text: post.text.substr(0, 300) + ' ...',
+                            category: post.type,
+                            colorcat: post.color,
+                            img: post.img,
+                            creationDate: post.creation
+                        });
+                    });
+                    //console.log(posts);
+                    res.send(posts);
+                }
+                db.end();
+            });
+        }
+    });
+};
+
+exports.post = function(req, res) {
+    var id = req.param('id');
+    var posts = [];
+    db.getConnection(function(err,db){
+        if (!err) {
+            db.query('SELECT * FROM posts WHERE id=?',id ,function(err,rows){
                 if (err) {
                     res.send(err);
                 }else{
@@ -51,24 +77,7 @@ exports.posts = function(req, res) {
                             creationDate: post.creation
                         });
                     });
-                    console.log(posts);
                     res.send(posts);
-                }
-                db.end();
-            });
-        }
-    });
-};
-
-exports.post = function(req, res) {
-    var id = req.param('id');
-    db.getConnection(function(err,db){
-        if (!err) {
-            db.query('SELECT * FROM posts WHERE id=?',id ,function(err,rows){
-                if (err) {
-                    res.send(err);
-                }else{
-                    res.send({posts : rows});
                 }
                 db.release();
             });
@@ -135,6 +144,7 @@ exports.addPost = function(req, res) {
 /*  CATEGORY PART OF APPI  */
 
 exports.categories = function(req, res) {
+    var categories = [];
     db.getConnection(function(err,db){
         if (!err) {
             db.query('SELECT * FROM categories' ,function(err,rows){
@@ -159,26 +169,32 @@ exports.categories = function(req, res) {
 };
 
 exports.category = function(req, res) {
-    var id = req.param('id');
-    var newposts = [];
-    if (id >= 0 && id < categories.length) {
-        posts.forEach(function(post, i) {
-            if (post.category == id)
-                newposts.push({
-                    id: i,
-                    title: post.title,
-                    text: post.text.substr(0, 300) + ' ...',
-                    category: post.category,
-                    img: post.img,
-                    creationDate: post.creation
-                });
-        });
-        posts = newposts;
-        res.send(posts);
-    } else
-        res.send(404, {
-            status: "error"
-        });
+    var id_cat = req.param('id');
+    var posts = [];
+    console.log(id_cat);
+    db.getConnection(function(err,db){
+        if (!err) {
+            db.query('SELECT * FROM posts WHERE id_cat = ?',id_cat ,function(err,rows){
+                if (err) {
+                    res.send(500, err);
+                }else{
+                    rows.forEach(function(post, i) {
+                        posts.push({
+                            id: i,
+                            title: post.title,
+                            text: post.text.substr(0, 300) + ' ...',
+                            img: post.img,
+                            creationDate: post.creation
+                        });
+                    });
+                    res.send(posts);
+                }
+                db.end();
+            });
+        }else{
+            res.send(500, err);
+        }
+    });
 };
 
 // exports.addCategory = function(req, res) {

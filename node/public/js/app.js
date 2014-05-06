@@ -62,12 +62,6 @@ numApp.controller('categoriesMenu', ['$scope', '$http',
 numApp.controller('home', ['$scope', 'posts',
     function($scope, posts) {
         $scope.posts = posts;
-        $scope.shadow = {
-            1: 'greenshadow',
-            2: 'blueshadow',
-            3: 'redshadow',
-            4: 'yellowshadow'
-        };
     }
 ]);
 
