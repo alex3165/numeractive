@@ -23,8 +23,8 @@ app.get('/api/login', api.login); // try login and password connection
 app.get('/api/posts', api.posts); // Get all posts
 app.get('/api/post/:id', api.post); // Get post from id
 app.post('/api/post', api.addPost); // Add post 
-// app.put('/api/post/:id', api.editPost);
-// app.delete('/api/post/:id', api.deletePost);
+app.put('/api/post/:id', api.editPost); // Edit post with id and news params
+app.delete('/api/post/:id', api.deletePost); // delete post with id
 
 /* categories */
 app.get('/api/categories', api.categories); // Get all categories

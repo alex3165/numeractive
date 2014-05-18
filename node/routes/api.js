@@ -12,7 +12,7 @@ exports.login = function(req, res){
         if (!err) {
             db.query('SELECT * FROM users WHERE login=?',user.login ,function(err,rows){
                 if (!err) {
-                    console.log(rows);
+                    //console.log(rows);
                     if (user.mdp == rows[0].mdp) {
                         res.send({status : 'success'});
                     }
@@ -79,7 +79,7 @@ exports.post = function(req, res) {
                     });
                     res.send(posts);
                 }
-                db.release();
+                db.end();
             });
         }else{
             res.send(err);
@@ -105,7 +105,7 @@ exports.addPost = function(req, res) {
                 }else{
                     res.send({status: "success"});
                 }
-                db.release();
+                db.end();
             });
         }else{
             res.send(err);
@@ -113,31 +113,46 @@ exports.addPost = function(req, res) {
     });
 };
 
-// exports.editPost = function(req, res) {
-//     var id = req.params.id;
-//     if (id >= 0 && id < data.posts.length) {
-//         data.posts[id] = req.body;
-//         res.send({
-//             status: "ok"
-//         });
-//     } else
-//         res.send(404, {
-//             status: "error"
-//         });
-// };
+exports.editPost = function(req, res) {
+    var id = req.param('id');
+    var postreq = req.body;
+    db.getConnection(function(err,db){
+        if (!err) {
+            db.query('UPDATE posts set ? WHERE id=?', postreq, id,function(err,rows){
+                if (err) {
+                    res.send(404, {
+                    status: "error"
+                });
+                }else{
+                    res.send({status: "success"});
+                }
+                db.end();
+            });
+        }else{
+            res.send(err);
+        }
+    });
+};
 
-// exports.deletePost = function(req, res) {
-//     var id = req.params.id;
-//     if (id >= 0 && id < data.posts.length) {
-//         data.posts.splice(id, 1);
-//         res.send({
-//             status: "ok"
-//         });
-//     } else
-//         res.send(404, {
-//             status: "error"
-//         });
-// };
+exports.deletePost = function(req, res) {
+    var id = req.param('id');
+    db.getConnection(function(err,db){
+        if (!err) {
+            db.query('DELETE posts FROM posts WHERE id=?', id,function(err,rows){
+                if (err) {
+                    res.send(404, {
+                    status: "error"
+                });
+                }else{
+                    res.send({status: "success"});
+                }
+                db.end();
+            });
+        }else{
+            res.send(err);
+        }
+    });
+};
 
 
 
@@ -157,10 +172,10 @@ exports.categories = function(req, res) {
                             type: category.type
                         });
                     });
-                    console.log(categories);
+                    //console.log(categories);
                     res.send(categories);
                 }
-                db.release();
+                db.end();
             });
         }else{
             res.send(err);
@@ -171,7 +186,7 @@ exports.categories = function(req, res) {
 exports.category = function(req, res) {
     var id_cat = req.param('id');
     var posts = [];
-    console.log(id_cat);
+    //console.log(id_cat);
     db.getConnection(function(err,db){
         if (!err) {
             db.query('SELECT * FROM posts WHERE id_cat = ?',id_cat ,function(err,rows){

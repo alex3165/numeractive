@@ -42,7 +42,7 @@ numApp.config(['$urlRouterProvider', '$stateProvider',
                 resolve: {
                     posts: ['$stateParams', '$http',
                         function($stateParams, $http) {
-
+                            
                         }
                     ]
                 }
