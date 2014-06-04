@@ -1,22 +1,24 @@
 var db = require('./db');
 var jwt = require('jwt-simple');
 
-var payload = { secret : 'numeractive' };
 var secret = '_G73l45n8X54xXx';
-var token = jwt.encode(payload, secret);
 
 
 /* Login for API */
 
 exports.login = function(req, res){
     var user = {
-        login : req.query.login,
-        mdp : req.query.mdp
+        login : req.body.login,
+        mdp : req.body.mdp
     };
+    console.log(user);
     db.getConnection(function(err,db){
         if (!err) {
             db.query('SELECT * FROM users WHERE login=?',user.login ,function(err,rows){
                 if (!err) {
+                    var payload = { secret : user.login };
+                    var token = jwt.encode(payload, secret);
+
                     if (user.mdp == rows[0].mdp) {
                         res.set('token', token);
                         res.send({

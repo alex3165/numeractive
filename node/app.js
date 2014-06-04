@@ -9,7 +9,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.engine('jade', require('jade').__express);
-
+//app.use(express.urlencoded());
 app.listen(8080);
 
 app.get('/', routes.index);
@@ -18,7 +18,7 @@ app.get('/partials/:page', routes.partials);
 //app.get('/admin', routes.admin);
 
 /************ API ******************/
-app.get('/api/login', api.login); // try login and password connection 
+app.post('/api/login', api.login); // try login and password connection 
 
 /* posts */
 app.get('/api/posts', api.posts); // Get all posts
@@ -39,5 +39,3 @@ app.get('/api/category/:id', api.category); // Get selected categorie
 app.get('/api/users', api.users); // Get all users
 app.get('/api/user/:login', api.user); // Get user with specific id
 /*********** API END ****************/
-
-

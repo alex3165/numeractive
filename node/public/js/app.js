@@ -44,14 +44,22 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
                         }
                     ]
                 }
-            }).state('admin', {
+            })
+            .state('login', {
+                url: '/login',
+                templateUrl: 'partials/login',
+                controller: 'loginController'
+            })
+            .state('admin', {
                 url: '/admin',
                 templateUrl: 'partials/admin',
                 controller: 'admin',
                 resolve: {
-                    posts: ['$stateParams', '$http',
-                        function($stateParams, $http) {
-                            
+                    posts: ['$http',
+                        function($http) {
+                            return $http.get('/api/posts').then(function(res) {
+                                return res.data;
+                            });
                         }
                     ]
                 }
@@ -71,19 +79,28 @@ numApp.controller('categoriesMenu', ['$scope', '$http',
 numApp.controller('home', ['$scope', 'posts',
     function($scope, posts) {
         $scope.posts = posts;
-
         // $scope.currentUser = null;
-        // $scope.userRoles = USER_ROLES;
         // $scope.isAuthorized = AuthService.isAuthorized;
+    }
+]);
+
+numApp.controller('admin', ['$scope', 'posts',
+    function($scope, posts) {
+        if (true) {
+            $scope.posts = posts;
+        }
     }
 ]);
 
 numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVENTS', 'AuthService',
     function($scope, $http, $rootScope, AUTH_EVENTS, AuthService) {
         $scope.credentials = {
-            username: '',
-            password: ''
+            login: '',
+            mdp: ''
         };
+
+        $scope.isAuthenticated = AuthService.isAuthenticated;
+        //$state.transitionTo(page);
         $scope.login = function(credentials) {
             AuthService.login(credentials).then(function () {
               $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
@@ -129,22 +146,24 @@ numApp.factory('AuthService', function ($http, Session) {
         .post('/api/login', credentials)
         .then(function (res,status,headers) {
           Session.create(res.token, res.userid);
+        }).error(function(err) {
+            
         });
+    },
+    isAuthenticated: function () {
+      return true;//!!Session.userId;
     }
   };
 });
 
 numApp.service('Session', function () {
-  this.create = function (token, userId, userRole) {
+  this.create = function (token, userId) {
     this.id = token;
-        console.log(token);
     this.userId = userId;
-    this.userRole = userRole;
   };
   this.destroy = function () {
     this.id = null;
     this.userId = null;
-    this.userRole = null;
   };
   return this;
 });
