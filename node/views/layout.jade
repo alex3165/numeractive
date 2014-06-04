@@ -13,15 +13,18 @@ html(lang='fr', data-ng-app='numeractive')
 		script(src="https://code.angularjs.org/1.2.9/angular-animate.min.js")
 		script(src="js/ng-infinite-scroll.min.js")
 		script(src='js/app.js')
+		script(src='js/directives.js')
 	body
 		.loading(data-ng-show=('loading')) Chargement ...
 		.container-full(data-ng-hide=('loading'))
+			.backabstract
 			header(data-ng-controller="SliderController")
 				slider(data-images="images",class="clearfix")
 				.containbg
 					.row
 						.col-lg-12.col-centered
-							img(src="images/logo.svg", id="logo",alt="logo numeractive")
+							a(data-ui-sref='home')
+								img(src="images/logo.svg", id="logo",alt="logo numeractive")
 					.row
 						.col-lg-12.col-centered
 							h1 numeractive

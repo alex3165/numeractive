@@ -1,9 +1,18 @@
 var numApp = angular.module('numeractive', ['ui.router', 'ngAnimate', 'infinite-scroll']);
 var loading = true;
 
-numApp.config(['$urlRouterProvider', '$stateProvider',
-    function($urlRouterProvider, $stateProvider) {
+numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
+    function($urlRouterProvider, $stateProvider, $provide) {
         $urlRouterProvider.otherwise('/');
+
+        $provide.constant('AUTH_EVENTS', {
+            loginSuccess: 'auth-login-success',
+            loginFailed: 'auth-login-failed',
+            logoutSuccess: 'auth-logout-success',
+            sessionTimeout: 'auth-session-timeout',
+            notAuthenticated: 'auth-not-authenticated',
+            notAuthorized: 'auth-not-authorized'
+        });
 
         $stateProvider
             .state('home', {
@@ -62,19 +71,24 @@ numApp.controller('categoriesMenu', ['$scope', '$http',
 numApp.controller('home', ['$scope', 'posts',
     function($scope, posts) {
         $scope.posts = posts;
+
+        // $scope.currentUser = null;
+        // $scope.userRoles = USER_ROLES;
+        // $scope.isAuthorized = AuthService.isAuthorized;
     }
 ]);
 
-numApp.controller('loginController', ['$scope', '$http',
-    function($scope, $http) {
-        $scope.connecting = false;
-        $scope.login = function() {
-            $scope.connecting = true;
-            $http.get('/api/login?login=' + $scope.user + '&mdp=' + $scope.password).error(function(data, status) {
-                $scope.connecting = false;
-                if (status == 'success') {
-                    console.log('on accède à l\'admin');
-                }
+numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVENTS', 'AuthService',
+    function($scope, $http, $rootScope, AUTH_EVENTS, AuthService) {
+        $scope.credentials = {
+            username: '',
+            password: ''
+        };
+        $scope.login = function(credentials) {
+            AuthService.login(credentials).then(function () {
+              $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+            }, function () {
+              $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             });
         };
     }
@@ -104,47 +118,33 @@ numApp.controller('SliderController', function($scope) {
 
 });
 
-numApp.directive('slider', function($timeout) {
+/***********************
+      Auth Service
+************************/
 
-    return {
-        restrict: 'AE',
-        replace: true,
-        scope: {
-            images: '='
-        },
-        link: function(scope, elem, attrs) {
-            scope.currentIndex = 0;
+numApp.factory('AuthService', function ($http, Session) {
+  return {
+    login: function (credentials) {
+      return $http
+        .post('/api/login', credentials)
+        .then(function (res,status,headers) {
+          Session.create(res.token, res.userid);
+        });
+    }
+  };
+});
 
-            scope.next = function() {
-                scope.currentIndex < scope.images.length - 1 ? scope.currentIndex++ : scope.currentIndex = 0;
-            };
-            scope.prev = function() {
-                scope.currentIndex > 0 ? scope.currentIndex-- : scope.currentIndex = scope.images.length - 1;
-            };
-            scope.$watch('currentIndex', function() {
-                scope.images.forEach(function(image) {
-                    image.visible = false;
-                });
-
-                scope.images[scope.currentIndex].visible = true;
-            });
-            var timer;
-
-            var sliderFunc = function() {
-                timer = $timeout(function() {
-                    scope.next();
-                    timer = $timeout(sliderFunc, 5000);
-                }, 5000);
-            };
-
-            sliderFunc();
-
-            scope.$on('$destroy', function() {
-                $timeout.cancel(timer);
-            });
-        },
-        templateUrl: '/templates/slider.html'
-
-    };
-
+numApp.service('Session', function () {
+  this.create = function (token, userId, userRole) {
+    this.id = token;
+        console.log(token);
+    this.userId = userId;
+    this.userRole = userRole;
+  };
+  this.destroy = function () {
+    this.id = null;
+    this.userId = null;
+    this.userRole = null;
+  };
+  return this;
 });

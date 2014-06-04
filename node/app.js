@@ -4,6 +4,7 @@ var app = express();
 var routes = require('./routes');
 var api = require('./routes/api');
 
+
 app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -38,7 +39,5 @@ app.get('/api/category/:id', api.category); // Get selected categorie
 app.get('/api/users', api.users); // Get all users
 app.get('/api/user/:login', api.user); // Get user with specific id
 /*********** API END ****************/
-
-
 
 

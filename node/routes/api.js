@@ -1,4 +1,9 @@
 var db = require('./db');
+var jwt = require('jwt-simple');
+
+var payload = { secret : 'numeractive' };
+var secret = '_G73l45n8X54xXx';
+var token = jwt.encode(payload, secret);
 
 
 /* Login for API */
@@ -12,9 +17,12 @@ exports.login = function(req, res){
         if (!err) {
             db.query('SELECT * FROM users WHERE login=?',user.login ,function(err,rows){
                 if (!err) {
-                    //console.log(rows);
                     if (user.mdp == rows[0].mdp) {
-                        res.send({status : 'success'});
+                        res.set('token', token);
+                        res.send({
+                            status : 'success',
+                            userid : rows[0].id
+                        });
                     }
                 }else{
                     res.send(err);

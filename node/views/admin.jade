@@ -5,6 +5,6 @@
 			img(src="images/admin/users.svg", alt="admin picture")
 		.form-box
 			form(data-ng-submit="login(credentials)", novalidate)
-				input(name="user", type="text", data-ng-model="credentials.user", placeholder="username")
-				input(name="password", type="password", data-ng-model="credentials.password", placeholder="password")
+				input(name="login", type="text", data-ng-model="credentials.login", placeholder="login")
+				input(name="mdp", type="password", data-ng-model="credentials.mdp", placeholder="mdp")
 				button.btn.btn-info.btn-block.log(type="submit" data-ng-disabled="connecting") login
