@@ -1,21 +1,20 @@
 var http = require('http');
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 var routes = require('./routes');
 var api = require('./routes/api');
-
 
 app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.engine('jade', require('jade').__express);
-//app.use(express.urlencoded());
+app.use(bodyParser());
+
 app.listen(8080);
 
 app.get('/', routes.index);
 app.get('/partials/:page', routes.partials);
-
-//app.get('/admin', routes.admin);
 
 /************ API ******************/
 app.post('/api/login', api.login); // try login and password connection 

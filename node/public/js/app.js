@@ -76,11 +76,14 @@ numApp.controller('categoriesMenu', ['$scope', '$http',
     }
 ]);
 
-numApp.controller('home', ['$scope', 'posts',
-    function($scope, posts) {
+numApp.controller('home', ['$scope', 'posts', 'user',
+    function($scope, posts, user) {
+        $scope.user = user;
         $scope.posts = posts;
-        // $scope.currentUser = null;
-        // $scope.isAuthorized = AuthService.isAuthorized;
+        $scope.modal = {
+            "title": "Title",
+            "content": "Hello Modal<br />This is a multiline message!"
+        };
     }
 ]);
 
@@ -92,18 +95,19 @@ numApp.controller('admin', ['$scope', 'posts',
     }
 ]);
 
-numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVENTS', 'AuthService',
-    function($scope, $http, $rootScope, AUTH_EVENTS, AuthService) {
+numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVENTS', 'AuthService','$state',
+    function($scope, $http, $rootScope, AUTH_EVENTS, AuthService,$state) {
         $scope.credentials = {
             login: '',
             mdp: ''
         };
 
-        $scope.isAuthenticated = AuthService.isAuthenticated;
         //$state.transitionTo(page);
         $scope.login = function(credentials) {
             AuthService.login(credentials).then(function () {
               $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+              //$urlRouterProvider.$.when('/login','/');
+              $state.go('home');
             }, function () {
               $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             });
@@ -133,37 +137,4 @@ numApp.controller('SliderController', function($scope) {
         title: 'Pic 5'
     }];
 
-});
-
-/***********************
-      Auth Service
-************************/
-
-numApp.factory('AuthService', function ($http, Session) {
-  return {
-    login: function (credentials) {
-      return $http
-        .post('/api/login', credentials)
-        .then(function (res,status,headers) {
-          Session.create(res.token, res.userid);
-        }).error(function(err) {
-            
-        });
-    },
-    isAuthenticated: function () {
-      return true;//!!Session.userId;
-    }
-  };
-});
-
-numApp.service('Session', function () {
-  this.create = function (token, userId) {
-    this.id = token;
-    this.userId = userId;
-  };
-  this.destroy = function () {
-    this.id = null;
-    this.userId = null;
-  };
-  return this;
 });

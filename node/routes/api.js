@@ -1,6 +1,7 @@
 var db = require('./db');
 var jwt = require('jwt-simple');
 
+
 var secret = '_G73l45n8X54xXx';
 
 
@@ -11,7 +12,6 @@ exports.login = function(req, res){
         login : req.body.login,
         mdp : req.body.mdp
     };
-    console.log(user);
     db.getConnection(function(err,db){
         if (!err) {
             db.query('SELECT * FROM users WHERE login=?',user.login ,function(err,rows){
@@ -20,19 +20,25 @@ exports.login = function(req, res){
                     var token = jwt.encode(payload, secret);
 
                     if (user.mdp == rows[0].mdp) {
-                        res.set('token', token);
                         res.send({
                             status : 'success',
+                            token : token,
                             userid : rows[0].id
                         });
                     }
                 }else{
-                    res.send(err);
+                    res.send({
+                        status : 'error',
+                        error : err
+                    });
                 }
                 db.end();
             });
         }else{
-            res.send(err);
+            res.send({
+                status : 'error',
+                error : err
+            });
         }
     });
 };
