@@ -7,38 +7,35 @@ var secret = '_G73l45n8X54xXx';
 
 /* Login for API */
 
-exports.login = function(req, res){
+exports.login = function(req, res) {
     var user = {
-        login : req.body.login,
-        mdp : req.body.mdp
+        login: req.body.login,
+        mdp: req.body.mdp
     };
-    db.getConnection(function(err,db){
+    db.getConnection(function(err, db) {
         if (!err) {
-            db.query('SELECT * FROM users WHERE login=?',user.login ,function(err,rows){
+            db.query('SELECT * FROM users WHERE login = ?', user.login, function(err, rows) {
                 if (!err) {
-                    var payload = { secret : user.login };
-                    var token = jwt.encode(payload, secret);
-
-                    if (user.mdp == rows[0].mdp) {
-                        res.send({
-                            status : 'success',
-                            token : token,
-                            userid : rows[0].id
+                    console.log(rows);
+                    if (rows.length == 0) {
+                        res.send(401);
+                    }
+                    else if (user.mdp == rows[0].mdp) {
+                        res.send(200, {
+                            token: jwt.encode({
+                                secret: user.login
+                            }, secret),
+                            userid: rows[0].id
                         });
                     }
-                }else{
-                    res.send({
-                        status : 'error',
-                        error : err
-                    });
+                } else {
+                    console.log('error: ' + err);
+                    res.send(500);
                 }
                 db.end();
             });
-        }else{
-            res.send({
-                status : 'error',
-                error : err
-            });
+        } else {
+            res.send(500);
         }
     });
 };
@@ -48,12 +45,12 @@ exports.login = function(req, res){
 
 exports.posts = function(req, res) {
     var posts = [];
-    db.getConnection(function(err,db){
+    db.getConnection(function(err, db) {
         if (!err) {
-            db.query('SELECT * FROM posts JOIN categories ON posts.id_cat = categories.id_cat',function(err,rows){
+            db.query('SELECT * FROM posts JOIN categories ON posts.id_cat = categories.id_cat', function(err, rows) {
                 if (err) {
                     res.send(err);
-                }else{
+                } else {
                     rows.forEach(function(post, i) {
                         posts.push({
                             id: i,
@@ -77,12 +74,12 @@ exports.posts = function(req, res) {
 exports.post = function(req, res) {
     var id = req.param('id');
     var posts = [];
-    db.getConnection(function(err,db){
+    db.getConnection(function(err, db) {
         if (!err) {
-            db.query('SELECT * FROM posts WHERE id=?',id ,function(err,rows){
+            db.query('SELECT * FROM posts WHERE id=?', id, function(err, rows) {
                 if (err) {
                     res.send(err);
-                }else{
+                } else {
                     rows.forEach(function(post, i) {
                         posts.push({
                             id: i,
@@ -97,33 +94,35 @@ exports.post = function(req, res) {
                 }
                 db.end();
             });
-        }else{
+        } else {
             res.send(err);
         }
     });
 };
 
 exports.addPost = function(req, res) {
-    
+
     var newpost = {
-        title : req.body.title,
-        text : req.body.text,
-        img : req.body.img,
-        id_cat : req.body.categorie,
-        id_user : req.body.userid
+        title: req.body.title,
+        text: req.body.text,
+        img: req.body.img,
+        id_cat: req.body.categorie,
+        id_user: req.body.userid
     };
 
-    db.getConnection(function(err,db){
+    db.getConnection(function(err, db) {
         if (!err) {
-            db.query('INSERT INTO posts SET ?',newpost ,function(err,rows){
+            db.query('INSERT INTO posts SET ?', newpost, function(err, rows) {
                 if (err) {
                     res.send(err);
-                }else{
-                    res.send({status: "success"});
+                } else {
+                    res.send({
+                        status: "success"
+                    });
                 }
                 db.end();
             });
-        }else{
+        } else {
             res.send(err);
         }
     });
@@ -132,19 +131,21 @@ exports.addPost = function(req, res) {
 exports.editPost = function(req, res) {
     var id = req.param('id');
     var postreq = req.body;
-    db.getConnection(function(err,db){
+    db.getConnection(function(err, db) {
         if (!err) {
-            db.query('UPDATE posts set ? WHERE id=?', postreq, id,function(err,rows){
+            db.query('UPDATE posts set ? WHERE id=?', postreq, id, function(err, rows) {
                 if (err) {
                     res.send(404, {
-                    status: "error"
-                });
-                }else{
-                    res.send({status: "success"});
+                        status: "error"
+                    });
+                } else {
+                    res.send({
+                        status: "success"
+                    });
                 }
                 db.end();
             });
-        }else{
+        } else {
             res.send(err);
         }
     });
@@ -152,19 +153,21 @@ exports.editPost = function(req, res) {
 
 exports.deletePost = function(req, res) {
     var id = req.param('id');
-    db.getConnection(function(err,db){
+    db.getConnection(function(err, db) {
         if (!err) {
-            db.query('DELETE posts FROM posts WHERE id=?', id,function(err,rows){
+            db.query('DELETE posts FROM posts WHERE id=?', id, function(err, rows) {
                 if (err) {
                     res.send(404, {
-                    status: "error"
-                });
-                }else{
-                    res.send({status: "success"});
+                        status: "error"
+                    });
+                } else {
+                    res.send({
+                        status: "success"
+                    });
                 }
                 db.end();
             });
-        }else{
+        } else {
             res.send(err);
         }
     });
@@ -176,12 +179,12 @@ exports.deletePost = function(req, res) {
 
 exports.categories = function(req, res) {
     var categories = [];
-    db.getConnection(function(err,db){
+    db.getConnection(function(err, db) {
         if (!err) {
-            db.query('SELECT * FROM categories' ,function(err,rows){
+            db.query('SELECT * FROM categories', function(err, rows) {
                 if (err) {
                     res.send(err);
-                }else{
+                } else {
                     rows.forEach(function(category, i) {
                         categories.push({
                             id: category.id_cat,
@@ -193,7 +196,7 @@ exports.categories = function(req, res) {
                 }
                 db.end();
             });
-        }else{
+        } else {
             res.send(err);
         }
     });
@@ -203,12 +206,12 @@ exports.category = function(req, res) {
     var id_cat = req.param('id');
     var posts = [];
     //console.log(id_cat);
-    db.getConnection(function(err,db){
+    db.getConnection(function(err, db) {
         if (!err) {
-            db.query('SELECT * FROM posts WHERE id_cat = ?',id_cat ,function(err,rows){
+            db.query('SELECT * FROM posts WHERE id_cat = ?', id_cat, function(err, rows) {
                 if (err) {
                     res.send(500, err);
-                }else{
+                } else {
                     rows.forEach(function(post, i) {
                         posts.push({
                             id: i,
@@ -222,7 +225,7 @@ exports.category = function(req, res) {
                 }
                 db.end();
             });
-        }else{
+        } else {
             res.send(500, err);
         }
     });
@@ -263,35 +266,39 @@ exports.category = function(req, res) {
 
 
 exports.users = function(req, res) {
-    db.getConnection(function(err,db){
+    db.getConnection(function(err, db) {
         if (!err) {
-            db.query('SELECT * FROM users',function(err,rows){
+            db.query('SELECT * FROM users', function(err, rows) {
                 if (err) {
                     res.send(err);
-                }else{
-                    res.send({posts : rows});
+                } else {
+                    res.send({
+                        posts: rows
+                    });
                 }
                 db.end();
             });
-        }else{
+        } else {
             res.send(err);
         }
     });
 };
 
-exports.user = function (req, res){
+exports.user = function(req, res) {
     var login = req.param('login');
-    db.getConnection(function(err,db){
+    db.getConnection(function(err, db) {
         if (!err) {
-            db.query('SELECT * FROM users WHERE login=?',login ,function(err,rows){
+            db.query('SELECT * FROM users WHERE login=?', login, function(err, rows) {
                 if (err) {
                     res.send(err);
-                }else{
-                    res.send({posts : rows});
+                } else {
+                    res.send({
+                        posts: rows
+                    });
                 }
                 db.end();
             });
-        }else{
+        } else {
             res.send(err);
         }
     });

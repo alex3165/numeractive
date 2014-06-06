@@ -1,4 +1,4 @@
-var numApp = angular.module('numeractive', ['ui.router', 'ngAnimate', 'infinite-scroll']);
+var numApp = angular.module('numeractive', ['ui.router', 'ngAnimate', 'infinite-scroll', 'mgcrea.ngStrap']);
 var loading = true;
 
 numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
@@ -15,24 +15,42 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
         });
 
         $stateProvider
-            .state('home', {
-                url: '/',
-                templateUrl: 'partials/home',
-                controller: 'home',
+            .state('categories', {
+                abstract: true,
+                templateUrl: 'partials/categories',
                 resolve: {
-                    posts: ['$http',
-                        function($http) {
-                            return $http.get('/api/posts').then(function(res) {
-
+                    categories: ['$stateParams', '$http',
+                        function($stateParams, $http) {
+                            return $http.get('/api/categories').then(function(res) {
                                 return res.data;
                             });
                         }
                     ]
+                },
+                controller: function($scope, categories) {
+                    $scope.categories = categories;
                 }
             })
-            .state('category', {
+            .state('categories.home', {
+                url: '/',
+                templateUrl: 'partials/articles',
+                resolve: {
+                    posts: ['$http',
+                        function($http) {
+                            return $http.get('/api/posts').then(function(res) {
+                                return res.data;
+                            });
+                        }
+                    ]
+                },
+                controller: function($scope, posts, user) {
+                    $scope.user = user;
+                    $scope.posts = posts;
+                }
+            })
+            .state('categories.list', {
                 url: '/cat/:categoryId',
-                templateUrl: 'partials/home',
+                templateUrl: 'partials/articles',
                 controller: 'home',
                 resolve: {
                     posts: ['$stateParams', '$http',
@@ -50,66 +68,55 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
                 templateUrl: 'partials/login',
                 controller: 'loginController'
             })
-            .state('admin', {
-                url: '/admin',
-                templateUrl: 'partials/admin',
-                controller: 'admin',
-                resolve: {
-                    posts: ['$http',
-                        function($http) {
-                            return $http.get('/api/posts').then(function(res) {
-                                return res.data;
-                            });
-                        }
-                    ]
-                }
+            .state('newArticle', {
+                url: '/add',
+                templateUrl: 'partials/newArticle',
+                controller: 'newArticle',
             });
     }
 ]);
 
-numApp.controller('categoriesMenu', ['$scope', '$http',
-    function($scope, $http) {
-        $http.get('/api/categories').then(function(res) {
-            $scope.loading = false;
-            $scope.categories = res.data;
-        });
-    }
-]);
+// numApp.controller('categoriesMenu', ['$scope', '$http',
+//     function($scope, $http) {
+
+//     }
+// ]);
 
 numApp.controller('home', ['$scope', 'posts', 'user',
     function($scope, posts, user) {
         $scope.user = user;
         $scope.posts = posts;
-        $scope.modal = {
-            "title": "Title",
-            "content": "Hello Modal<br />This is a multiline message!"
-        };
     }
 ]);
 
-numApp.controller('admin', ['$scope', 'posts',
-    function($scope, posts) {
-        if (true) {
-            $scope.posts = posts;
+numApp.controller('newArticle', ['$scope', 'user',
+    function($scope, user) {
+        if (user.islogged) {
+            //TODO
         }
     }
 ]);
 
-numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVENTS', 'AuthService','$state',
-    function($scope, $http, $rootScope, AUTH_EVENTS, AuthService,$state) {
+numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVENTS', 'AuthService', '$state', '$alert',
+    function($scope, $http, $rootScope, AUTH_EVENTS, AuthService, $state, $alert) {
         $scope.credentials = {
             login: '',
             mdp: ''
         };
-
-        //$state.transitionTo(page);
         $scope.login = function(credentials) {
-            AuthService.login(credentials).then(function () {
-              $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-              //$urlRouterProvider.$.when('/login','/');
-              $state.go('home');
-            }, function () {
-              $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+            AuthService.login(credentials).then(function() {
+                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                $state.go('categories.home');
+            }, function() {
+                //Moche, a faire en plus joli
+                $alert({
+                    content: 'Mauvais login ou mot de passe.',
+                    container: '#alerts-container',
+                    type: 'danger',
+                    duration: 1,
+                    show: true
+                });
+                $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             });
         };
     }

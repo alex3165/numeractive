@@ -1,0 +1,8 @@
+doctype html
+.col-lg-3.contain-menu
+	ul(role="menu").menu
+		li(role="presentation")
+			a(data-ui-sref='categories.home') Accueil
+		li(data-ng-repeat="(i, category) in categories track by $index",role="presentation")
+			a(data-ui-sref='categories.list({categoryId: i})') {{category.type}}
+main(data-ui-view)
