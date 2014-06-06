@@ -105,10 +105,8 @@ numApp.controller('article', ['$scope', 'post', 'user',
     function($scope, post, user) {
         $scope.user = user;
         $scope.post = post;
-        if (user.islogged) {
-            $scope.save = function() {
-                //TODO
-            }
+        $scope.save = function() {
+            alert('yolo');
         }
     }
 ]);
