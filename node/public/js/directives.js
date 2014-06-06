@@ -51,7 +51,7 @@ numApp.directive('ckedit', function ($parse) {
     return {
         restrict: 'A',
         link: function (scope, element, attrs, controller) {
-            var getter = $parse(attrs.ckedit), 
+            var getter = $parse(attrs.ckedit),
                 setter = getter.assign;
       
             attrs.$set('contenteditable', true); // inline ckeditor needs this
@@ -104,6 +104,6 @@ numApp.directive('ckedit', function ($parse) {
                 editorangular.setData(value);
             });
         }
-    }
+    };
     
 });

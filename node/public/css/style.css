@@ -304,3 +304,14 @@ article {
 .modal {
     overflow-y: hidden;
 }
+
+.articleimage{
+
+}
+.articleimage img{
+    width: 100%;
+}
+.article-glob{
+    text-align: left;
+    margin: 20px 0;
+}

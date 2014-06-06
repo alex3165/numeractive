@@ -1,4 +1,4 @@
-var numApp = angular.module('numeractive', ['ui.router', 'ngAnimate', 'infinite-scroll', 'mgcrea.ngStrap', 'ngSanitize']);
+var numApp = angular.module('numeractive', ['ui.router', 'ngAnimate', 'infinite-scroll', 'mgcrea.ngStrap', 'ngSanitize','ngCookies']);
 var loading = true;
 
 numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
@@ -107,7 +107,7 @@ numApp.controller('article', ['$scope', 'post', 'user',
         $scope.post = post;
         $scope.save = function() {
             alert('yolo');
-        }
+        };
     }
 ]);
 

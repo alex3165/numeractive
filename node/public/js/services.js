@@ -2,14 +2,13 @@
       Auth Service
 ************************/
 
-numApp.factory('AuthService', function ($http, user) {
+numApp.factory('AuthService', function ($http, user,$cookies) {
   return {
     login: function (credentials) {
       return $http
         .post('/api/login', credentials)
         .success(function (res,status,headers) {
           if (res.token != 'undefined'){
-            //Session.create(res.token, res.userid);
             user.token = res.token;
             user.login = credentials.login;
             user.userid = res.userid;
