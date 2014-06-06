@@ -9,11 +9,13 @@ html(lang='fr', data-ng-app='numeractive')
 		link(rel='stylesheet', href='css/style.css')
 		script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js')
 		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-animate.min.js")
+		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.min.js")
 		script(src='https://code.jquery.com/jquery-1.11.1.min.js')
 		script(src='third_party/angular-ui-router.min.js')
 		script(src='third_party/angular-strap-2.0.2/angular-strap.min.js')
 		script(src='third_party/angular-strap-2.0.2/angular-strap.tpl.min.js')
 		script(src="third_party/ng-infinite-scroll.min.js")
+		script(src="third_party/ckeditor/ckeditor.js")
 		script(src='js/app.js')
 		script(src='js/directives.js')
 		script(src='js/services.js')
@@ -35,4 +37,7 @@ html(lang='fr', data-ng-app='numeractive')
 						.col-lg-3
 							span.contactlink
 								a(href="#",alt="contact link") contact
+			div(data-ng-controller="adminController")
+				div.text-center(data-ng-if="user.islogged")
+					a.btn.btn-primary(data-ui-sref='newArticle', role="button") Ajouter un article
 			.container-fluid(data-ui-view)

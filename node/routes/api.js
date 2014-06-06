@@ -16,11 +16,9 @@ exports.login = function(req, res) {
         if (!err) {
             db.query('SELECT * FROM users WHERE login = ?', user.login, function(err, rows) {
                 if (!err) {
-                    console.log(rows);
                     if (rows.length == 0) {
                         res.send(401);
-                    }
-                    else if (user.mdp == rows[0].mdp) {
+                    } else if (user.mdp == rows[0].mdp) {
                         res.send(200, {
                             token: jwt.encode({
                                 secret: user.login
@@ -35,6 +33,7 @@ exports.login = function(req, res) {
                 db.end();
             });
         } else {
+            console.log('error: ' + err);
             res.send(500);
         }
     });
@@ -53,7 +52,7 @@ exports.posts = function(req, res) {
                 } else {
                     rows.forEach(function(post, i) {
                         posts.push({
-                            id: i,
+                            id: post.id,
                             title: post.title,
                             text: post.text.substr(0, 300) + ' ...',
                             category: post.type,
@@ -73,24 +72,19 @@ exports.posts = function(req, res) {
 
 exports.post = function(req, res) {
     var id = req.param('id');
-    var posts = [];
     db.getConnection(function(err, db) {
         if (!err) {
             db.query('SELECT * FROM posts WHERE id=?', id, function(err, rows) {
                 if (err) {
                     res.send(err);
                 } else {
-                    rows.forEach(function(post, i) {
-                        posts.push({
-                            id: i,
-                            title: post.title,
-                            text: post.text.substr(0, 300) + ' ...',
-                            category: post.id_cat,
-                            img: post.img,
-                            creationDate: post.creation
-                        });
+                    res.send({
+                        title: rows[0].title,
+                        text: rows[0].text,
+                        category: rows[0].type,
+                        img: rows[0].img,
+                        creationDate: rows[0].creation
                     });
-                    res.send(posts);
                 }
                 db.end();
             });

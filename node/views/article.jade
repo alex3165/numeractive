@@ -1,0 +1,15 @@
+doctype html
+.col-lg-6
+	article
+		.post
+			.postimage.col-centered(data-ng-class="post.colorcat + 'shadow'")
+				img(src="{{post.img}}",alt="post image",width="400")
+			span.category {{post.category}}
+			h2.title {{post.title}}
+			div(data-ng-if="user.islogged")
+				p(data-ckedit="post.text") {{post.text}}
+				pre {{post.text}}
+			div(data-ng-if="!user.islogged")
+				p {{post.text}}
+			span.date {{post.creationDate}}
+		.seperate

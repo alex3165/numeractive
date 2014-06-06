@@ -1,4 +1,4 @@
-var numApp = angular.module('numeractive', ['ui.router', 'ngAnimate', 'infinite-scroll', 'mgcrea.ngStrap']);
+var numApp = angular.module('numeractive', ['ui.router', 'ngAnimate', 'infinite-scroll', 'mgcrea.ngStrap', 'ngSanitize']);
 var loading = true;
 
 numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
@@ -43,10 +43,7 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
                         }
                     ]
                 },
-                controller: function($scope, posts, user) {
-                    $scope.user = user;
-                    $scope.posts = posts;
-                }
+                controller: 'home'
             })
             .state('categories.list', {
                 url: '/cat/:categoryId',
@@ -56,6 +53,21 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
                     posts: ['$stateParams', '$http',
                         function($stateParams, $http) {
                             return $http.get('/api/category/' + $stateParams.categoryId)
+                                .then(function(res) {
+                                    return res.data;
+                                });
+                        }
+                    ]
+                }
+            })
+            .state('categories.article', {
+                url: '/article/:articleId',
+                templateUrl: 'partials/article',
+                controller: 'article',
+                resolve: {
+                    post: ['$stateParams', '$http',
+                        function($stateParams, $http) {
+                            return $http.get('/api/post/' + $stateParams.articleId)
                                 .then(function(res) {
                                     return res.data;
                                 });
@@ -89,6 +101,18 @@ numApp.controller('home', ['$scope', 'posts', 'user',
     }
 ]);
 
+numApp.controller('article', ['$scope', 'post', 'user',
+    function($scope, post, user) {
+        $scope.user = user;
+        $scope.post = post;
+        if (user.islogged) {
+            $scope.save = function() {
+                //TODO
+            }
+        }
+    }
+]);
+
 numApp.controller('newArticle', ['$scope', 'user',
     function($scope, user) {
         if (user.islogged) {
@@ -119,6 +143,12 @@ numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVE
                 $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             });
         };
+    }
+]);
+
+numApp.controller('adminController', ['$scope', 'user',
+    function($scope, user) {
+        $scope.user = user;
     }
 ]);
 
