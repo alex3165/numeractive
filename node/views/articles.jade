@@ -1,5 +1,7 @@
 doctype html
-.col-lg-6(infinite-scroll="myPagingFunction()" infinite-scroll-distance="1")
+//- (infinite-scroll="myPagingFunction()", infinite-scroll-distance="1")
+.col-lg-6
+	input(type="text", class="search", placeholder="Search")
 	article(data-ng-repeat="post in posts")
 		.post
 			.postimage.col-centered(data-ng-class="post.colorcat + 'shadow'")

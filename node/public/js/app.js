@@ -1,4 +1,4 @@
-var numApp = angular.module('numeractive', ['ui.router', 'ngAnimate', 'infinite-scroll', 'mgcrea.ngStrap', 'ngSanitize','ngCookies']);
+var numApp = angular.module('numeractive', ['ui.router', 'ngAnimate', 'infinite-scroll', 'mgcrea.ngStrap', 'ngSanitize', 'ngCookies']);
 var loading = true;
 
 numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
@@ -83,7 +83,7 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
             .state('newArticle', {
                 url: '/add',
                 templateUrl: 'partials/newArticle',
-                controller: 'newArticle',
+                controller: 'newArticle'
             });
     }
 ]);
@@ -94,8 +94,8 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
 //     }
 // ]);
 
-numApp.controller('home', ['$scope', 'posts', 'user',
-    function($scope, posts, user) {
+numApp.controller('home', ['$scope', 'posts', 'user', '$cookieStore', 'AuthService', '$state',
+    function($scope, posts, user, $cookieStore, AuthService, $state) {
         $scope.user = user;
         $scope.posts = posts;
     }
@@ -111,16 +111,21 @@ numApp.controller('article', ['$scope', 'post', 'user',
     }
 ]);
 
-numApp.controller('newArticle', ['$scope', 'user',
-    function($scope, user) {
-        if (user.islogged) {
-            //TODO
-        }
+numApp.controller('newArticle', ['$scope', 'user', '$state',
+    function($scope, user, $state) {
+        // if (user.islogged) {
+        //     //TODO
+        // }else{
+        //     $state.go('categories.home');
+        // }
     }
 ]);
 
-numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVENTS', 'AuthService', '$state', '$alert',
-    function($scope, $http, $rootScope, AUTH_EVENTS, AuthService, $state, $alert) {
+numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVENTS', 'AuthService', '$state', '$alert', 'user',
+    function($scope, $http, $rootScope, AUTH_EVENTS, AuthService, $state, $alert, user) {
+        if (user.islogged) {
+            $state.go('categories.home');
+        }
         $scope.credentials = {
             login: '',
             mdp: ''
@@ -144,9 +149,16 @@ numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVE
     }
 ]);
 
-numApp.controller('adminController', ['$scope', 'user',
-    function($scope, user) {
+numApp.controller('adminController', ['$scope', 'user', '$cookieStore', 'AuthService', '$state',
+    function($scope, user, $cookieStore, AuthService, $state) {
+        if ($cookieStore.get("user") != 'undefined') {
+            user = $cookieStore.get("user");
+        }
         $scope.user = user;
+        $scope.disconnect = function (){
+            AuthService.destroy();
+            $state.go('categories.home');
+        };
     }
 ]);
 

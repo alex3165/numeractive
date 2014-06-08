@@ -2,7 +2,7 @@
       Auth Service
 ************************/
 
-numApp.factory('AuthService', function ($http, user,$cookies) {
+numApp.factory('AuthService', function ($http, user,$cookieStore) {
   return {
     login: function (credentials) {
       return $http
@@ -13,10 +13,24 @@ numApp.factory('AuthService', function ($http, user,$cookies) {
             user.login = credentials.login;
             user.userid = res.userid;
             user.islogged = true;
+            $cookieStore.put("user", {
+              login : user.login,
+              token : user.token,
+              userid : user.userid,
+              islogged : true
+            });
           }
         }).error(function(err) {
             console.log(err);
         });
+    },
+    destroy: function(){
+        $cookieStore.remove('user');
+        user.token = '';
+        user.login = '';
+        user.userid = '';
+        user.islogged = false;
+      return;
     }
   };
 });
@@ -27,15 +41,3 @@ numApp.value('user', {
   login: '',
   token: ''
 });
-
-// numApp.service('Session', function () {
-//   this.create = function (token, userId) {
-//     this.id = token;
-//     this.userId = userId;
-//   };
-//   this.destroy = function () {
-//     this.id = null;
-//     this.userId = null;
-//   };
-//   return this;
-// });

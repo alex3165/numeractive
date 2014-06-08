@@ -1,5 +1,22 @@
 a.btn.btn-primary(data-ui-sref='categories.home', role="button") Accueil
-//- form(role="form")
-//- 	div(class="form-group")
-//-     	label(for="exampleInputEmail1") Titre de l'article
-//-     	input(type="text", class="form-control", placeholder="Enter email")
+form(role="form", class="add-article")
+    h2 Ajouter un nouvel article au super blog
+    br
+    div(class="form-group")
+        label(for="add-image") Ajouter une image à la une
+        input(type="file", id="add-image")
+    div(class="form-group")
+        label(for="titre") Titre de l'article
+        input(type="text", class="form-control", id="titre", placeholder="Titre")
+    div(class="form-group")
+        label(for="categories") Entrer la catégorie de l'article
+        select(class="form-control", id="categories")
+          option(selected="selected") Aucune
+          option 2
+          option 3
+          option 4
+          option 5
+    div(class="form-group")
+        label(for="contenu") Contenu de l'article (format html supporté)
+        textarea(class="form-control", rows="6", id="contenu")
+    button(type="button", class="btn btn-primary btn-lg") Valider

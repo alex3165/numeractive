@@ -10,7 +10,7 @@ html(lang='fr', data-ng-app='numeractive')
 		script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js')
 		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-animate.min.js")
 		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.min.js")
-		script(src='https://code.jquery.com/jquery-1.11.1.min.js')
+		script(src="https://code.angularjs.org/1.2.9/angular-cookies.min.js")
 		script(src='third_party/angular-ui-router.min.js')
 		script(src='third_party/angular-strap-2.0.2/angular-strap.min.js')
 		script(src='third_party/angular-strap-2.0.2/angular-strap.tpl.min.js')
@@ -28,16 +28,18 @@ html(lang='fr', data-ng-app='numeractive')
 				.containbg
 					.row
 						.col-lg-12.col-centered
-							a(data-ui-sref='home')
+							a(data-ui-sref='categories.home')
 								img(src="images/logo.svg", id="logo",alt="logo numeractive")
 					.row
 						.col-lg-12.col-centered
-							h1 numeractive
+							a(data-ui-sref='categories.home')
+								h1 numeractive
 					.row.mg-top
 						.col-lg-3
 							span.contactlink
 								a(href="#",alt="contact link") contact
 			div(data-ng-controller="adminController")
 				div.text-center(data-ng-if="user.islogged")
-					a.btn.btn-primary(data-ui-sref='newArticle', role="button") Ajouter un article
+					a.btn.btn-primary(data-ui-sref='add', role="button") Ajouter un article
+					a.btn.btn-primary(role="button", ng-click="disconnect()") déconnection
 			.container-fluid(data-ui-view)
