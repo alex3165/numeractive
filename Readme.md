@@ -6,11 +6,11 @@ Numeractive will be full javascript coded blog based on NodeJS and AngularJS. La
 
 - Run <pre> numeractive.sql </pre> in "db" folder
 
-- Install node modules using <pre>package.json</pre> with npm, run <pre>npm install</pre> in "node" folder
+- Install node modules using "package.json" with npm, run (in node folder) : <pre>npm install</pre>
 
 - Start node server <pre>forever -w app.js</pre>
 
-Make sure you have been configure your db connection in "node/routes/db.js" file.
+> Make sure you have been configure your db connection in "node/routes/db.js" file.
 
 ## Notes
 
