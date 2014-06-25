@@ -10,6 +10,8 @@ Tester .put --> article (titre, image, catégorie, contenu)
 Hasher le mdp dans la BDD --> sur api/login --> récupérer le mot de passe et le dehasher
 Add color field for categories to display their in menu side
 
+/!\ --> .post article : vérifier Token
+
 ## Front
 
 édition des catégories --> boutton en face de chaque catégories 

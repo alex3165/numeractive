@@ -91,14 +91,23 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
 numApp.controller('home', ['$scope', 'posts', 'user', 'AuthService', '$state',
     function($scope, posts, user, AuthService, $state) {
         $scope.user = user;
+        posts.for
+        for(var post in posts){
+            posts[post].creationDate = posts[post].creationDate.substr(0, 10);
+        }
         $scope.posts = posts;
     }
 ]);
 
-numApp.controller('article', ['$scope', 'post', 'user',
-    function($scope, post, user) {
+numApp.controller('article', ['$scope', 'post', 'user', 'AuthService',
+    function($scope, post, user, AuthService) {
+        if (AuthService.getCookie() != "undefined") {
+            user = AuthService.getCookie();
+        }
         $scope.user = user;
+        post.creationDate = post.creationDate.substr(0, 10);
         $scope.post = post;
+
         $scope.save = function() {
             alert('yolo');
         };
@@ -112,14 +121,13 @@ numApp.controller('newArticle', ['$scope', 'user', '$state', 'AuthService', 'art
         }
         if (user.islogged) {
             $scope.submit = function(){
-                
-                article.id_user = user.userid;
+                article.userid = user.userid;
                 article.title = $scope.title;
-                article.img = $scope.img;
-                article.id_cat = $scope.idcat;
+                article.img = "images/img1.jpg";
+                article.categorie = $scope.idcat;
                 article.text = $scope.text;
-
                 ArticleService.addArticle(article);
+                $state.go('categories.home');
             }
         }else{
             $state.go('categories.home');
@@ -142,7 +150,7 @@ numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVE
         $scope.login = function(credentials) {
             AuthService.login(credentials).then(function() {
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                $state.go('categories.home');
+                $state.go('categories.home', null, { reload: true });
             }, function() {
                 $alert({
                     content: 'Mauvais login ou mot de passe.',
@@ -165,7 +173,9 @@ numApp.controller('adminController', ['$scope', 'user', 'AuthService', '$state',
         $scope.user = user;
         $scope.disconnect = function (){
             AuthService.destroy();
-            $state.go('categories.home');
+            //$scope.$route.reload();
+            //$state.go('categories.home');
+            $state.go($state.$current, null, { reload: true });
         };
     }
 ]);

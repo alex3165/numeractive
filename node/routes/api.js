@@ -30,7 +30,7 @@ exports.login = function(req, res) {
                     console.log('error: ' + err);
                     res.send(500);
                 }
-                db.end();
+                db.release();
             });
         } else {
             console.log('error: ' + err);
@@ -61,10 +61,9 @@ exports.posts = function(req, res) {
                             creationDate: post.creation
                         });
                     });
-                    //console.log(posts);
                     res.send(posts);
                 }
-                db.end();
+                db.release();
             });
         }
     });
@@ -86,7 +85,7 @@ exports.post = function(req, res) {
                         creationDate: rows[0].creation
                     });
                 }
-                db.end();
+                db.release();
             });
         } else {
             res.send(err);
@@ -103,10 +102,10 @@ exports.addPost = function(req, res) {
         id_cat: req.body.categorie,
         id_user: req.body.userid
     };
-
     db.getConnection(function(err, db) {
         if (!err) {
             db.query('INSERT INTO posts SET ?', newpost, function(err, rows) {
+                console.log(db.query.sql);
                 if (err) {
                     res.send(err);
                 } else {
@@ -114,7 +113,7 @@ exports.addPost = function(req, res) {
                         status: "success"
                     });
                 }
-                db.end();
+                db.release();
             });
         } else {
             res.send(err);
@@ -137,7 +136,7 @@ exports.editPost = function(req, res) {
                         status: "success"
                     });
                 }
-                db.end();
+                db.release();
             });
         } else {
             res.send(err);
@@ -159,7 +158,7 @@ exports.deletePost = function(req, res) {
                         status: "success"
                     });
                 }
-                db.end();
+                db.release();
             });
         } else {
             res.send(err);
@@ -188,7 +187,7 @@ exports.categories = function(req, res) {
                     //console.log(categories);
                     res.send(categories);
                 }
-                db.end();
+                db.release();
             });
         } else {
             res.send(err);
@@ -217,7 +216,7 @@ exports.category = function(req, res) {
                     });
                     res.send(posts);
                 }
-                db.end();
+                db.release();
             });
         } else {
             res.send(500, err);
@@ -270,7 +269,7 @@ exports.users = function(req, res) {
                         posts: rows
                     });
                 }
-                db.end();
+                db.release();
             });
         } else {
             res.send(err);
@@ -290,7 +289,7 @@ exports.user = function(req, res) {
                         posts: rows
                     });
                 }
-                db.end();
+                db.release();
             });
         } else {
             res.send(err);

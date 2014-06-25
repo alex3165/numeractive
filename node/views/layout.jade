@@ -38,8 +38,4 @@ html(lang='fr', data-ng-app='numeractive')
 						.col-lg-3
 							span.contactlink
 								a(href="#",alt="contact link") contact
-			div(data-ng-controller="adminController")
-				div.text-center(data-ng-if="user.islogged")
-					a.btn.btn-primary(data-ui-sref='add', role="button") Ajouter un article
-					a.btn.btn-primary(role="button", ng-click="disconnect()") déconnection
 			.container-fluid(data-ui-view)

@@ -47,10 +47,10 @@ numApp.factory('ArticleService', function ($http, user){
 
 numApp.value('article', {
   title: '',
-  id_cat: '',
+  categorie: '',
   text: '',
   img: '',
-  id_user: ''
+  userid: ''
 });
 
 numApp.value('user', {
