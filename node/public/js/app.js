@@ -88,14 +88,8 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
     }
 ]);
 
-// numApp.controller('categoriesMenu', ['$scope', '$http',
-//     function($scope, $http) {
-
-//     }
-// ]);
-
-numApp.controller('home', ['$scope', 'posts', 'user', '$cookieStore', 'AuthService', '$state',
-    function($scope, posts, user, $cookieStore, AuthService, $state) {
+numApp.controller('home', ['$scope', 'posts', 'user', 'AuthService', '$state',
+    function($scope, posts, user, AuthService, $state) {
         $scope.user = user;
         $scope.posts = posts;
     }
@@ -111,18 +105,33 @@ numApp.controller('article', ['$scope', 'post', 'user',
     }
 ]);
 
-numApp.controller('newArticle', ['$scope', 'user', '$state',
-    function($scope, user, $state) {
-        // if (user.islogged) {
-        //     //TODO
-        // }else{
-        //     $state.go('categories.home');
-        // }
+numApp.controller('newArticle', ['$scope', 'user', '$state', 'AuthService', 'article', 'ArticleService',
+    function($scope, user, $state, AuthService, article, ArticleService) {
+        if (AuthService.getCookie() != "undefined") {
+            user = AuthService.getCookie();
+        }
+        if (user.islogged) {
+            $scope.submit = function(){
+                
+                article.id_user = user.userid;
+                article.title = $scope.title;
+                article.img = $scope.img;
+                article.id_cat = $scope.idcat;
+                article.text = $scope.text;
+
+                ArticleService.addArticle(article);
+            }
+        }else{
+            $state.go('categories.home');
+        }
     }
 ]);
 
 numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVENTS', 'AuthService', '$state', '$alert', 'user',
     function($scope, $http, $rootScope, AUTH_EVENTS, AuthService, $state, $alert, user) {
+        if (AuthService.getCookie() != "undefined") {
+            user = AuthService.getCookie();
+        }
         if (user.islogged) {
             $state.go('categories.home');
         }
@@ -135,7 +144,6 @@ numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVE
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 $state.go('categories.home');
             }, function() {
-                //Moche, a faire en plus joli
                 $alert({
                     content: 'Mauvais login ou mot de passe.',
                     container: '#alerts-container',
@@ -149,10 +157,10 @@ numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVE
     }
 ]);
 
-numApp.controller('adminController', ['$scope', 'user', '$cookieStore', 'AuthService', '$state',
-    function($scope, user, $cookieStore, AuthService, $state) {
-        if ($cookieStore.get("user") != 'undefined') {
-            user = $cookieStore.get("user");
+numApp.controller('adminController', ['$scope', 'user', 'AuthService', '$state',
+    function($scope, user, AuthService, $state) {
+        if (AuthService.getCookie() != "undefined") {
+            user = AuthService.getCookie();
         }
         $scope.user = user;
         $scope.disconnect = function (){

@@ -4,19 +4,22 @@ form(role="form", class="add-article")
     br
     div(class="form-group")
         label(for="add-image") Ajouter une image à la une
-        input(type="file", id="add-image")
+        input(type="file", id="add-image",data-ng-model="img")
     div(class="form-group")
         label(for="titre") Titre de l'article
-        input(type="text", class="form-control", id="titre", placeholder="Titre")
+        input(type="text", class="form-control", id="titre",data-ng-model="title", placeholder="Titre")
     div(class="form-group")
         label(for="categories") Entrer la catégorie de l'article
-        select(class="form-control", id="categories")
+        select(class="form-control", id="categories", data-ng-model="idcat")
           option(selected="selected") Aucune
+          option 0
+          option 1
           option 2
           option 3
           option 4
           option 5
+          option 6
     div(class="form-group")
         label(for="contenu") Contenu de l'article (format html supporté)
-        textarea(class="form-control", rows="6", id="contenu")
-    button(type="button", class="btn btn-primary btn-lg") Valider
+        textarea(class="form-control", rows="6", id="contenu", data-ng-model="text")
+    button(type="button", class="btn btn-primary btn-lg", data-ng-click="submit()") Valider

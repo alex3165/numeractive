@@ -6,7 +6,7 @@ Numeractive will be full javascript coded blog based on NodeJS and AngularJS. La
 
 - Install the database by execute the script "numeractive.sql" located in the "db" folder
 
-- Install node modules using "package.json" with npm, run (in node folder) : <pre>npm install</pre>
+- Install modules using "package.json" with npm command, run (in node folder) : <pre>npm install</pre>
 
 - Start node server <pre>forever -w app.js</pre>
 
