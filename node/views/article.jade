@@ -10,8 +10,9 @@ doctype html
 			span.category {{post.category}}
 			h2.title {{post.title}}
 			div(data-ng-if="user.islogged")
-				p(data-ckedit="post.text") {{post.text}}
-				pre {{post.text}}
+				p(data-ckedit="post.text")
+					//- {{post.text}} , data-ng-bind-html="<h1>Hello</h1>"
+				//- pre {{post.text}}
 			div(data-ng-if="!user.islogged")
-				p {{post.text}}
+				//- p {{post.text}}
 			span.date Ecrit le {{post.creationDate}}

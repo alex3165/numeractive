@@ -91,7 +91,6 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
 numApp.controller('home', ['$scope', 'posts', 'user', 'AuthService', '$state',
     function($scope, posts, user, AuthService, $state) {
         $scope.user = user;
-        posts.for
         for(var post in posts){
             posts[post].creationDate = posts[post].creationDate.substr(0, 10);
         }
@@ -101,7 +100,7 @@ numApp.controller('home', ['$scope', 'posts', 'user', 'AuthService', '$state',
 
 numApp.controller('article', ['$scope', 'post', 'user', 'AuthService',
     function($scope, post, user, AuthService) {
-        if (AuthService.getCookie() != "undefined") {
+        if (typeof AuthService.getCookie() != "undefined") {
             user = AuthService.getCookie();
         }
         $scope.user = user;
@@ -116,7 +115,7 @@ numApp.controller('article', ['$scope', 'post', 'user', 'AuthService',
 
 numApp.controller('newArticle', ['$scope', 'user', '$state', 'AuthService', 'article', 'ArticleService',
     function($scope, user, $state, AuthService, article, ArticleService) {
-        if (AuthService.getCookie() != "undefined") {
+        if (typeof AuthService.getCookie() != "undefined") {
             user = AuthService.getCookie();
         }
         if (user.islogged) {
@@ -137,7 +136,7 @@ numApp.controller('newArticle', ['$scope', 'user', '$state', 'AuthService', 'art
 
 numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVENTS', 'AuthService', '$state', '$alert', 'user',
     function($scope, $http, $rootScope, AUTH_EVENTS, AuthService, $state, $alert, user) {
-        if (AuthService.getCookie() != "undefined") {
+        if (typeof AuthService.getCookie() != "undefined") {
             user = AuthService.getCookie();
         }
         if (user.islogged) {
@@ -167,7 +166,7 @@ numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVE
 
 numApp.controller('adminController', ['$scope', 'user', 'AuthService', '$state',
     function($scope, user, AuthService, $state) {
-        if (AuthService.getCookie() != "undefined") {
+        if (typeof AuthService.getCookie() != "undefined") {
             user = AuthService.getCookie();
         }
         $scope.user = user;

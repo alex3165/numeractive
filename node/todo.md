@@ -16,7 +16,6 @@ Add color field for categories to display their in menu side
 
 édition des catégories --> boutton en face de chaque catégories 
 NginfiniteScroll à implémenter
-faire le formulaire pour ajouter un article
 lien de la page contact
 intégration page contact
 Afficher une catégorie que si il y a des posts dedans
@@ -26,12 +25,14 @@ Ajouter les réseaux sociaux dans la page article.jade
 
 ## En cours
 
-Stocker user dans un cookie
-	--> module ngCookie : on set le cookie dans AuthService et on vérifie le cookie dans le controller home
-
 Bouton de déconnection --> session.destroy : A faire --> refresh la page sur clic du bouton
 Page Ajouter un article --> récupérer les catégories pour choisir la catégorie de l'article ensuite
 
 ## Fait
 
 Lien sur logo + titre numeractive
+
+Stocker user dans un cookie
+	--> module ngCookie : on set le cookie dans AuthService et on vérifie le cookie dans le controller home
+
+faire le formulaire pour ajouter un article
