@@ -102,21 +102,29 @@ exports.addPost = function(req, res) {
         id_cat: req.body.categorie,
         id_user: req.body.userid
     };
+    var user_token = req.body.token;
+
     db.getConnection(function(err, db) {
-        if (!err) {
+        if (!err && user_token) {
+            try {
+                var decoded = jwt.decode(user_token, app.get('jwtTokenSecret'));
+                console.log(decoded);
+            } catch (err) {
+                console.log('error: ' + err);
+                res.send(500);
+            }
             db.query('INSERT INTO posts SET ?', newpost, function(err, rows) {
-                console.log(db.query.sql);
                 if (err) {
-                    res.send(err);
+                    console.log('error: ' + err);
+                    res.send(500);
                 } else {
-                    res.send({
-                        status: "success"
-                    });
+                    res.send(200);
                 }
                 db.release();
             });
         } else {
-            res.send(err);
+            console.log('error: ' + err);
+            res.send(500);
         }
     });
 };

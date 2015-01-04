@@ -25,10 +25,12 @@ Ajouter les réseaux sociaux dans la page article.jade
 
 ## En cours
 
-Bouton de déconnection --> session.destroy : A faire --> refresh la page sur clic du bouton
 Page Ajouter un article --> récupérer les catégories pour choisir la catégorie de l'article ensuite
 
+
 ## Fait
+
+Bouton de déconnection --> session.destroy : A faire --> refresh la page sur clic du bouton
 
 Lien sur logo + titre numeractive
 

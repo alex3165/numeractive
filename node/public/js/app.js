@@ -84,12 +84,17 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
                 url: '/add',
                 templateUrl: 'partials/newArticle',
                 controller: 'newArticle'
+            })
+            .state('contact', {
+                url: '/contact',
+                templateUrl: 'partials/contact',
+                controller: 'contact'
             });
     }
 ]);
 
-numApp.controller('home', ['$scope', 'posts', 'user', 'AuthService', '$state',
-    function($scope, posts, user, AuthService, $state) {
+numApp.controller('home', ['$scope', 'posts', 'user', 'AuthService', '$state', '$sce',
+    function($scope, posts, user, AuthService, $state, $sce) {
         $scope.user = user;
         for(var post in posts){
             posts[post].creationDate = posts[post].creationDate.substr(0, 10);
@@ -98,18 +103,23 @@ numApp.controller('home', ['$scope', 'posts', 'user', 'AuthService', '$state',
     }
 ]);
 
-numApp.controller('article', ['$scope', 'post', 'user', 'AuthService',
-    function($scope, post, user, AuthService) {
+numApp.controller('contact', ['$scope', 'user', 'AuthService', '$state',
+    function($scope, posts, user, AuthService, $state) {
+        $scope.user = user;
+    }
+]);
+
+numApp.controller('article', ['$scope', 'post', 'user', 'AuthService', '$sce',
+    function($scope, post, user, AuthService, $sce) {
         if (typeof AuthService.getCookie() != "undefined") {
             user = AuthService.getCookie();
         }
         $scope.user = user;
         post.creationDate = post.creationDate.substr(0, 10);
         $scope.post = post;
-
-        $scope.save = function() {
-            alert('yolo');
-        };
+        $scope.fullhtmlarticle = function() {
+          return $sce.trustAsHtml($scope.post.text);
+        }
     }
 ]);
 
@@ -121,6 +131,8 @@ numApp.controller('newArticle', ['$scope', 'user', '$state', 'AuthService', 'art
         if (user.islogged) {
             $scope.submit = function(){
                 article.userid = user.userid;
+                article.userlogin = user.login;
+                article.token = user.token;
                 article.title = $scope.title;
                 article.img = "images/img1.jpg";
                 article.categorie = $scope.idcat;
