@@ -2,20 +2,25 @@ doctype html
 html(lang='fr', data-ng-app='numeractive')
 	head
 		title Numeractive
+
+		//- Css dependency files
 		link(rel='stylesheet', href='https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
-		link(rel="stylesheet", href="https://mgcrea.github.io/angular-strap/styles/bootstrap-additions.min.css")
-		link(rel="stylesheet", href="https://mgcrea.github.io/angular-strap/styles/angular-motion.min.css")
+		link(rel="stylesheet", href="bower_components/angular-motion/dist/angular-motion.min.css")
 		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900')
 		link(rel='stylesheet', href='css/style.css')
-		script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js')
-		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-animate.min.js")
-		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.min.js")
-		script(src="https://code.angularjs.org/1.2.9/angular-cookies.min.js")
-		script(src='third_party/angular-ui-router.min.js')
-		script(src='third_party/angular-strap-2.0.2/angular-strap.min.js')
-		script(src='third_party/angular-strap-2.0.2/angular-strap.tpl.min.js')
-		script(src="third_party/ng-infinite-scroll.min.js")
-		script(src="third_party/ckeditor/ckeditor.js")
+
+		//- Javascript dependency files
+		script(src='bower_components/angular/angular.min.js')
+		script(src='bower_components/angular-animate/angular-animate.min.js')
+		script(src="bower_components/angular-sanitize/angular-sanitize.min.js")
+		script(src="bower_components/angular-cookies/angular-cookies.min.js")
+		script(src='bower_components/angular-ui-router/release/angular-ui-router.min.js')
+		script(src='bower_components/angular-strap/dist/angular-strap.min.js')
+		script(src='bower_components/angular-strap/dist/angular-strap.tpl.min.js')
+		script(src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js")
+		script(src="bower_components/ckeditor/ckeditor.js")
+		
+		//- Personal javascript application
 		script(src='js/app.js')
 		script(src='js/directives.js')
 		script(src='js/services.js')
