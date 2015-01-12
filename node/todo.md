@@ -14,18 +14,18 @@ Add color field for categories to display their in menu side
 
 ## Front
 
-édition des catégories --> boutton en face de chaque catégories 
-NginfiniteScroll à implémenter
-lien de la page contact
-intégration page contact
-Afficher une catégorie que si il y a des posts dedans
-Sur clic catégorie --> sur clic d'un article implémenter le lien vers la page article
-Ajouter les réseaux sociaux dans la page article.jade
+	Edition des catégories --> boutton en face de chaque catégories 
+	NginfiniteScroll à implémenter
+	lien de la page contact
+	intégration page contact
+	Afficher une catégorie que si elle comprend des articles
+	Sur clic catégorie --> sur clic d'un article implémenter le lien vers la page article
+	Ajouter les réseaux sociaux dans la page article.jade
 
 
 ## En cours
 
-Page Ajouter un article --> récupérer les catégories pour choisir la catégorie de l'article ensuite
+	Page Ajouter un article --> récupérer les catégories pour choisir la catégorie de l'article ensuite
 
 
 ## Fait

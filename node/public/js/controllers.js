@@ -1,4 +1,5 @@
 'use strict';
+
 numApp.controller('home', ['$scope', 'posts', 'user', 'AuthService', '$state', '$sce',
     function($scope, posts, user, AuthService, $state, $sce) {
         $scope.user = user;

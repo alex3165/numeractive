@@ -35,6 +35,7 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
             .state('categories.home', {
                 url: '/',
                 templateUrl: 'partials/articles',
+                controller: 'home',
                 resolve: {
                     posts: ['$http',
                         function($http) {
@@ -43,8 +44,7 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
                             });
                         }
                     ]
-                },
-                controller: 'home'
+                }
             })
             .state('categories.list', {
                 url: '/cat/:categoryId',
