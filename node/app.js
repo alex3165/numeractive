@@ -39,7 +39,7 @@ app.get('/api/categories', category.categories); // Get all categories
 app.get('/api/category/:id', category.category); // Get selected categorie
 app.post('/api/category', category.addCategory);
 app.delete('/api/category/:id', category.deleteCategory);
-// app.put('/api/category/:id', api.editCategory);
+app.put('/api/category/:id', category.editCategory);
 
 
 /* Users */

@@ -123,15 +123,29 @@ exports.deleteCategory = function(req, res) {
     });
 };
 
-// exports.editCategory = function(req, res) {
-//     var id = req.params.id;
-//     if (id >= 0 && id < datacat.categories.length) {
-//         datacat.categories[id] = req.body;
-//         res.send({
-//             status: "ok"
-//         });
-//     } else
-//         res.send(404, {
-//             status: "error"
-//         });
-// };
+exports.editCategory = function(req, res) {
+    var id = req.params.id;
+    var newCategory = {
+        type: req.body.type,
+        color: req.body.color
+    };
+    db.getConnection(function(err, db) {
+        if (!err) {
+            db.query('UPDATE categories set ? WHERE id=?', [newCategory, id], function(err, rows) {
+                if (err) {
+                    res.send(404, {
+                        status: "Error"
+                    });
+                } else {
+                    res.send({
+                        status: "Success",
+                        description: "Category updated"
+                    });
+                }
+                db.release();
+            });
+        } else {
+            res.send(404, err);
+        }
+    });
+};

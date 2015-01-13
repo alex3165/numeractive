@@ -103,18 +103,20 @@ exports.editPost = function(req, res) {
 
     db.getConnection(function(err, db) {
         if (!err) {
-            // db.query('UPDATE posts set ? WHERE id=?', newpost, id, function(err, rows) {
-            //     if (err) {
-            //         res.send(404, {
-            //             status: "error"
-            //         });
-            //     } else {
-            //         res.send({
-            //             status: "success"
-            //         });
-            //     }
-            //     db.release();
-            // });
+            db.query('UPDATE posts set ? WHERE id=?', [newpost, id], function(err, rows) {
+                console.log(rows);
+                if (err) {
+                    res.send(404, {
+                        status: "Error"
+                    });
+                } else {
+                    res.send({
+                        status: "Success",
+                        description: "Post updated"
+                    });
+                }
+                db.release();
+            });
         } else {
             res.send(404, err);
         }
