@@ -1,9 +1,10 @@
+'use strict';
+
 var numApp = angular.module('numeractive', ['ui.router', 'ngAnimate', 'infinite-scroll', 'mgcrea.ngStrap', 'ngSanitize', 'ngCookies']);
 var loading = true;
 
 numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
     function($urlRouterProvider, $stateProvider, $provide) {
-        'use strict';
         $urlRouterProvider.otherwise('/');
 
         $provide.constant('AUTH_EVENTS', {
@@ -84,7 +85,14 @@ numApp.config(['$urlRouterProvider', '$stateProvider', '$provide',
             .state('newArticle', {
                 url: '/add',
                 templateUrl: 'partials/newArticle',
-                controller: 'newArticle'
+                controller: 'newArticle',
+                resolve: {
+                    categories: ['$http', function($http){
+                        return $http.get('/api/categories').then(function(res) {
+                                return res.data;
+                        });
+                    }]
+                }
             })
             .state('contact', {
                 url: '/contact',

@@ -16,25 +16,37 @@ numApp.controller('contact', ['$scope', 'user', 'AuthService', '$state',
     }
 ]);
 
-numApp.controller('article', ['$scope', 'post', 'user', 'AuthService', '$sce',
-    function($scope, post, user, AuthService, $sce) {
+numApp.controller('article', ['$scope', 'post', 'user', 'AuthService', '$sce', 'ArticleService', '$state',
+    function($scope, post, user, AuthService, $sce, ArticleService, $state) {
         if (typeof AuthService.getCookie() != "undefined") {
             user = AuthService.getCookie();
         }
         $scope.user = user;
         post.creationDate = post.creationDate.substr(0, 10);
         $scope.post = post;
+        
+        $scope.removeAction = function() {
+            ArticleService.removeArticle($scope.post.id).success(function(res, status, headers){
+                console.log(res);
+                $state.go('categories.home');
+            }).error(function(err){
+                console.log(err);
+            });;
+        }
+
         $scope.fullhtmlarticle = function() {
           return $sce.trustAsHtml($scope.post.text);
         }
     }
 ]);
 
-numApp.controller('newArticle', ['$scope', 'user', '$state', 'AuthService', 'article', 'ArticleService',
-    function($scope, user, $state, AuthService, article, ArticleService) {
+numApp.controller('newArticle', ['$scope', 'user', '$state', 'AuthService', 'article', 'ArticleService', 'categories',
+    function($scope, user, $state, AuthService, article, ArticleService, categories) {
+        $scope.categories = categories;
         if (typeof AuthService.getCookie() != "undefined") {
             user = AuthService.getCookie();
         }
+
         if (user.islogged) {
             $scope.submit = function(){
                 article.userid = user.userid;
@@ -42,7 +54,7 @@ numApp.controller('newArticle', ['$scope', 'user', '$state', 'AuthService', 'art
                 article.token = user.token;
                 article.title = $scope.title;
                 article.img = "images/img1.jpg";
-                article.categorie = $scope.idcat;
+                article.categorie = $scope;
                 article.text = $scope.text;
                 ArticleService.addArticle(article);
                 $state.go('categories.home');
@@ -83,16 +95,26 @@ numApp.controller('loginController', ['$scope', '$http', '$rootScope', 'AUTH_EVE
     }
 ]);
 
+numApp.controller('categories', ['$scope', 'user', 'CategoryService', '$state', function($scope, user, CategoryService, $state){
+    $scope.user = user;
+    $scope.removeCategory = function(categoryId) {
+        CategoryService.removeCategory(categoryId).success(function(res, status, headers){
+            if (res.status === "impossible") alert(res.description);
+            $state.go($state.$current, null, { reload: true });
+        }).error(function(err) {
+            console.log(err);
+        });
+    }
+}]);
+
 numApp.controller('adminController', ['$scope', 'user', 'AuthService', '$state',
     function($scope, user, AuthService, $state) {
         if (typeof AuthService.getCookie() != "undefined") {
             user = AuthService.getCookie();
         }
         $scope.user = user;
-        $scope.disconnect = function (){
+        $scope.disconnect = function(){
             AuthService.destroy();
-            //$scope.$route.reload();
-            //$state.go('categories.home');
             $state.go($state.$current, null, { reload: true });
         };
     }

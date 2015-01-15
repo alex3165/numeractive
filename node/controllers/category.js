@@ -107,10 +107,17 @@ exports.deleteCategory = function(req, res) {
                         description: 'Category deleted'
                     });
                 }else {
-                    res.send(404, {
-                        status: 'error',
-                        description: err
-                    });
+                    if (err.code === "ER_ROW_IS_REFERENCED_") {
+                        res.send(200, {
+                            status: 'impossible',
+                            description: 'Impossible de supprimer la catégorie car elle contient des articles'
+                        });
+                    }else {
+                        res.send(404, {
+                            status: 'error',
+                            description: err
+                        });
+                    }
                 }
                 db.release();
             });

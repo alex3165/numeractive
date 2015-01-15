@@ -25,6 +25,8 @@ exports.posts = function(req, res) {
                 }
                 db.release();
             });
+        }else {
+            res.send(err);
         }
     });
 };
@@ -38,6 +40,7 @@ exports.post = function(req, res) {
                     res.send(err);
                 } else {
                     res.send({
+                        id: rows[0].id,
                         title: rows[0].title,
                         text: rows[0].text,
                         category: rows[0].type,
