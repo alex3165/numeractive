@@ -5,6 +5,7 @@ doctype html
 			span.icon-back
 			a.backlink(data-ui-sref='categories.home') retour
 		.article-glob
+			span(ng-click="removeAction()", data-ng-if="user.islogged") X
 			.articleimage.col-centered(data-ng-class="post.colorcat + 'shadow'")
 				img(src="{{post.img}}",alt="post image")
 			span.category {{post.category}}

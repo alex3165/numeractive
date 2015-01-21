@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Gros truc
 
 # Moteur de recherche par mots clés dans les titres d'article
@@ -12,7 +13,7 @@ Maquette de la page contact
 ## Serveur
 
 Ajouter la vérification du Token sur chaque actions back nécessitant une authentification !
-CRUD utilisateur back
+CRUD utilisateur
 Hasher le mdp utilisateur sur création d'un utilisateur
 Add color field for categories to display their in menu side
 
@@ -22,11 +23,15 @@ Edition des catégories --> boutton en face de chaque catégories
 
 Afficher une catégorie que si il y a des posts dedans
 Sur clic catégorie --> sur clic d'un article implémenter le lien vers la page article
+Test the article creational form
+Add grunt file with watch, less compilation, js uglify, jshint and cssmin.
+Use less file instead of css file.
+Edition des catégories --> boutton en face de chaque catégories 
+NginfiniteScroll à implémenter avec lazyload
+Intégration page contact
+Afficher une catégorie que si elle comprend des articles
 
 
 ## En cours
-
-Page Ajouter un article --> récupérer les catégories pour choisir la catégorie de l'article ensuite
-
 
 ## Fait

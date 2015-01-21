@@ -35,12 +35,23 @@ numApp.factory('AuthService', function ($http, user, $cookieStore) {
 
 numApp.factory('ArticleService', function ($http, user){
   return{
-    addArticle: function (article){
+    addArticle: function(article){
       return $http.post('/api/post',article).success(function(res, status, headers){
         console.log(res);
       }).error(function(err){
         console.log(err);
       });
+    },
+    removeArticle: function(articleId) {
+      return $http.delete('/api/post/'+articleId);
+    }
+  };
+});
+
+numApp.factory('CategoryService', function ($http, user){
+  return{
+    removeCategory: function(categoryId) {
+      return $http.delete('/api/category/'+categoryId);
     }
   };
 });
