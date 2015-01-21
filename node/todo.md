@@ -1,26 +1,27 @@
 ## Gros truc
 
-# Développer la fonctionalité de livesearch dans le site
+# Moteur de recherche par mots clés dans les titres d'article
+# Lazy-loading d'article : front et back
 
+## Design
+
+Maquette pour CRUD d'une catégorie
+Maquette CRUD utilisateur
+Maquette de la page contact
 
 ## Serveur
 
-Tester .put --> article (titre, image, catégorie, contenu)
-.post . put et .delete --> catégories 
-Hasher le mdp dans la BDD --> sur api/login --> récupérer le mot de passe et le dehasher
+Ajouter la vérification du Token sur chaque actions back nécessitant une authentification !
+CRUD utilisateur back
+Hasher le mdp utilisateur sur création d'un utilisateur
 Add color field for categories to display their in menu side
-
-/!\ --> .post article : vérifier Token
 
 ## Front
 
-édition des catégories --> boutton en face de chaque catégories 
-NginfiniteScroll à implémenter
-lien de la page contact
-intégration page contact
+Edition des catégories --> boutton en face de chaque catégories 
+
 Afficher une catégorie que si il y a des posts dedans
 Sur clic catégorie --> sur clic d'un article implémenter le lien vers la page article
-Ajouter les réseaux sociaux dans la page article.jade
 
 
 ## En cours
@@ -29,12 +30,3 @@ Page Ajouter un article --> récupérer les catégories pour choisir la catégor
 
 
 ## Fait
-
-Bouton de déconnection --> session.destroy : A faire --> refresh la page sur clic du bouton
-
-Lien sur logo + titre numeractive
-
-Stocker user dans un cookie
-	--> module ngCookie : on set le cookie dans AuthService et on vérifie le cookie dans le controller home
-
-faire le formulaire pour ajouter un article
