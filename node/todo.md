@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## Gros truc
 
 # Moteur de recherche par mots clés dans les titres d'article
