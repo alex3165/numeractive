@@ -6,6 +6,10 @@ Numeractive is a collaborative blog based on NodeJs and AngularJs/ExpressJs. The
 
 - <pre>git clone https://github.com/alex3165/numeractive.git</pre>
 
+- go in node directory <pre>cd numeractive/node/</pre>
+
+- run installer, some questions will be asked <pre>npm install</pre>
+
 - Start node server <pre>forever -w app.js</pre>
 
 ## Notes
