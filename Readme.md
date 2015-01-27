@@ -4,15 +4,9 @@ Numeractive is a collaborative blog based on NodeJs and AngularJs/ExpressJs. The
 
 ## How to install
 
-- Install the database by executing the script "numeractive.sql" in the "db" folder
-
-- Install back modules using "package.json" with npm command, run (in node folder) : <pre>npm install</pre>
-
-- Install front modules using "bower.json" with bower command, run (in node/public folder) : <pre>bower install</pre>
+- <pre>git clone https://github.com/alex3165/numeractive.git</pre>
 
 - Start node server <pre>forever -w app.js</pre>
-
-> Make sure you configured your db connection in "node/routes/db.js" file.
 
 ## Notes
 
