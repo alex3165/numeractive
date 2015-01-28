@@ -9,22 +9,24 @@ html(lang='fr', data-ng-app='numeractive')
 		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900')
 		link(rel='stylesheet', href='css/style.css')
 
+		script(data-main="app-config" src="../node_modules/requirejs/require.js")
+
 		//- Javascript dependency files
-		script(src='bower_components/angular/angular.min.js')
-		script(src='bower_components/angular-animate/angular-animate.min.js')
-		script(src="bower_components/angular-sanitize/angular-sanitize.min.js")
-		script(src="bower_components/angular-cookies/angular-cookies.min.js")
-		script(src='bower_components/angular-ui-router/release/angular-ui-router.min.js')
-		script(src='bower_components/angular-strap/dist/angular-strap.min.js')
-		script(src='bower_components/angular-strap/dist/angular-strap.tpl.min.js')
-		script(src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js")
-		script(src="bower_components/ckeditor/ckeditor.js")
+		//- script(src='bower_components/angular/angular.min.js')
+		//- script(src='bower_components/angular-animate/angular-animate.min.js')
+		//- script(src="bower_components/angular-sanitize/angular-sanitize.min.js")
+		//- script(src="bower_components/angular-cookies/angular-cookies.min.js")
+		//- script(src='bower_components/angular-ui-router/release/angular-ui-router.min.js')
+		//- script(src='bower_components/angular-strap/dist/angular-strap.min.js')
+		//- script(src='bower_components/angular-strap/dist/angular-strap.tpl.min.js')
+		//- script(src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js")
+		//- script(src="bower_components/ckeditor/ckeditor.js")
 		
 		//- Personal javascript application
-		script(src='js/app-config.js')
-		script(src='js/controllers.js')
-		script(src='js/directives.js')
-		script(src='js/services.js')
+		//- script(src='js/app-config.js')
+		//- script(src='js/controllers.js')
+		//- script(src='js/directives.js')
+		//- script(src='js/services.js')
 	body
 		.loading(data-ng-show=('loading')) Chargement ...
 		.container-full(data-ng-hide=('loading'))

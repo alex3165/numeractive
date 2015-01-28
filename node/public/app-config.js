@@ -1,3 +1,53 @@
+requirejs.config({
+    paths: {
+          /**
+          *
+          * Dependencies
+          *
+          */
+
+          'angular': 'bower_components/angular/angular.min',
+          'agular-animate': 'bower_components/angular-animate/angular-animate.min',
+          'angular-sanatize': 'bower_components/angular-sanitize/angular-sanitize.min',
+          'angular-cookie': 'bower_components/angular-cookies/angular-cookies.min',
+          'angular-ui-router': 'bower_components/angular-ui-router/release/angular-ui-router.min',
+          'angular-strap': 'bower_components/angular-strap/dist/angular-strap.min',
+          'infinite-scroll': 'bower_components/ngInfiniteScroll/build/ng-infinite-scroll',
+          'ckeditor': 'bower_components/ckeditor/ckeditor',
+
+          /**
+          *
+          * Framework
+          *
+          */
+
+          'router': 'router',
+
+          /**
+          *
+          * Controllers
+          *
+          */
+          'head-controller': 'modules/head/head-controller',
+          'contact-controller': 'modules/contact/contact-controller',
+          'category-controller': 'modules/category/category-controller',
+          'article-controller': 'modules/article/article-controller',
+          'admin-controller': 'modules/admin/admin-controller',
+
+          /**
+          *
+          * Services
+          *
+          */
+
+    }
+});
+
+requirejs(['backbone', 'marionette'], function (Backbone, Marionette) {
+    
+});
+
+
 'use strict';
 
 var numApp = angular.module('numeractive', ['ui.router', 'ngAnimate', 'infinite-scroll', 'mgcrea.ngStrap', 'ngSanitize', 'ngCookies']);
