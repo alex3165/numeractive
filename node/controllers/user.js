@@ -2,21 +2,25 @@
 
 var db = require('../routes/db');
 var jwt = require('jwt-simple');
+var sha1 = require('sha1');
 
 var secret = '_G73l45n8X54xXx';
 
 exports.login = function(req, res) {
     var user = {
         login: req.body.login,
-        mdp: req.body.mdp
+        mdp: sha1(req.body.mdp)
     };
     db.getConnection(function(err, db) {
         if (!err) {
+            console.log("test connection");
             db.query('SELECT * FROM users WHERE login = ?', user.login, function(err, rows) {
                 if (!err) {
                     if (rows.length == 0) {
+                        console.log("401");
                         res.send(401);
                     } else if (user.mdp == rows[0].mdp) {
+                        console.log("OK");
                         res.send(200, {
                             token: jwt.encode({
                                 secret: user.login
@@ -25,9 +29,11 @@ exports.login = function(req, res) {
                         });
                     }
                 } else {
+                    console.log("500");
                     console.log('error: ' + err);
                     res.send(500);
                 }
+                console.log("release");
                 db.release();
             });
         } else {

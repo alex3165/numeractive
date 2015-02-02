@@ -2,6 +2,8 @@ var mysql = require('mysql');
 var prompt = require('prompt');
 var jf = require('jsonfile');
 var fs = require('fs');
+var sha1 = require('sha1');
+var db = require('../routes/db');
 
 var NumeractiveInstaller = {};
 
@@ -185,4 +187,44 @@ NumeractiveInstaller.processSqlFile = function(){
             })
         }
     });
+}
+
+NumeractiveInstaller.addUser = function(){
+    var schema = {
+        properties: {
+            login: {
+                required: true
+            },
+            name: {
+                required: true
+            },
+            password: {
+                hidden: true
+            }
+        }
+    };
+    prompt.get(schema, function (err, result) {
+        if (err) {
+            return console.log(err);
+        }
+        var user = {
+            login: result.login,
+            password: sha1(result.password),
+            name: result.name
+        };
+        db.getConnection(function(err, db) {
+            if (!err) {
+                db.query('INSERT INTO users  (login, mdp, name) VALUES (?, ?, ?)', [user.login, user.password, user.name], function (err, rows) {
+                if (err) {
+                    console.log('error: ' + err);
+                }
+                db.release();
+
+                    console.log(user.login+" created");
+                });
+            } else {
+                console.log('error: ' + err);
+            }
+        })
+    })
 }
