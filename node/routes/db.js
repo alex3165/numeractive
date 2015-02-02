@@ -41,7 +41,7 @@ var InitMysqlConnexion =function(dbFilePath, callback){
  */
 var getMysqlConnection = function(params, callback){
 
-    pool  = mysql.createPool(params);
+    pool = mysql.createPool(params);
 
     pool.getConnection(function(err, connection) {
         callback(err, connection);

@@ -1,4 +1,3 @@
-
 /****************
     general
 ****************/
@@ -25,65 +24,51 @@
 .mg-top {
     margin-top: 80px;
 }
-/****************
-    header
-****************/
 
-/* slider */
- .slider {
-    position: absolute;
-    width:100%;
-    height: 400px;
-    overflow: hidden;
-    margin: auto;
+
+.greencategory{
+    color: #27ae60;
 }
-.slider-login {
-    height: 100% !important;
+.bluecategory{
+    color: #3498db;
 }
-.slide {
-    position:absolute;
-    top:0;
-    left:0;
+.redcategory{
+    color: #e74c3c;
 }
-.slide img {
-    width: 100%;
+.yellowcategory{
+    color: #dfbe00;
 }
-.slide.ng-hide-add, .slide.ng-hide-remove {
-    -webkit-transition:all linear 0.5s;
-    -moz-transition:all linear 0.5s;
-    -o-transition:all linear 0.5s;
-    transition:all linear 0.5s;
-    display:block!important;
+.purplecategory{
+    color: #a151fb;
 }
-.slide.ng-hide-add.ng-hide-add-active, .slide.ng-hide-remove {
-    opacity:0;
+/* Shadows categories */
+ .greenshadow {
+    box-shadow: 3px 3px 0px #27ae60;
 }
-.slide.ng-hide-add, .slide.ng-hide-remove.ng-hide-remove-active {
-    opacity:1;
+.blueshadow {
+    box-shadow: 3px 3px 0px #3498db;
 }
-.containbg {
-    padding: 30px;
-    height: 400px;
+.redshadow {
+    box-shadow: 3px 3px 0px #e74c3c;
 }
-.contactlink {
-    padding-left: 45px;
+.yellowshadow {
+    box-shadow: 3px 3px 0px #dfbe00;
 }
-.contactlink a {
-    color: #fff;
-    font-size: 14pt;
+.purpleshadow {
+    box-shadow: 3px 3px 0px #a151fb;
 }
-.containbg #logo {
-    margin-top: 64px;
-    width: 180px;
-}
-.global-title{
-    font-family:'Lato', sans-serif;
-    font-weight: 700;
-    font-size: 18pt;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #fff;
-}
+
+
+@import 'modules/admin/admin';
+@import 'modules/article/article';
+@import 'modules/category/category';
+@import 'modules/contact/contact';
+@import 'modules/head/head';
+@import 'modules/slider/slider';
+@import 'modules/articlespreview/articlespreview';
+@import 'modules/login/login';
+
+
 /****************
     body
 ****************/
@@ -147,37 +132,7 @@ article {
     margin: 0 auto;
     background-color: #000;
 }
-.greencategory{
-    color: #27ae60;
-}
-.bluecategory{
-    color: #3498db;
-}
-.redcategory{
-    color: #e74c3c;
-}
-.yellowcategory{
-    color: #dfbe00;
-}
-.purplecategory{
-    color: #a151fb;
-}
-/* Shadows categories */
- .greenshadow {
-    box-shadow: 3px 3px 0px #27ae60;
-}
-.blueshadow {
-    box-shadow: 3px 3px 0px #3498db;
-}
-.redshadow {
-    box-shadow: 3px 3px 0px #e74c3c;
-}
-.yellowshadow {
-    box-shadow: 3px 3px 0px #dfbe00;
-}
-.purpleshadow {
-    box-shadow: 3px 3px 0px #a151fb;
-}
+
 /************
     Contact page
 ************/
@@ -186,53 +141,7 @@ article {
     margin-top: 40px;
     margin-bottom: 40px;
 }
-/************
- Login form
-************/
- .login-container {
-    position: relative;
-    width: 300px;
-    margin: 0px auto;
-    margin-bottom: 80px;
-    padding: 20px 40px 40px;
-    text-align: center;
-    background: #fff;
-    border: 1px solid #ccc;
-}
-#output {
-    position: absolute;
-    width: 300px;
-    top: -75px;
-    left: 0;
-    color: #fff;
-}
-#output.alert-success {
-    background: rgb(25, 204, 25);
-}
-#output.alert-danger {
-    background: rgb(228, 105, 105);
-}
-.login-container::before, .login-container::after {
-    content:"";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 3.5px;
-    left: 0;
-    background: #fff;
-    z-index: -1;
-    -webkit-transform: rotateZ(4deg);
-    -moz-transform: rotateZ(4deg);
-    -ms-transform: rotateZ(4deg);
-    border: 1px solid #ccc;
-}
-.login-container::after {
-    top: 5px;
-    z-index: -2;
-    -webkit-transform: rotateZ(-2deg);
-    -moz-transform: rotateZ(-2deg);
-    -ms-transform: rotateZ(-2deg);
-}
+/*****************/
 .avatar {
     width: 100px;
     height: 100px;
@@ -252,7 +161,6 @@ article {
     text-align: center;
     height:40px;
     border: 1px solid #ccc;
-    ;
     background: #fafafa;
     transition:0.2s ease-in-out;
 }
@@ -272,61 +180,8 @@ article {
     margin-top:15px;
     padding: 10px 20px;
 }
-/********************************
-        Contact page
-*********************************/
 
-.author-logo{
-    margin: 60px auto;
-}
 
-/********************************
-        content article
-*********************************/
-.backlink{
-    font-size: 14px;
-}
- .backabstract {
-    position: absolute;
-    left:0;
-    right:0;
-    width: 100%;
-    height: 2000px;
-    z-index: 10;
-    background-color: #000;
-    opacity: 0.8;
-    display: none;
-    /* Comment to look full post */
-}
-.content-article {
-    position: absolute;
-    width: 1024px;
-    left:0;
-    right:0;
-    margin: 40px auto;
-    padding: 20px;
-    z-index: 12;
-    background-color: #fff;
-    text-align: center;
-    display: none;
-    /* Comment to look full post */
-}
-.content-article img {
-    margin: 0 auto;
-}
-.article-full p.lead{
-    font-weight: 400;
-}
-.article-full,
-.article-full p,
-.article-full span{
-    font-size: 17px;
-    line-height: 26px;
-    letter-spacing: 0.8px;
-    color: #585858;
-    font-weight: 300;
-}
-/********************************/
  .animated {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
@@ -376,24 +231,4 @@ article {
 .article-glob{
     text-align: left;
     margin: 20px 0;
-}
-
-/************
-Admin css
-**************/
-
-.admin-bg{
-    background-color: #e8e8e8;
-    padding: 20px;
-}
-
-.adminbtn{
-    margin: 0px 20px;
-    cursor: pointer;
-    text-align: center;
-}
-
-form.add-article{
-    width: 640px;
-    margin: 40px auto;
 }

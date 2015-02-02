@@ -1,6 +1,6 @@
 doctype html
 //- (infinite-scroll="myPagingFunction()", infinite-scroll-distance="1")
-div(data-ng-controller="adminController")
+div(data-ng-controller="AdminController")
 		div.admin-bg(data-ng-if="user.islogged")
 			a.btn.btn-primary.adminbtn(data-ui-sref='newArticle', role="button") Ajouter un article
 			a.btn.btn-primary.adminbtn(role="button", ng-click="disconnect()") Déconnexion
