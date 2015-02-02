@@ -30,7 +30,6 @@ define(function(require, exports, module) {
                     posts: ['$http',
                         function($http) {
                             return $http.get('/api/posts').then(function(res) {
-                                // debugger;
                                 return res.data;
                             });
                         }

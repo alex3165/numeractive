@@ -7,6 +7,7 @@ define(function(require, exports, module) {
     var SliderController = require('slider-controller');
     var CategoryController = require('category-controller');
     var LoginController = require('login-controller');
+    var AdminController = require('admin-controller');
     var ArticleController = require('article-controller');
     var AddArticleController = require('addarticle-controller');
     var PreviewArticlesController = require('previewarticles-controller');
@@ -34,6 +35,7 @@ define(function(require, exports, module) {
     NumeractiveApplication.controller('article', ArticleController);
     NumeractiveApplication.controller('newArticle', AddArticleController);
     NumeractiveApplication.controller('home', PreviewArticlesController);
+    NumeractiveApplication.controller('AdminController', AdminController);
 
     NumeractiveApplication.value('article', ArticleModel);
     NumeractiveApplication.value('user', UserModel);

@@ -35,6 +35,7 @@ require.config({
           'admin-controller': 'modules/admin/admin-controller',
           'slider-controller': 'modules/slider/slider-controller',
           'login-controller': 'modules/login/login-controller',
+          'admin-controller': 'modules/admin/admin-controller',
           'addarticle-controller': 'modules/addarticle/addarticle-controller',
           'previewarticles-controller': 'modules/previewarticles/previewarticles-controller',
 
