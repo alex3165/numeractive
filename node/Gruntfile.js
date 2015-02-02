@@ -29,7 +29,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: ['public/style.styl'],
-                dest: 'public/css/style.css'
+                dest: 'public/dist/style.css'
             }
         }
 	});

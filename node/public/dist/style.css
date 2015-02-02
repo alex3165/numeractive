@@ -1,6 +1,3 @@
-/****************
-    general
-****************/
 html,
 p,
 h1,
@@ -9,25 +6,6 @@ li,
 a {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-}
-.fullslider {
-  background: url("../images/slider/bg1.jpg") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-.fullslider {
-  position: relative;
-  height: 100%;
-}
-.col-centered {
-  float: none;
-  margin: 0 auto;
-  text-align: center;
-}
-.mg-top {
-  margin-top: 80px;
 }
 .greencategory {
   color: #27ae60;
@@ -60,6 +38,25 @@ a {
 .purpleshadow {
   box-shadow: 3px 3px 0px #a151fb;
 }
+.backabstract {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 2000px;
+  z-index: 10;
+  background-color: #000;
+  opacity: 0.8;
+  display: none;
+}
+.mg-top {
+  margin-top: 80px;
+}
+.col-centered {
+  float: none;
+  margin: 0 auto;
+  text-align: center;
+}
 .admin-bg {
   background-color: #e8e8e8;
   padding: 20px;
@@ -73,51 +70,46 @@ form.add-article {
   width: 640px;
   margin: 40px auto;
 }
-.backlink {
+article {
+  margin: 100px 20px;
+}
+article .back-button .backlink {
   font-size: 14px;
 }
-.backabstract {
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 2000px;
-  z-index: 10;
-  background-color: #000;
-  opacity: 0.8;
-  display: none;
-/* Comment to look full post */
+article .article-glob {
+  text-align: left;
+  margin: 20px 0;
 }
-.content-article {
-  position: absolute;
-  width: 1024px;
-  left: 0;
-  right: 0;
-  margin: 40px auto;
-  padding: 20px;
-  z-index: 12;
-  background-color: #fff;
-  text-align: center;
-  display: none;
-/* Comment to look full post */
-}
-.content-article img {
-  margin: 0 auto;
-}
-.article-full p.lead {
-  font-weight: 400;
-}
-.article-full,
-.article-full p,
-.article-full span {
+article .article-glob .article-full {
   font-size: 17px;
   line-height: 26px;
   letter-spacing: 0.8px;
   color: #585858;
   font-weight: 300;
 }
+article .article-glob .article-full p {
+  font-weight: 400;
+}
+article .article-glob .articleimage img {
+  width: 100%;
+}
+.contain-menu {
+  margin-top: 70px;
+}
+.contain-menu .menu li {
+  list-style-type: none;
+  margin: 10px 0;
+}
+.contain-menu .menu li a {
+  text-decoration: none;
+}
 .author-logo {
   margin: 60px auto;
+}
+.page-title {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 .slider {
   position: absolute;
@@ -176,7 +168,48 @@ form.add-article {
   text-transform: uppercase;
   color: #fff;
 }
-.login-container {
+.fullslider {
+  position: relative;
+  height: 100%;
+  background: url("../images/slider/bg1.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+article .seperate {
+  width: 200px;
+  height: 1px;
+  margin: 0 auto;
+  background-color: #000;
+}
+article .post {
+  text-align: left;
+  margin: 100px 0;
+}
+article .post .postimage {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: block;
+  margin-bottom: 14px;
+}
+article .post .cat-container {
+  text-align: center;
+}
+article .post h2 {
+  font-weight: 800;
+  letter-spacing: 1px;
+  line-height: 40px;
+}
+article .post p {
+  line-height: 26px;
+}
+.container-login {
+  padding-top: 10px;
+}
+.container-login .login-container {
   position: relative;
   width: 300px;
   margin: 0px auto;
@@ -186,21 +219,8 @@ form.add-article {
   background: #fff;
   border: 1px solid #ccc;
 }
-#output {
-  position: absolute;
-  width: 300px;
-  top: -75px;
-  left: 0;
-  color: #fff;
-}
-#output.alert-success {
-  background: #19cc19;
-}
-#output.alert-danger {
-  background: #e46969;
-}
-.login-container::before,
-.login-container::after {
+.container-login .login-container::before,
+.container-login .login-container::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -214,83 +234,27 @@ form.add-article {
   -ms-transform: rotateZ(4deg);
   border: 1px solid #ccc;
 }
-.login-container::after {
+.container-login .login-container::after {
   top: 5px;
   z-index: -2;
   -webkit-transform: rotateZ(-2deg);
   -moz-transform: rotateZ(-2deg);
   -ms-transform: rotateZ(-2deg);
 }
-/****************
-    body
-****************/
-.container-login {
-  padding-top: 10px;
+.container-login .login-container #output {
+  position: absolute;
+  width: 300px;
+  top: -75px;
+  left: 0;
+  color: #fff;
 }
-.contain-menu {
-  margin-top: 70px;
+.container-login .login-container #output.alert-success {
+  background: #20b79a;
 }
-.search {
-  border: none;
-  box-shadow: none;
-  background: none;
-  outline: none;
-  line-height: 40px;
-  font-size: 2em;
-  text-align: center;
-  height: 60px;
-  width: 100%;
-  margin: 0 auto;
+.container-login .login-container #output.alert-danger {
+  background: #fc4d35;
 }
-.post {
-  text-align: left;
-  margin: 100px 0;
-}
-.postimage {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  overflow: hidden;
-  display: block;
-  margin-bottom: 14px;
-}
-.post .cat-container {
-  text-align: center;
-}
-.post h2 {
-  font-weight: 800;
-  letter-spacing: 1px;
-  line-height: 40px;
-}
-.post p {
-  line-height: 26px;
-}
-.menu li {
-  list-style-type: none;
-  margin: 10px 0;
-}
-.menu li a {
-  text-decoration: none;
-}
-article {
-  margin: 100px 20px;
-}
-.seperate {
-  width: 200px;
-  height: 1px;
-  margin: 0 auto;
-  background-color: #000;
-}
-/************
-    Contact page
-************/
-.page-title {
-  text-align: center;
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-/*****************/
-.avatar {
+.container-login .login-container .avatar {
   width: 100px;
   height: 100px;
   margin: 10px auto 30px;
@@ -298,12 +262,12 @@ article {
   border: 2px solid #aaa;
   overflow: hidden;
 }
-.avatar img {
+.container-login .login-container .avatar img {
   width: 50px;
   height: 50px;
   margin-top: 20px;
 }
-.form-box input {
+.container-login .login-container .form-box input {
   width: 100%;
   padding: 10px;
   text-align: center;
@@ -312,107 +276,19 @@ article {
   background: #fafafa;
   transition: 0.2s ease-in-out;
 }
-.form-box input:focus {
+.container-login .login-container .form-box input:focus {
   outline: 0;
   background: #eee;
 }
-.form-box input[type="text"] {
+.container-login .login-container .form-box input[type="text"] {
   border-radius: 5px 5px 0 0;
   text-transform: lowercase;
 }
-.form-box input[type="password"] {
+.container-login .login-container .form-box input[type="password"] {
   border-radius: 0 0 5px 5px;
   border-top: 0;
 }
-.form-box button.login {
+.container-login .login-container .form-box button.login {
   margin-top: 15px;
   padding: 10px 20px;
-}
-.animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-@-webkit-keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(20px);
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-}
-.fadeInUp {
-  -webkit-animation-name: fadeInUp;
-  animation-name: fadeInUp;
-}
-.modal {
-  overflow-y: hidden;
-}
-.articleimage img {
-  width: 100%;
-}
-.article-glob {
-  text-align: left;
-  margin: 20px 0;
-}
-@-moz-keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(20px);
-    -ms-transform: translateY(20px);
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
-  }
-}
-@-webkit-keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(20px);
-    -ms-transform: translateY(20px);
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
-  }
-}
-@-o-keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(20px);
-    -ms-transform: translateY(20px);
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
-  }
-}
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(20px);
-    -ms-transform: translateY(20px);
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
-  }
 }
