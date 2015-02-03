@@ -1,6 +1,6 @@
 'use strict';
 
-var db = require('../routes/db');
+var db = require('../services/db');
 var jwt = require('jwt-simple');
 var sha1 = require('sha1');
 

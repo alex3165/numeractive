@@ -1,6 +1,6 @@
 'use strict';
 
-var db = require('../routes/db');
+var db = require('../services/db');
 
 exports.posts = function(req, res) {
     var posts = [];
