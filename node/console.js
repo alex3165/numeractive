@@ -1,4 +1,4 @@
-var NumeractiveInstaller = require('./src/commands/installer/installer')
+var NumeractiveInstaller = require('./src/commands/installer')
 
 switch (process.argv[2]){
     case "database":
