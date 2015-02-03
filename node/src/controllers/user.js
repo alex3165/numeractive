@@ -13,7 +13,6 @@ exports.login = function(req, res) {
     };
     db.getConnection(function(err, db) {
         if (!err) {
-            console.log("test connection");
             db.query('SELECT * FROM users WHERE login = ?', user.login, function(err, rows) {
                 if (!err) {
                     if (rows.length == 0) {
@@ -29,11 +28,9 @@ exports.login = function(req, res) {
                         });
                     }
                 } else {
-                    console.log("500");
                     console.log('error: ' + err);
                     res.send(500);
                 }
-                console.log("release");
                 db.release();
             });
         } else {

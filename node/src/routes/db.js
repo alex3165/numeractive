@@ -8,7 +8,7 @@ var util = require('util')
  * database configuration file path
  * @type {string}
  */
-var dbFilePath = "config/db.json";
+var dbFilePath = "src/config/db.json";
 /**
  * dbParams
  * @type {{host, port, user, password, database}}

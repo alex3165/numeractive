@@ -4,14 +4,14 @@ var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var routes = require('./routes');
+var routes = require('./src/routes');
 
-var post = require('./controllers/post');
-var category = require('./controllers/category');
-var user = require('./controllers/user');
+var post = require('./src/controllers/post');
+var category = require('./src/controllers/category');
+var user = require('./src/controllers/user');
 
 app.use(express.static(__dirname + '/public'));
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/src/views');
 app.set('view engine', 'jade');
 app.engine('jade', require('jade').__express);
 app.use(bodyParser.urlencoded({
