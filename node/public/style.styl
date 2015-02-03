@@ -1,31 +1,19 @@
-/****************
-    general
-****************/
- html, p, h1, h2, li, a {
+$light-grey = #eef1f3;
+$grey = #8d8e8e;
+$dark-grey = #515151;
+$middle-black = #282828; 
+
+
+$light-green = #00ebbe;
+$dark-green = #20b79a;
+
+$blue = #27b0ef;
+$red = #fc4d35;
+
+html, p, h1, h2, li, a {
     font-family:'Lato', sans-serif;
     font-weight: 400;
 }
-.fullslider {
-    background: url(../images/slider/bg1.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-.fullslider {
-    position: relative;
-    height: 100%;
-}
-.col-centered {
-    float: none;
-    margin: 0 auto;
-    text-align: center;
-}
-.mg-top {
-    margin-top: 80px;
-}
-
-
 .greencategory{
     color: #27ae60;
 }
@@ -59,176 +47,12 @@
 }
 
 
+@import 'layout';
 @import 'modules/admin/admin';
 @import 'modules/article/article';
 @import 'modules/category/category';
 @import 'modules/contact/contact';
 @import 'modules/head/head';
 @import 'modules/slider/slider';
-@import 'modules/articlespreview/articlespreview';
+@import 'modules/previewarticles/previewarticles';
 @import 'modules/login/login';
-
-
-/****************
-    body
-****************/
- .container-login {
-    padding-top: 10px;
-}
-.contain-menu {
-    margin-top: 70px;
-}
-.search{
-    border: none;
-    box-shadow: none;
-    background: none;
-    outline: none;
-    line-height: 40px;
-    font-size: 2em;
-    text-align: center;
-    height: 60px;
-    width: 100%;
-    margin: 0 auto;
-}
-.post {
-    text-align: left;
-    margin: 100px 0;
-}
-.postimage {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-    display: block;
-    margin-bottom: 14px;
-}
-.post .cat-container{
-    text-align: center;
-}
-.post .cat-container .category {
-
-}
-.post h2 {
-    font-weight: 800;
-    letter-spacing: 1px;
-    line-height: 40px;
-}
-.post p {
-    line-height: 26px;
-}
-.menu li {
-    list-style-type: none;
-    margin: 10px 0;
-}
-.menu li a {
-    text-decoration: none;
-}
-article {
-    margin: 100px 20px;
-}
-.seperate {
-    width: 200px;
-    height: 1px;
-    margin: 0 auto;
-    background-color: #000;
-}
-
-/************
-    Contact page
-************/
-.page-title{
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 40px;
-}
-/*****************/
-.avatar {
-    width: 100px;
-    height: 100px;
-    margin: 10px auto 30px;
-    border-radius: 100%;
-    border: 2px solid #aaa;
-    overflow: hidden;
-}
-.avatar img {
-    width: 50px;
-    height: 50px;
-    margin-top: 20px;
-}
-.form-box input {
-    width: 100%;
-    padding: 10px;
-    text-align: center;
-    height:40px;
-    border: 1px solid #ccc;
-    background: #fafafa;
-    transition:0.2s ease-in-out;
-}
-.form-box input:focus {
-    outline: 0;
-    background: #eee;
-}
-.form-box input[type="text"] {
-    border-radius: 5px 5px 0 0;
-    text-transform: lowercase;
-}
-.form-box input[type="password"] {
-    border-radius: 0 0 5px 5px;
-    border-top: 0;
-}
-.form-box button.login {
-    margin-top:15px;
-    padding: 10px 20px;
-}
-
-
- .animated {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-}
-@-webkit-keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        -webkit-transform: translateY(20px);
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-    }
-}
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        -webkit-transform: translateY(20px);
-        -ms-transform: translateY(20px);
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        -webkit-transform: translateY(0);
-        -ms-transform: translateY(0);
-        transform: translateY(0);
-    }
-}
-.fadeInUp {
-    -webkit-animation-name: fadeInUp;
-    animation-name: fadeInUp;
-}
-.modal {
-    overflow-y: hidden;
-}
-
-.articleimage{
-
-}
-.articleimage img{
-    width: 100%;
-}
-.article-glob{
-    text-align: left;
-    margin: 20px 0;
-}
