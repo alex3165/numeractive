@@ -45,7 +45,7 @@ exports.category = function(req, res) {
                 } else {
                     rows.forEach(function(post, i) {
                         posts.push({
-                            id: i,
+                            id: post.id,
                             title: post.title,
                             text: post.text.substr(0, 300) + ' ...',
                             img: post.img,
