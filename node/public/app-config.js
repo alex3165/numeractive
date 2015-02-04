@@ -49,13 +49,16 @@ require.config({
 
           /**
           *
-          * Services
+          * Services et directives
           *
           */
           'article-service': 'modules/article/article-service',
           'category-service': 'modules/category/category-service',
           'auth-service': 'modules/login/auth-service',
-          'user-service': 'modules/user/user-service'
+          'user-service': 'modules/user/user-service',
+          'slider-directive': 'modules/slider/slider-directive',
+          'ckeditor-directive': 'modules/article/article-edition-directive'
+
     },
 
     shim: {

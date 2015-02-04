@@ -18,6 +18,8 @@ define(function(require, exports, module) {
     var ArticleService = require('article-service');
     var CategoryService = require('category-service');
     var AuthService = require('auth-service');
+    var SliderDirective = require('slider-directive');
+    var CkeditorDirective = require('ckeditor-directive');
 
     var NumeractiveApplication = angular.module('numeractive', [
         'ui.router',
@@ -51,6 +53,9 @@ define(function(require, exports, module) {
     NumeractiveApplication.factory('ArticleService', ArticleService);
     NumeractiveApplication.factory('CategoryService', CategoryService);
     NumeractiveApplication.factory('AuthService', AuthService);
+
+    NumeractiveApplication.directive('slider', SliderDirective);
+    NumeractiveApplication.directive('ckeditor', CkeditorDirective);
 
     module.exports = angularAMD.bootstrap(NumeractiveApplication);
 

@@ -93,7 +93,6 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `creation`, `name`, `login`, `mdp`) VALUES
-(1, '2014-04-23 16:29:06', 0x616c6578616e647265, 'admin', '12ldhbh07'),
 (3, '2014-04-28 12:58:08', 0x6d617263656c696e6f, 'marcel', 'porcel');
 
 --
