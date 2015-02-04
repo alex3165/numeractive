@@ -3,7 +3,7 @@ var prompt = require('prompt');
 var jf = require('jsonfile');
 var fs = require('fs');
 var sha1 = require('sha1');
-var db = require('../routes/db');
+var db = require('../services/db');
 
 var NumeractiveInstaller = {};
 
@@ -32,7 +32,7 @@ var sqlFile = '../db/numeractive.sql';
  * Path to store mysql config file
  * @type {string}
  */
-var configFile = 'config/db.json';
+var configFile = 'src/config/db.json';
 
 
 /**
