@@ -7,6 +7,8 @@ var sha1 = require('sha1');
 var secret = '_G73l45n8X54xXx';
 
 exports.login = function(req, res) {
+    console.log(req.body.login);
+    console.log(req.body.mdp);
     var user = {
         login: req.body.login,
         mdp: sha1(req.body.mdp)
@@ -19,7 +21,6 @@ exports.login = function(req, res) {
                         console.log("401");
                         res.send(401);
                     } else if (user.mdp == rows[0].mdp) {
-                        console.log("OK");
                         res.send(200, {
                             token: jwt.encode({
                                 secret: user.login
