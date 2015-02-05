@@ -10,7 +10,7 @@ define(function(require, exports, module) {
                     url: '/api/login',
                     data: {
                         login: 'alex',
-                        password: '12ldhbh07'
+                        password: 'test'
                     }
                 })
                 .success(function (res, status, headers) {
