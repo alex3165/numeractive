@@ -11,7 +11,7 @@ define(function(require, exports, module) {
         }
         $scope.credentials = {
             login: '',
-            mdp: ''
+            password: ''
         };
         $scope.login = function(credentials) {
             AuthService.login(credentials).then(function() {

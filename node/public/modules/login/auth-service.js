@@ -5,8 +5,14 @@ define(function(require, exports, module) {
     function AuthService($http, user, $cookieStore) {
         return {
             login: function (credentials) {
-            return $http
-                .post('/api/login', credentials)
+                var request = $http({
+                    method: 'POST',
+                    url: '/api/login',
+                    data: {
+                        login: 'alex',
+                        password: '12ldhbh07'
+                    }
+                })
                 .success(function (res, status, headers) {
                     if (res.token != 'undefined'){
                         user.token = res.token;
@@ -15,9 +21,11 @@ define(function(require, exports, module) {
                         user.islogged = true;
                         $cookieStore.put("user", user);
                     }
-                }).error(function(err) {
-                    console.log(err);
+                }).error(function(data, status, headers, config) {
+                    console.log(data);
                 });
+
+                return request;
             },
             destroy: function(){
                 user.token = '';

@@ -6,6 +6,6 @@
 		.form-box
 			form(data-ng-submit="login(credentials)", novalidate)
 				input(name="login", type="text", data-ng-model="credentials.login", placeholder="login")
-				input(name="mdp", type="password", data-ng-model="credentials.mdp", placeholder="mdp")
+				input(name="mdp", type="password", data-ng-model="credentials.password", placeholder="password")
 				button.btn.btn-info.btn-block.log(type="submit" data-ng-disabled="connecting") login
 			#alerts-container
