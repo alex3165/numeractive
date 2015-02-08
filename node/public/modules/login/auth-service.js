@@ -5,15 +5,9 @@ define(function(require, exports, module) {
     function AuthService($http, user, $cookieStore) {
         return {
             login: function (credentials) {
-                var request = $http({
-                    method: 'POST',
-                    url: '/api/login',
-                    data: {
-                        login: 'alex',
-                        password: 'test'
-                    }
-                })
+                var request = $http.post('/api/login', credentials)
                 .success(function (res, status, headers) {
+                    console.log('request status : 'status);
                     if (res.token != 'undefined'){
                         user.token = res.token;
                         user.login = credentials.login;

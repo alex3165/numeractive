@@ -8,12 +8,11 @@ var secret = '_G73l45n8X54xXx';
 
 exports.login = function(req, res) {
 
-    console.log(req);
-
     var user = {
-        login: req.query.login,
-        password: sha1(req.query.password)
+        login: req.body.login,
+        password: sha1(req.body.password)
     };
+
     db.getConnection(function(err, db) {
         if (!err) {
             db.query('SELECT * FROM users WHERE login = ?', user.login, function(err, rows) {
