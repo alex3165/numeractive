@@ -1,10 +1,11 @@
 'use strict';
 
 var db = require('../services/db');
-var jwt = require('jwt-simple');
+// var jwt = require('jwt-simple');
 var sha1 = require('sha1');
+var authService = require('../services/auth');
 
-var secret = '_G73l45n8X54xXx';
+// var secret = '_G73l45n8X54xXx';
 
 exports.login = function(req, res) {
 
@@ -22,9 +23,7 @@ exports.login = function(req, res) {
                         res.send(401);
                     } else if (user.password == rows[0].mdp) {
                         res.send(200, {
-                            token: jwt.encode({
-                                secret: user.login
-                            }, secret),
+                            token: authService.createToken(rows[0].login),
                             userid: rows[0].id
                         });
                     }

@@ -73,13 +73,13 @@ exports.addCategory = function(req, res) {
     var user_token = req.body.token;
     db.getConnection(function(err, db) {
         if (!err && user_token) {
-            try {
-                var decoded = jwt.decode(user_token, app.get('jwtTokenSecret'));
-                console.log(decoded);
-            } catch (err) {
-                console.log('error: ' + err);
-                res.send(500);
-            }
+            // try {
+            //     var decoded = jwt.decode(user_token, app.get('jwtTokenSecret'));
+            //     console.log(decoded);
+            // } catch (err) {
+            //     console.log('error: ' + err);
+            //     res.send(500);
+            // }
             db.query('INSERT INTO categories SET ?', newCategory, function(err, rows) {
                 if (err) {
                     console.log('error: ' + err);

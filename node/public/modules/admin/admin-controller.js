@@ -6,7 +6,7 @@ define(function(require, exports, module) {
         if (typeof AuthService.getCookie() != "undefined") {
             user = AuthService.getCookie();
         }
-
+        
         $scope.user = user;
 
         $scope.disconnect = function(){

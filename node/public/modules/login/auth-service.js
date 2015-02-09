@@ -7,7 +7,7 @@ define(function(require, exports, module) {
             login: function (credentials) {
                 var request = $http.post('/api/login', credentials)
                 .success(function (res, status, headers) {
-                    console.log('request status : 'status);
+                    console.log('request status : '+status);
                     if (res.token != 'undefined'){
                         user.token = res.token;
                         user.login = credentials.login;

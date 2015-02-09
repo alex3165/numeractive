@@ -6,5 +6,7 @@ doctype html
 		li(data-ng-repeat="(i, category) in categories track by $index", role="presentation")
 			a(data-ui-sref='categories.list({categoryId: i})') {{category.type}}
 			span(data-ng-if="user.islogged", data-ng-click="removeCategory(category.id)") remove
-	input(type="text", data-ng-if="user.islogged", width="200")
+	form(novalidate)
+		input(type="text", width="200", data-ng-model="newcat")
+		button(type="submit", width="200", data-ng-click="addCategory(newcat)") Add
 main(data-ui-view)

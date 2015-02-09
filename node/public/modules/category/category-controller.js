@@ -2,7 +2,10 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    function CategoryController($scope, user, CategoryService, $state) {
+    function CategoryController($scope, user, CategoryService, $state, AuthService) {
+    	if (typeof AuthService.getCookie() != "undefined") {
+            user = AuthService.getCookie();
+        }
 		$scope.user = user;
 		$scope.removeCategory = function(categoryId) {
 		    CategoryService.removeCategory(categoryId).success(function(res, status, headers){
@@ -12,9 +15,13 @@ define(function(require, exports, module) {
 		        console.log(err);
 		    });
 		}
+
+		$scope.addCategory = function(newcat) {
+			CategoryService.addCategory(newcat);
+		}
     }
 
-    CategoryController.$inject = ['$scope', 'user', 'CategoryService', '$state'];
+    CategoryController.$inject = ['$scope', 'user', 'CategoryService', '$state', 'AuthService'];
 
     module.exports = CategoryController;
 });
