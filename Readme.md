@@ -8,15 +8,17 @@ Numeractive is a collaborative blog based on NodeJs and AngularJs/ExpressJs. The
 
 - go in node directory <pre>cd numeractive/node/</pre>
 
-- <pre>npm install</pre>
+- Install node packages <pre>npm install</pre>
 
-- Run database installer, some questions will be asked <pre>npm console database</pre>
+- Install bower packages <pre>bower install</pre>
 
-- Add admin user <pre>npm console add:admin</pre>
+- Run database installer, some questions will be asked <pre>node console database</pre>
+
+- Add admin user <pre>node console add:admin</pre>
 
 - Install bower modules from public directory <pre>bower install</pre>
 
-- Start node server (forever installed globally needed: npm install forever -g)<pre>forever -w app.js</pre> 
+- Start node server (forever installed globally needed: node install forever -g)<pre>forever -w app.js</pre> 
 
 ## Notes
 
