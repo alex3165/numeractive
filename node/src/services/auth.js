@@ -33,7 +33,7 @@ module.exports = {
         return new Promise(function(resolve, reject) {
             db.getConnection(function(err, db) {
                 if (!err) {
-                    db.query('SELECT * INTO user WHERE login=?',login , function(err, rows) {
+                    db.query('SELECT * FROM user WHERE login=?',login , function(err, rows) {
                         if(!err && rows.length >= 1) {
                             resolve(rows[0]);
                         }else {

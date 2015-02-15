@@ -4,6 +4,8 @@
 var db = require('../services/db');
 var jwt = require('jwt-simple');
 
+// var AuthService = re
+
 /*
 *
 *  CATEGORIES
@@ -70,7 +72,7 @@ exports.addCategory = function(req, res) {
     };
     console.log(req.body.type);
 
-    var user_token = req.body.token;
+    // var user_token = req.body.token;
     db.getConnection(function(err, db) {
         if (!err && user_token) {
             // try {
