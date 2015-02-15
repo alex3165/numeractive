@@ -1,6 +1,7 @@
 'use strict';
 
 var db = require('../services/db');
+var log = require('../services/loginfo');
 // var jwt = require('jwt-simple');
 var sha1 = require('sha1');
 var authService = require('../services/auth');
@@ -19,7 +20,7 @@ exports.login = function(req, res) {
             db.query('SELECT * FROM users WHERE login = ?', user.login, function(err, rows) {
                 if (!err) {
                     if (rows.length == 0) {
-                        console.log("401");
+                        log.info('Someone tried to login with bad credentials... This incident will be reported (or not ?)');
                         res.send(401);
                     } else if (user.password == rows[0].mdp) {
                         res.send(200, {
@@ -28,13 +29,13 @@ exports.login = function(req, res) {
                         });
                     }
                 } else {
-                    console.log('error: ' + err);
+                    log.error(err);
                     res.send(500);
                 }
                 db.release();
             });
         } else {
-            console.log('error: ' + err);
+            log.error(err);
             res.send(500);
         }
     });

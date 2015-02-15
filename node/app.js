@@ -1,10 +1,12 @@
 'use strict';
 
+var PORT = 8080
+
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
 var routes  = require('./src/config/routes');
-var chalk = require('chalk');
+var log = require('./src/services/loginfo');
 
 var app = express();
 
@@ -20,7 +22,7 @@ app.set('views', __dirname + '/src/views');
 app.set('view engine', 'jade');
 app.engine('jade', require('jade').__express);
 
-app.listen(8080);
+app.listen(PORT);
 
 /**
 *
@@ -29,4 +31,4 @@ app.listen(8080);
 *
 */
 
-console.log(chalk.green('Application start'));
+log.info('Application start on ' + PORT);
