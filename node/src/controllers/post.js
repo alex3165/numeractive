@@ -1,6 +1,7 @@
 'use strict';
 
 var db = require('../services/db');
+var log = require('../services/loginfo');
 
 exports.posts = function(req, res) {
     var posts = [];
@@ -71,14 +72,14 @@ exports.addPost = function(req, res) {
         if (!err && user_token) {
             try {
                 var decoded = jwt.decode(user_token, app.get('jwtTokenSecret'));
-                console.log(decoded);
+                log.debug(decoded);
             } catch (err) {
-                console.log('error: ' + err);
+		log.error(err);
                 res.send(500);
             }
             db.query('INSERT INTO posts SET ?', newpost, function(err, rows) {
                 if (err) {
-                    console.log('error: ' + err);
+		    log.error(err);
                     res.send(500);
                 } else {
                     res.send(200);
@@ -86,7 +87,7 @@ exports.addPost = function(req, res) {
                 db.release();
             });
         } else {
-            console.log('error: ' + err);
+            log.error(err);
             res.send(500);
         }
     });
@@ -107,7 +108,7 @@ exports.editPost = function(req, res) {
     db.getConnection(function(err, db) {
         if (!err) {
             db.query('UPDATE posts set ? WHERE id=?', [newpost, id], function(err, rows) {
-                console.log(rows);
+		log.debug(rows);
                 if (err) {
                     res.send(404, {
                         status: "Error"

@@ -2,6 +2,7 @@
 
 
 var db = require('../services/db');
+var log = require('../services/loginfo');
 var jwt = require('jwt-simple');
 
 // var AuthService = re
@@ -70,7 +71,8 @@ exports.addCategory = function(req, res) {
         type: req.body.type,
         color: req.body.color
     };
-    console.log(req.body.type);
+
+    log.debug(req.body.type);
 
     // var user_token = req.body.token;
     db.getConnection(function(err, db) {
@@ -84,7 +86,7 @@ exports.addCategory = function(req, res) {
             // }
             db.query('INSERT INTO categories SET ?', newCategory, function(err, rows) {
                 if (err) {
-                    console.log('error: ' + err);
+		    log.error(err);
                     res.send(500);
                 } else {
                     res.send(200);
@@ -92,7 +94,7 @@ exports.addCategory = function(req, res) {
                 db.release();
             });
         } else {
-            console.log('error: ' + err);
+            log.error(err);
             res.send(500);
         }
     });

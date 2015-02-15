@@ -10,8 +10,6 @@ Numeractive is a collaborative blog based on NodeJs and AngularJs/ExpressJs. The
 
 - Install node packages <pre>npm install</pre>
 
-- Install bower packages <pre>bower install</pre>
-
 - Run database installer, some questions will be asked <pre>node console database</pre>
 
 - Add admin user <pre>node console add:admin</pre>

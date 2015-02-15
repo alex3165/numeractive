@@ -2,6 +2,7 @@ var jwt = require('jwt-simple');
 var moment = require('moment');
 var db = require('./db');
 var Promise = require('promise');
+var log = require('../services/loginfo');
 
 module.exports = {
     secret: '_G73l45n8X54xXx',
@@ -42,8 +43,8 @@ module.exports = {
                         db.release();
                     });
                 } else {
+		    log.error(err);
                     reject(err);
-                    console.log('error: ' + err);
                 }
             });
         });
