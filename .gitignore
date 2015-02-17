@@ -2,3 +2,4 @@ node/node_modules
 node/public/bower_components
 *.DS_Store
 node/src/config/db.json
+node/public/images/upload/*

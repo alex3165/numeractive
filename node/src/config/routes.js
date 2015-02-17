@@ -4,6 +4,7 @@ var partials = require('../controllers/partials');
 var index = require('../controllers/index');
 var post = require('../controllers/post');
 var category = require('../controllers/category');
+var images = require('../controllers/images');
 var user = require('../controllers/user');
 
 module.exports = function (app) {
@@ -27,6 +28,11 @@ module.exports = function (app) {
     app.delete('/api/category/:id', category.deleteCategory);
     app.put('/api/category/:id', category.editCategory);
 
+    /* images */
+    app.get('/api/images', images.images); // Get all images
+    app.get('/api/image/:id', images.image); // Get selected image
+    app.post('/api/image', images.uploadImage);
+    app.delete('/api/image/:id', images.deleteImage);
 
     /* Users */
     app.get('/api/users', user.users); // Get all users

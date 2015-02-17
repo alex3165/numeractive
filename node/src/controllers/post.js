@@ -3,10 +3,10 @@
 var db = require('../services/db');
 var log = require('../services/loginfo');
 
-var getPostQuery = {sql: 'SELECT post.id, post.title, post.text, post.creation, cat.type, cat.color, image.name, image.path ' +
+var postQuery = {sql: 'SELECT post.id, post.title, post.text, post.creation, cat.type, cat.color, image.name, image.path ' +
                     'FROM posts AS post INNER JOIN categories AS cat INNER JOIN images AS image', nestTables: true };
 
-function serializePost(row) {
+function serialize(row) {
     return {
         id: row.post.id,
         title: row.post.title,
@@ -17,7 +17,7 @@ function serializePost(row) {
     }
 }
 
-function unserializePost(data) {
+function unserialize(data) {
     return {
         title: data.title,
         text: data.text,
@@ -31,12 +31,12 @@ exports.posts = function(req, res) {
     var posts = [];
     db.getConnection(function(err, db) {
         if (!err) {
-            db.query(getPostQuery, function(err, rows) {
+            db.query(postQuery, function(err, rows) {
                 if (err) {
                     res.send(500, err);
                 } else {
                     rows.forEach(function(row, i) {
-                        posts.push(serializePost(row));
+                        posts.push(serialize(row));
                     });
                     res.send(posts);
                 }
@@ -52,12 +52,15 @@ exports.post = function(req, res) {
     var id = req.param('id');
     db.getConnection(function(err, db) {
         if (!err) {
-            getPostQuery.sql += ' WHERE post.id = ?';
-            db.query(getPostQuery, id, function(err, rows) {
+            var query = postQuery;
+            query.sql += ' WHERE post.id = ?';
+            db.query(query, id, function(err, rows) {
                 if (err) {
                     res.send(500, err);
+                } else if (rows.length == 0) {
+                    res.send(404);
                 } else {
-                    res.send(serializePost(rows[0]));
+                    res.send(serialize(rows[0]));
                 }
                 db.release();
             });
@@ -69,7 +72,7 @@ exports.post = function(req, res) {
 
 exports.addPost = function(req, res) {
 
-    var newpost = unserializePost(req.body);
+    var newpost = unserialize(req.body);
     var user_token = req.body.token;
 
     db.getConnection(function(err, db) {
@@ -100,7 +103,7 @@ exports.addPost = function(req, res) {
 exports.editPost = function(req, res) {
 
     var id = req.params.id;
-    var newpost = unserializePost(req.body);
+    var newpost = unserialize(req.body);
 
     db.getConnection(function(err, db) {
         if (!err) {
