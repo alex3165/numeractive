@@ -44,12 +44,12 @@ exports.login = function(req, res) {
 exports.users = function(req, res) {
     db.getConnection(function(err, db) {
         if (!err) {
-            db.query('SELECT * FROM users', function(err, rows) {
+            db.query('SELECT id, creation, name, login FROM users', function(err, rows) {
                 if (err) {
                     res.send(err);
                 } else {
                     res.send({
-                        posts: rows
+                        users: rows
                     });
                 }
                 db.release();
@@ -64,12 +64,12 @@ exports.user = function(req, res) {
     var login = req.param('login');
     db.getConnection(function(err, db) {
         if (!err) {
-            db.query('SELECT * FROM users WHERE login=?', login, function(err, rows) {
+            db.query('SELECT id, creation, name, login FROM users WHERE login=?', login, function(err, rows) {
                 if (err) {
                     res.send(err);
                 } else {
                     res.send({
-                        posts: rows
+                        user: rows
                     });
                 }
                 db.release();
