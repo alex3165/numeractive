@@ -13,7 +13,10 @@ require.config({
           'angular-sanatize': 'bower_components/angular-sanitize/angular-sanitize.min',
           'angular-cookie': 'bower_components/angular-cookies/angular-cookies.min',
           'angular-strap': 'bower_components/angular-strap/dist/angular-strap.min',
+          'angular-file-upload': 'bower_components/ng-file-upload/angular-file-upload',
           'ckeditor': 'bower_components/ckeditor/ckeditor',
+          'jquery': 'bower_components/jquery/dist/jquery',
+          'underscore': 'bower_components/underscore/underscore',
 
           /**
           *
@@ -53,6 +56,7 @@ require.config({
           *
           */
           'article-service': 'modules/article/article-service',
+          'addarticle-service': 'modules/addarticle/addarticle-service',
           'category-service': 'modules/category/category-service',
           'auth-service': 'modules/login/auth-service',
           'user-service': 'modules/user/user-service',
@@ -69,8 +73,9 @@ require.config({
         'angular-ui-router': ['angular'],
         'angular-strap': ['angular'],
         'router': ['angular', 'angular-ui-router'],
-        'app': ['angular', 'angular-ui-router', 'angular-animate', 'angular-sanatize', 'angular-cookie', 'angular-strap']
+        'angular-file-upload': ['angular'],
+        'app': ['angular', 'angular-ui-router', 'angular-animate', 'angular-sanatize', 'angular-cookie', 'angular-strap', 'angular-file-upload']
     },
 
-    deps: ['app']
+    deps: ['jquery', 'app']
 });

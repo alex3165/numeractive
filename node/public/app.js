@@ -16,6 +16,7 @@ define(function(require, exports, module) {
     var UserModel = require('user-model');
 
     var ArticleService = require('article-service');
+    var AddArticleService = require('addarticle-service');
     var CategoryService = require('category-service');
     var AuthService = require('auth-service');
     var SliderDirective = require('slider-directive');
@@ -26,7 +27,8 @@ define(function(require, exports, module) {
         'ngAnimate',
         'mgcrea.ngStrap',
         'ngSanitize',
-        'ngCookies'
+        'ngCookies',
+        'angularFileUpload'
     ]);
     NumeractiveApplication.constant('AUTH_EVENTS', {
             loginSuccess: 'auth-login-success',
@@ -39,18 +41,19 @@ define(function(require, exports, module) {
 
     NumeractiveApplication.config(NumeractiveRouter);
 
-    NumeractiveApplication.controller('SliderController', SliderController);
-    NumeractiveApplication.controller('categories', CategoryController);
-    NumeractiveApplication.controller('loginController', LoginController);
-    NumeractiveApplication.controller('article', ArticleController);
-    NumeractiveApplication.controller('newArticle', AddArticleController);
-    NumeractiveApplication.controller('home', PreviewArticlesController);
-    NumeractiveApplication.controller('AdminController', AdminController);
+    NumeractiveApplication.controller('SliderCtrl', SliderController);
+    NumeractiveApplication.controller('CategoriesCtrl', CategoryController);
+    NumeractiveApplication.controller('LoginCtrl', LoginController);
+    NumeractiveApplication.controller('ArticleCtrl', ArticleController);
+    NumeractiveApplication.controller('NewArticleCtrl', AddArticleController);
+    NumeractiveApplication.controller('HomeCtrl', PreviewArticlesController);
+    NumeractiveApplication.controller('AdminCtrl', AdminController);
 
     NumeractiveApplication.value('article', ArticleModel);
     NumeractiveApplication.value('user', UserModel);
 
     NumeractiveApplication.factory('ArticleService', ArticleService);
+    NumeractiveApplication.factory('AddArticleService', AddArticleService);
     NumeractiveApplication.factory('CategoryService', CategoryService);
     NumeractiveApplication.factory('AuthService', AuthService);
 

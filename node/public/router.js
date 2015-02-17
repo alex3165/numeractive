@@ -25,7 +25,7 @@ define(function(require, exports, module) {
             .state('categories.home', {
                 url: '/',
                 templateUrl: 'partials/articles',
-                controller: 'home',
+                controller: 'HomeCtrl',
                 resolve: {
                     posts: ['$http',
                         function($http) {
@@ -39,7 +39,7 @@ define(function(require, exports, module) {
             .state('categories.list', {
                 url: '/cat/:categoryId',
                 templateUrl: 'partials/articles',
-                controller: 'home',
+                controller: 'HomeCtrl',
                 resolve: {
                     posts: ['$stateParams', '$http',
                         function($stateParams, $http) {
@@ -54,7 +54,7 @@ define(function(require, exports, module) {
             .state('categories.article', {
                 url: '/article/:articleId',
                 templateUrl: 'partials/article',
-                controller: 'article',
+                controller: 'ArticleCtrl',
                 resolve: {
                     post: ['$stateParams', '$http',
                         function($stateParams, $http) {
@@ -69,12 +69,12 @@ define(function(require, exports, module) {
             .state('login', {
                 url: '/login',
                 templateUrl: 'partials/login',
-                controller: 'loginController'
+                controller: 'LoginCtrl'
             })
             .state('newArticle', {
                 url: '/add',
                 templateUrl: 'partials/newArticle',
-                controller: 'newArticle',
+                controller: 'NewArticleCtrl',
                 resolve: {
                     categories: ['$http', function($http){
                         return $http.get('/api/categories').then(function(res) {
@@ -86,7 +86,7 @@ define(function(require, exports, module) {
             .state('contact', {
                 url: '/contact',
                 templateUrl: 'partials/contact',
-                controller: 'contact'
+                controller: 'ContactCtrl'
             });
     }
 

@@ -2,11 +2,17 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    function AddArticleController($scope, user, $state, AuthService, article, ArticleService, categories) {
+    function AddArticleController($scope, user, $state, AuthService, article, ArticleService, categories, AddArticleService) {
         $scope.categories = categories;
         if (typeof AuthService.getCookie() != "undefined") {
             user = AuthService.getCookie();
         }
+
+        $scope.$watch('files', function () {
+            $scope.upload($scope.files);
+        });
+
+        $scope.upload = AddArticleService.upload;
 
         if (user.islogged) {
             $scope.submit = function(){
@@ -25,7 +31,7 @@ define(function(require, exports, module) {
         }
     }
 
-    AddArticleController.$inject = ['$scope', 'user', '$state', 'AuthService', 'article', 'ArticleService', 'categories'];
+    AddArticleController.$inject = ['$scope', 'user', '$state', 'AuthService', 'article', 'ArticleService', 'categories', 'AddArticleService', '$upload'];
 
     module.exports = AddArticleController;
 });

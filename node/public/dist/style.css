@@ -93,6 +93,19 @@ article .article-glob .article-full p {
 article .article-glob .articleimage img {
   width: 100%;
 }
+.file__upload__wrapper {
+  width: 100%;
+  margin: 10px auto;
+}
+.file__upload__wrapper button {
+  float: left;
+}
+.file__upload__wrapper .drop-box {
+  margin-left: 20px;
+  float: left;
+  padding: 5px 20px;
+  border: 1px dashed #808080;
+}
 .contain-menu {
   margin-top: 70px;
 }
