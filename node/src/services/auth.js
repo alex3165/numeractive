@@ -22,9 +22,9 @@ module.exports = {
         var that = this;
         return new Promise(function(resolve, reject) {
             var decoded = jwt.decode(token, that.secret);
-            that.hasUserPromise(decoded.iss).done(function(user) {
+            that.hasUserPromise(decoded.iss).then(function(user) {
                 resolve(user);
-            }).error(function() {
+            }, function() {
                 reject();
             });
         });

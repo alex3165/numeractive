@@ -6,9 +6,9 @@ doctype html
 			a.backlink(data-ui-sref='categories.home') retour
 		.article-glob
 			span(ng-click="removeAction()", data-ng-if="user.islogged") X
-			.articleimage.col-centered(data-ng-class="post.colorcat + 'shadow'")
-				img(src="{{post.img}}",alt="post image")
-			span.category {{post.category}}
+			.articleimage.col-centered(data-ng-class="post.category.color + 'shadow'")
+				img(src="{{post.image.path}}",alt="{{post.image.name}}")
+			span.category {{post.category.name}}
 			h2.title {{post.title}}
 			div(data-ng-if="user.islogged")
 				p.article-full(data-ckedit="post.text")

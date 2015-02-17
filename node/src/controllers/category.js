@@ -3,7 +3,8 @@
 
 var db = require('../services/db');
 var log = require('../services/loginfo');
-var jwt = require('jwt-simple');
+// var jwt = require('jwt-simple');
+var auth = require('../services/auth');
 
 // var AuthService = re
 
@@ -74,24 +75,20 @@ exports.addCategory = function(req, res) {
 
     log.debug(req.body.type);
 
-    // var user_token = req.body.token;
+    var user_token = req.body.token;
     db.getConnection(function(err, db) {
-        if (!err && user_token) {
-            // try {
-            //     var decoded = jwt.decode(user_token, app.get('jwtTokenSecret'));
-            //     console.log(decoded);
-            // } catch (err) {
-            //     console.log('error: ' + err);
-            //     res.send(500);
-            // }
-            db.query('INSERT INTO categories SET ?', newCategory, function(err, rows) {
-                if (err) {
-		    log.error(err);
-                    res.send(500);
-                } else {
-                    res.send(200);
-                }
-                db.release();
+        if (!err) {
+            auth.isAuthenticated(user_token).then(function(status){
+                log.info(status);
+                db.query('INSERT INTO categories SET ?', newCategory, function(err, rows) {
+                    if (err) {
+                        log.error(err);
+                        res.send(500);
+                    } else {
+                        res.send(200);
+                    }
+                    db.release();
+                });
             });
         } else {
             log.error(err);

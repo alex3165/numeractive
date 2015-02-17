@@ -32,6 +32,7 @@ exports.posts = function(req, res) {
     db.getConnection(function(err, db) {
         if (!err) {
             db.query(postQuery, function(err, rows) {
+                // log.info(rows);
                 if (err) {
                     res.send(500, err);
                 } else {

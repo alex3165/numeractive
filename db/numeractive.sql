@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `id` int(255) unsigned NOT NULL,
   `title` text CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `text` mediumtext CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `creation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `creation` datetime NOT NULL,
   `id_cat` int(255) NOT NULL,
   `id_user` int(255) NOT NULL,
   `id_image` int(255) NOT NULL
@@ -99,7 +99,7 @@ INSERT INTO `posts` (`id`, `title`, `text`, `creation`, `id_cat`, `id_user`, `id
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(255) NOT NULL,
-  `creation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `creation` datetime NOT NULL,
   `name` tinytext COLLATE utf8_bin NOT NULL,
   `login` varchar(30) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `mdp` char(128) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL
