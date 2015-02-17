@@ -4,7 +4,7 @@ var db = require('../services/db');
 var log = require('../services/loginfo');
 
 var postQuery = {sql: 'SELECT post.id, post.title, post.text, post.creation, cat.type, cat.color, image.name, image.path ' +
-                    'FROM posts AS post INNER JOIN categories AS cat INNER JOIN images AS image', nestTables: true };
+                    'FROM posts AS post INNER JOIN categories AS cat ON post.id_cat = cat.id INNER JOIN images AS image ON post.id_image = image.id ', nestTables: true };
 
 function serialize(row) {
     return {
@@ -32,7 +32,6 @@ exports.posts = function(req, res) {
     db.getConnection(function(err, db) {
         if (!err) {
             db.query(postQuery, function(err, rows) {
-                // log.info(rows);
                 if (err) {
                     res.send(500, err);
                 } else {
