@@ -2,6 +2,7 @@
 
 var db = require('../services/db');
 var log = require('../services/loginfo');
+var AuthService = require('../services/auth');
 
 var postQuery = {sql: 'SELECT post.id, post.title, post.text, post.creation, cat.type, cat.color, image.name, image.path ' +
                     'FROM posts AS post INNER JOIN categories AS cat ON post.id_cat = cat.id INNER JOIN images AS image ON post.id_image = image.id ', nestTables: true };
@@ -75,28 +76,25 @@ exports.addPost = function(req, res) {
     var newpost = unserialize(req.body);
     var user_token = req.body.token;
 
-    db.getConnection(function(err, db) {
-        if (!err && user_token) {
-            try {
-                var decoded = jwt.decode(user_token, app.get('jwtTokenSecret'));
-                log.debug(decoded);
-            } catch (err) {
+    AuthService.isAuthenticated(user_token).then(function(){
+        db.getConnection(function(err, db) {
+            if (!err) {
+                db.query('INSERT INTO posts SET ?', newpost, function(err, rows) {
+                    if (err) {
+                        log.error(err);
+                        res.send(500);
+                    } else {
+                        res.send(200);
+                    }
+                    db.release();
+                });
+            } else {
                 log.error(err);
                 res.send(500);
             }
-            db.query('INSERT INTO posts SET ?', newpost, function(err, rows) {
-                if (err) {
-                    log.error(err);
-                    res.send(500);
-                } else {
-                    res.send(200);
-                }
-                db.release();
-            });
-        } else {
-            log.error(err);
-            res.send(500);
-        }
+        });
+    }, function(){
+        res.send(401);
     });
 };
 
@@ -104,47 +102,57 @@ exports.editPost = function(req, res) {
 
     var id = req.params.id;
     var newpost = unserialize(req.body);
+    var user_token = req.body.token;
 
-    db.getConnection(function(err, db) {
-        if (!err) {
-            db.query('UPDATE posts SET ? WHERE id = ?', [newpost, id], function(err, rows) {
-                log.debug(rows);
-                if (err) {
-                    res.send(404, {
-                        status: "Error"
-                    });
-                } else {
-                    res.send({
-                        status: "Success",
-                        description: "Post updated"
-                    });
-                }
-                db.release();
-            });
-        } else {
-            res.send(404, err);
-        }
+    AuthService.isAuthenticated(user_token).then(function(){
+        db.getConnection(function(err, db) {
+            if (!err) {
+                db.query('UPDATE posts SET ? WHERE id = ?', [newpost, id], function(err, rows) {
+                    log.debug(rows);
+                    if (err) {
+                        res.send(404, {
+                            status: "Error"
+                        });
+                    } else {
+                        res.send({
+                            status: "Success",
+                            description: "Post updated"
+                        });
+                    }
+                    db.release();
+                });
+            } else {
+                res.send(404, err);
+            }
+        });
+    }, function(){
+        res.send(401);
     });
 };
 
 exports.deletePost = function(req, res) {
     var id = req.param('id');
-    db.getConnection(function(err, db) {
-        if (!err) {
-            db.query('DELETE FROM posts WHERE id = ?', id, function(err, rows) {
-                if (err) {
-                    res.send(404, {
-                        status: "error"
-                    });
-                } else {
-                    res.send({
-                        status: "success"
-                    });
-                }
-                db.release();
-            });
-        } else {
-            res.send(500, err);
-        }
+
+    AuthService.isAuthenticated(user_token).then(function(){
+        db.getConnection(function(err, db) {
+            if (!err) {
+                db.query('DELETE FROM posts WHERE id = ?', id, function(err, rows) {
+                    if (err) {
+                        res.send(404, {
+                            status: "error"
+                        });
+                    }else {
+                        res.send({
+                            status: "success"
+                        });
+                    }
+                    db.release();
+                });
+            }else {
+                res.send(500, err);
+            }
+        });
+    }, function(){
+        res.send(401);
     });
 };

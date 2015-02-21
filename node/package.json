@@ -15,12 +15,14 @@
     "jquery": "2.1.0",
     "jsonfile": "~2.0.0",
     "jwt-simple": "^0.2.0",
+    "mocha": "^2.1.0",
     "moment": "^2.9.0",
     "mysql": "~2.1.1",
     "ng-infinite-scroll": "~1.0.0",
     "promise": "^6.1.0",
     "prompt": "~0.2.14",
     "q": "^1.1.2",
+    "request": "^2.53.0",
     "sha1": "~1.1.0"
   },
   "devDependencies": {

@@ -24,8 +24,8 @@ module.exports = {
             var decoded = jwt.decode(token, that.secret);
             that.hasUserPromise(decoded.iss).then(function(user) {
                 resolve(user);
-            }, function() {
-                reject();
+            }, function(err) {
+                reject(err);
             });
         });
     },
@@ -34,16 +34,16 @@ module.exports = {
         return new Promise(function(resolve, reject) {
             db.getConnection(function(err, db) {
                 if (!err) {
-                    db.query('SELECT * FROM user WHERE login=?',login , function(err, rows) {
+                    db.query('SELECT * FROM users WHERE login=?',login , function(err, rows) {
                         if(!err && rows.length >= 1) {
                             resolve(rows[0]);
                         }else {
-                            reject();
+                            reject(err);
                         };
                         db.release();
                     });
-                } else {
-		    log.error(err);
+                }else {
+		            log.error(err);
                     reject(err);
                 }
             });

@@ -3,10 +3,7 @@
 
 var db = require('../services/db');
 var log = require('../services/loginfo');
-// var jwt = require('jwt-simple');
-var auth = require('../services/auth');
-
-// var AuthService = re
+var AuthService = require('../services/auth');
 
 /*
 *
@@ -14,6 +11,11 @@ var auth = require('../services/auth');
 * 
 */
 
+/**
+*
+* Return all categories
+*
+*/
 exports.categories = function(req, res) {
     var categories = [];
     db.getConnection(function(err, db) {
@@ -38,6 +40,11 @@ exports.categories = function(req, res) {
     });
 };
 
+/**
+*
+* Return category from id
+*
+*/
 exports.category = function(req, res) {
     var id_cat = req.param('id');
     var posts = [];
@@ -66,6 +73,11 @@ exports.category = function(req, res) {
     });
 };
 
+/**
+*
+* Add a category to the database
+*
+*/
 exports.addCategory = function(req, res) {
 
     var newCategory = {
@@ -76,9 +88,10 @@ exports.addCategory = function(req, res) {
     log.debug(req.body.type);
 
     var user_token = req.body.token;
+
     db.getConnection(function(err, db) {
         if (!err) {
-            auth.isAuthenticated(user_token).then(function(status){
+            AuthService.isAuthenticated(user_token).then(function(status){
                 log.info(status);
                 db.query('INSERT INTO categories SET ?', newCategory, function(err, rows) {
                     if (err) {
@@ -89,6 +102,8 @@ exports.addCategory = function(req, res) {
                     }
                     db.release();
                 });
+            }, function(){
+                res.send(401);
             });
         } else {
             log.error(err);
@@ -97,63 +112,87 @@ exports.addCategory = function(req, res) {
     });
 };
 
+/**
+*
+* Delete category from the database
+*
+*/
 exports.deleteCategory = function(req, res) {
     var id = req.params.id;
-    db.getConnection(function(err, db){
-        if (!err) {
-            db.query('DELETE categories FROM categories WHERE id_cat=?', id, function(err, rows){
-                if (!err) {
-                    res.send({
-                        status: 'success',
-                        description: 'Category deleted'
-                    });
-                }else {
-                    if (err.code === "ER_ROW_IS_REFERENCED_") {
-                        res.send(200, {
-                            status: 'impossible',
-                            description: 'Impossible de supprimer la catégorie car elle contient des articles'
+    var user_token = req.body.token;
+
+    AuthService.isAuthenticated(user_token).then(function(){
+        db.getConnection(function(err, db){
+            if (!err) {
+                db.query('DELETE categories FROM categories WHERE id_cat=?', id, function(err, rows){
+                    if (!err) {
+                        res.send({
+                            status: 'success',
+                            description: 'Category deleted'
                         });
                     }else {
-                        res.send(404, {
-                            status: 'error',
-                            description: err
-                        });
+                        if (err.code === "ER_ROW_IS_REFERENCED_") {
+                            res.send(200, {
+                                status: 'impossible',
+                                description: 'Impossible de supprimer la catégorie car elle contient des articles'
+                            });
+                        }else {
+                            res.send(404, {
+                                status: 'error',
+                                description: err
+                            });
+                        }
                     }
-                }
-                db.release();
-            });
-        }else{
-            res.send(404, {
-                status: 'error',
-                description: err
-            });
-        }
+                    db.release();
+                });
+            }else{
+                res.send(404, {
+                    status: 'error',
+                    description: err
+                });
+            }
+        });
+    }, function(){
+        res.send(401);
     });
+
 };
 
+/**
+*
+* Edit category from the database
+*
+*/
 exports.editCategory = function(req, res) {
     var id = req.params.id;
     var newCategory = {
         type: req.body.type,
         color: req.body.color
     };
-    db.getConnection(function(err, db) {
-        if (!err) {
-            db.query('UPDATE categories set ? WHERE id=?', [newCategory, id], function(err, rows) {
-                if (err) {
-                    res.send(404, {
-                        status: "Error"
-                    });
-                } else {
-                    res.send({
-                        status: "Success",
-                        description: "Category updated"
-                    });
-                }
-                db.release();
-            });
-        } else {
-            res.send(404, err);
-        }
+
+    var user_token = req.body.token;
+
+    AuthService.isAuthenticated(user_token).then(function(){
+        db.getConnection(function(err, db) {
+            if (!err) {
+                db.query('UPDATE categories set ? WHERE id=?', [newCategory, id], function(err, rows) {
+                    if (err) {
+                        res.send(404, {
+                            status: "Error"
+                        });
+                    } else {
+                        res.send({
+                            status: "Success",
+                            description: "Category updated"
+                        });
+                    }
+                    db.release();
+                });
+            } else {
+                res.send(404, err);
+            }
+        });
+    }, function(){
+        res.send(401);
     });
 };
