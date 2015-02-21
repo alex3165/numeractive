@@ -4,14 +4,10 @@ define(function(require, exports, module) {
 
     function ArticleService($http, user) {
         return {
-            addArticle: function(article){
-                return $http.post('/api/post',article).success(function(res, status, headers){
-                    console.log(res);
-                }).error(function(err){
-                    console.log(err);
-                });
-            },
             removeArticle: function(articleId) {
+
+                $http.defaults.headers.common['Auth-Token'] = user.token;
+
                 return $http.delete('/api/post/'+articleId);
             }
         };

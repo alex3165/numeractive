@@ -4,7 +4,7 @@ define(function(require, exports, module) {
     var angularAMD = require('angularAMD');
     var NumeractiveRouter = require('router');
 
-    var SliderController = require('slider-controller');
+    var HeaderController = require('header-controller');
     var CategoryController = require('category-controller');
     var LoginController = require('login-controller');
     var AdminController = require('admin-controller');
@@ -19,7 +19,7 @@ define(function(require, exports, module) {
     var AddArticleService = require('addarticle-service');
     var CategoryService = require('category-service');
     var AuthService = require('auth-service');
-    var SliderDirective = require('slider-directive');
+    var HeaderDirective = require('header-directive');
     var CkeditorDirective = require('ckeditor-directive');
 
     var NumeractiveApplication = angular.module('numeractive', [
@@ -30,24 +30,8 @@ define(function(require, exports, module) {
         'ngCookies',
         'angularFileUpload'
     ]);
-    NumeractiveApplication.constant('AUTH_EVENTS', {
-            loginSuccess: 'auth-login-success',
-            loginFailed: 'auth-login-failed',
-            logoutSuccess: 'auth-logout-success',
-            sessionTimeout: 'auth-session-timeout',
-            notAuthenticated: 'auth-not-authenticated',
-            notAuthorized: 'auth-not-authorized'
-        });
 
     NumeractiveApplication.config(NumeractiveRouter);
-
-    NumeractiveApplication.controller('SliderCtrl', SliderController);
-    NumeractiveApplication.controller('CategoriesCtrl', CategoryController);
-    NumeractiveApplication.controller('LoginCtrl', LoginController);
-    NumeractiveApplication.controller('ArticleCtrl', ArticleController);
-    NumeractiveApplication.controller('NewArticleCtrl', AddArticleController);
-    NumeractiveApplication.controller('HomeCtrl', PreviewArticlesController);
-    NumeractiveApplication.controller('AdminCtrl', AdminController);
 
     NumeractiveApplication.value('article', ArticleModel);
     NumeractiveApplication.value('user', UserModel);
@@ -57,8 +41,18 @@ define(function(require, exports, module) {
     NumeractiveApplication.factory('CategoryService', CategoryService);
     NumeractiveApplication.factory('AuthService', AuthService);
 
-    NumeractiveApplication.directive('slider', SliderDirective);
+    NumeractiveApplication.directive('slider', HeaderDirective);
     NumeractiveApplication.directive('ckeditor', CkeditorDirective);
+
+    NumeractiveApplication.controller('HeaderCtrl', HeaderController);
+    NumeractiveApplication.controller('CategoriesCtrl', CategoryController);
+    NumeractiveApplication.controller('LoginCtrl', LoginController);
+    NumeractiveApplication.controller('ArticleCtrl', ArticleController);
+    NumeractiveApplication.controller('NewArticleCtrl', AddArticleController);
+    NumeractiveApplication.controller('HomeCtrl', PreviewArticlesController);
+    NumeractiveApplication.controller('AdminCtrl', AdminController);
+
+    $('.loading-container').fadeOut('slow');
 
     module.exports = angularAMD.bootstrap(NumeractiveApplication);
 

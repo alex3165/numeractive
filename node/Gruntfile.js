@@ -11,7 +11,7 @@ module.exports = function(grunt) {
                 tasks: ['jshint']
             },
             css: {
-                files: ['public/style.styl', 'public/modules/**/*.styl'],
+                files: ['public/*.styl', 'public/modules/**/*.styl'],
                 tasks: ['stylus']
             }
         },

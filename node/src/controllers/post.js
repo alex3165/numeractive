@@ -74,7 +74,7 @@ exports.post = function(req, res) {
 exports.addPost = function(req, res) {
 
     var newpost = unserialize(req.body);
-    var user_token = req.body.token;
+    var user_token = req.get('Auth-Token');
 
     AuthService.isAuthenticated(user_token).then(function(){
         db.getConnection(function(err, db) {
@@ -132,6 +132,7 @@ exports.editPost = function(req, res) {
 
 exports.deletePost = function(req, res) {
     var id = req.param('id');
+    var user_token = req.get('Auth-Token');
 
     AuthService.isAuthenticated(user_token).then(function(){
         db.getConnection(function(err, db) {

@@ -13,10 +13,12 @@ html(lang='fr')
 		script(data-main="app-config" src="bower_components/requirejs/require.js")
 
 	body
-		.loading(data-ng-show=('loading')) Chargement ...
-		.container-full(data-ng-hide=('loading'))
+		.loading-container
+			.loading-wrapper
+				.loader Loading ...
+		.container-full
 			.backabstract
-			header(data-ng-controller="SliderCtrl")
+			header(data-ng-controller="HeaderCtrl")
 				slider(data-images="images",class="clearfix")
 				.containbg
 					.row

@@ -36,7 +36,7 @@ require.config({
           'category-controller': 'modules/category/category-controller',
           'article-controller': 'modules/article/article-controller',
           'admin-controller': 'modules/admin/admin-controller',
-          'slider-controller': 'modules/slider/slider-controller',
+          'header-controller': 'modules/header/header-controller',
           'login-controller': 'modules/login/login-controller',
           'admin-controller': 'modules/admin/admin-controller',
           'addarticle-controller': 'modules/addarticle/addarticle-controller',
@@ -60,7 +60,7 @@ require.config({
           'category-service': 'modules/category/category-service',
           'auth-service': 'modules/login/auth-service',
           'user-service': 'modules/user/user-service',
-          'slider-directive': 'modules/slider/slider-directive',
+          'header-directive': 'modules/header/header-directive',
           'ckeditor-directive': 'modules/article/article-edition-directive'
 
     },

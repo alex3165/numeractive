@@ -2,7 +2,13 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    function SliderController($scope) {
+    function SliderController($scope, user, AuthService) {
+
+        if(!user.islogged) {
+            user = AuthService.getCookie();
+            console.log(user);
+        }
+
         $scope.images = [{
             src: 'bg1.jpg',
             title: 'Pic 1'
@@ -21,7 +27,7 @@ define(function(require, exports, module) {
         }];
     }
 
-    SliderController.$inject = ['$scope'];
+    SliderController.$inject = ['$scope', 'user', 'AuthService'];
 
     module.exports = SliderController;
 });

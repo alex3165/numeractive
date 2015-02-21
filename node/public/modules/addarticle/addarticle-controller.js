@@ -2,8 +2,9 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    function AddArticleController($scope, user, $state, AuthService, article, ArticleService, categories, AddArticleService) {
+    function AddArticleController($scope, user, $state, AuthService, article, categories, AddArticleService) {
         $scope.categories = categories;
+        debugger;
         if (typeof AuthService.getCookie() != "undefined") {
             user = AuthService.getCookie();
         }
@@ -18,20 +19,19 @@ define(function(require, exports, module) {
             $scope.submit = function(){
                 article.userid = user.userid;
                 article.userlogin = user.login;
-                article.token = user.token;
                 article.title = $scope.title;
-                article.img = "images/img1.jpg";
-                article.categorie = $scope;
+                article.categorie = $scope.categorySelected;
                 article.text = $scope.text;
-                ArticleService.addArticle(article);
-                $state.go('categories.home');
+                AddArticleService.insertArticle(article);
+                //$state.go('categories.home');
             }
         }else{
-            $state.go('categories.home');
+            console.log('User not logged');
+            //$state.go('categories.home');
         }
     }
 
-    AddArticleController.$inject = ['$scope', 'user', '$state', 'AuthService', 'article', 'ArticleService', 'categories', 'AddArticleService', '$upload'];
+    AddArticleController.$inject = ['$scope', 'user', '$state', 'AuthService', 'article', 'categories', 'AddArticleService', '$upload'];
 
     module.exports = AddArticleController;
 });
