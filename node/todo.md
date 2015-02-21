@@ -2,6 +2,7 @@
 
 # Moteur de recherche par mots clés dans les titres d'article
 # Lazy-loading d'article : front et back
+# Auth system (don't work correctly in front)
 
 ## Design
 
@@ -13,12 +14,6 @@ Maquette de la page contact
 
 
 ## Serveur
-
-Ajouter la vérification du Token sur chaque actions back nécessitant une authentification !
-
-CRUD utilisateur
-
-Hasher le mdp utilisateur sur création d'un utilisateur
 
 Add color field for categories to display their in menu side
 
@@ -32,20 +27,24 @@ Sur clic catégorie --> sur clic d'un article implémenter le lien vers la page 
 
 Test the article creational form
 
-Add grunt file with watch, less compilation, js uglify, jshint and cssmin.
-
-Use less file instead of css file.
-
 Edition des catégories --> boutton en face de chaque catégories 
 
 NginfiniteScroll à implémenter avec lazyload
 
 Intégration page contact
 
-Afficher une catégorie que si elle comprend des articles
-
-
 
 ## En cours
 
+Ajouter la vérification du Token sur chaque actions back nécessitant une authentification !
+
+
 ## Fait
+
+CRUD utilisateur
+
+Hasher le mdp utilisateur sur création d'un utilisateur
+
+Add grunt file with watch, less compilation, js uglify, jshint and cssmin.
+
+Use less file instead of css file.
