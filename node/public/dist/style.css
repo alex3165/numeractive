@@ -309,6 +309,11 @@ article .article-glob .articleimage img {
   -o-background-size: cover;
   background-size: cover;
 }
+.post__search {
+  margin-top: 30px;
+  height: 40px;
+  width: 100%;
+}
 article .seperate {
   width: 200px;
   height: 1px;

@@ -36,10 +36,11 @@ Intégration page contact
 
 ## En cours
 
-Ajouter la vérification du Token sur chaque actions back nécessitant une authentification !
-
+Implementer Awesomplete !
 
 ## Fait
+
+Ajouter la vérification du Token sur chaque actions back nécessitant une authentification !
 
 CRUD utilisateur
 

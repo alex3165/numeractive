@@ -2,11 +2,8 @@
 
 var db = require('../services/db');
 var log = require('../services/loginfo');
-// var jwt = require('jwt-simple');
 var sha1 = require('sha1');
-var authService = require('../services/auth');
-
-// var secret = '_G73l45n8X54xXx';
+var AuthService = require('../services/auth');
 
 exports.login = function(req, res) {
 
@@ -24,7 +21,7 @@ exports.login = function(req, res) {
                         res.send(401);
                     } else if (user.password == rows[0].mdp) {
                         res.send(200, {
-                            token: authService.createToken(rows[0].login),
+                            token: AuthService.createToken(rows[0].login),
                             userid: rows[0].id
                         });
                     }
@@ -62,6 +59,7 @@ exports.users = function(req, res) {
 
 exports.user = function(req, res) {
     var login = req.param('login');
+
     db.getConnection(function(err, db) {
         if (!err) {
             db.query('SELECT id, creation, name, login FROM users WHERE login=?', login, function(err, rows) {

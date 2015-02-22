@@ -26,9 +26,8 @@ app.listen(PORT);
 
 /**
 *
-*
 *	App start logs
 *
 */
 
-log.info('Application start on ' + PORT);
+log.info('Application start on port : ' + PORT);

@@ -32,6 +32,7 @@ function unserialize(data) {
 
 exports.posts = function(req, res) {
     var posts = [];
+
     db.getConnection(function(err, db) {
         if (!err) {
             db.query(postQuery, function(err, rows) {
@@ -74,90 +75,73 @@ exports.post = function(req, res) {
 };
 
 exports.addPost = function(req, res) {
-
     var newpost = unserialize(req.body);
-    var user_token = req.get('Auth-Token');
 
-    AuthService.isAuthenticated(user_token).then(function(){
-        db.getConnection(function(err, db) {
-            if (!err) {
-                db.query('INSERT INTO posts SET ?', newpost, function(err, rows) {
-                    if (err) {
-                        log.error(err);
-                        res.send(500, {
-                            status: 'Bad request'
-                        });
-                    } else {
-                        res.send(200);
-                    }
-                    db.release();
-                });
-            } else {
-                log.error(err);
-                res.send(500);
-            }
-        });
-    }, function(){
-        res.send(401);
+    db.getConnection(function(err, db) {
+        if (!err) {
+            db.query('INSERT INTO posts SET ?', newpost, function(err, rows) {
+                if (err) {
+                    log.error(err);
+                    res.send(500, {
+                        status: 'Bad request'
+                    });
+                } else {
+                    res.send(200);
+                }
+                db.release();
+            });
+        } else {
+            log.error(err);
+            res.send(500);
+        }
     });
 };
 
 exports.editPost = function(req, res) {
-
     var id = req.params.id;
     var newpost = unserialize(req.body);
-    var user_token = req.body.token;
 
-    AuthService.isAuthenticated(user_token).then(function(){
-        db.getConnection(function(err, db) {
-            if (!err) {
-                db.query('UPDATE posts SET ? WHERE id = ?', [newpost, id], function(err, rows) {
-                    log.debug(rows);
-                    if (err) {
-                        res.send(404, {
-                            status: "Error"
-                        });
-                    } else {
-                        res.send({
-                            status: "Success",
-                            description: "Post updated"
-                        });
-                    }
-                    db.release();
-                });
-            } else {
-                res.send(404, err);
-            }
-        });
-    }, function(){
-        res.send(401);
+    db.getConnection(function(err, db) {
+        if (!err) {
+            db.query('UPDATE posts SET ? WHERE id = ?', [newpost, id], function(err, rows) {
+                log.debug(rows);
+                if (err) {
+                    res.send(404, {
+                        status: "Error"
+                    });
+                } else {
+                    res.send({
+                        status: "Success",
+                        description: "Post updated"
+                    });
+                }
+                db.release();
+            });
+        } else {
+            res.send(404, err);
+        }
     });
 };
 
 exports.deletePost = function(req, res) {
     var id = req.param('id');
-    var user_token = req.get('Auth-Token');
 
-    AuthService.isAuthenticated(user_token).then(function(){
-        db.getConnection(function(err, db) {
-            if (!err) {
-                db.query('DELETE FROM posts WHERE id = ?', id, function(err, rows) {
-                    if (err) {
-                        res.send(404, {
-                            status: "error"
-                        });
-                    }else {
-                        res.send({
-                            status: "success"
-                        });
-                    }
-                    db.release();
-                });
-            }else {
-                res.send(500, err);
-            }
-        });
-    }, function(){
-        res.send(401);
+    db.getConnection(function(err, db) {
+        if (!err) {
+            db.query('DELETE FROM posts WHERE id = ?', id, function(err, rows) {
+                if (err) {
+                    res.send(404, {
+                        status: "error"
+                    });
+                }else {
+                    res.send({
+                        status: "success"
+                    });
+                }
+                db.release();
+            });
+        }else {
+            res.send(500, err);
+        }
     });
 };
