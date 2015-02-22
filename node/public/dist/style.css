@@ -212,6 +212,10 @@ article .article-glob .articleimage img {
   width: 100%;
   margin: 10px auto;
 }
+.file__upload__wrapper img {
+  max-width: 100%;
+  max-height: 200px;
+}
 .file__upload__wrapper button {
   float: left;
 }

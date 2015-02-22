@@ -2,7 +2,7 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    var imageId;
+    var image = {};
 
     var uploadInProgress = function(evt) {
         var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
@@ -10,9 +10,11 @@ define(function(require, exports, module) {
     }
 
     var uploadSuccess = function(data, status, headers, config) {
-        imageId = data.results[0].id;
+        image.id = data.id;
+        image.path = data.path;
+        image.name = data.name;
         $('#file__upload').removeClass('btn-primary').addClass('btn-success').attr("disabled", "disabled");
-        console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+        $('.file__upload__wrapper').prepend('<img id="uploadedImage" src="'+image.path+'" alt="'+image.name+'">');
     }
 
     function AddArticleService($upload, $http, $rootScope) {
@@ -29,8 +31,7 @@ define(function(require, exports, module) {
                 }
             },
             insertArticle: function(article) {
-                article.imageid = imageId;
-                debugger;
+                article.imageid = image.id;
                 $http.defaults.headers.common['Auth-Token'] = $rootScope.user.token;
                 return $http.post('/api/post',article).success(function(res, status, headers){
                     console.log(res);

@@ -3,6 +3,7 @@
 var db = require('../services/db');
 var log = require('../services/loginfo');
 var AuthService = require('../services/auth');
+var moment = require('moment');
 
 var postQuery = {sql: 'SELECT post.id, post.title, post.text, post.creation, cat.type, cat.color, image.name, image.path ' +
                     'FROM posts AS post INNER JOIN categories AS cat ON post.id_cat = cat.id INNER JOIN images AS image ON post.id_image = image.id ', nestTables: true };
@@ -24,7 +25,8 @@ function unserialize(data) {
         text: data.text,
         id_cat: data.categorie,
         id_user: data.userid,
-        id_image: data.imageid
+        id_image: data.imageid,
+        creation: moment().format()
     };
 }
 
