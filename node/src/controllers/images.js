@@ -61,26 +61,12 @@ exports.image = function(req, res) {
     });
 };
 
-function insertImagePromise(db, name, path) {
-	return new Promise(function(resolve, reject) {
-	    var image = { name: name, path: path};
-	    db.query('INSERT INTO images SET ?', image, function(err, row) {
-	        if (err) {
-	           	reject(err);
-	           	return;
-	        }
-	       	image.id = row.insertId;
-	   		resolve(image);
-	    });
-	});
-}
-
 exports.uploadImage = function(req, res) {
 	var imageInfos = [];
     var form = new formidable.IncomingForm();
     form.uploadDir = "public/images/upload/";
     form.keepExtensions = true;
-    form.multiples = true;
+    form.multiples = false;
 
 	form.on('fileBegin', function(name, file) {
 		file.path = form.uploadDir + moment() + '_' + file.name;
@@ -93,28 +79,23 @@ exports.uploadImage = function(req, res) {
 	        return;
     	}
 	    db.getConnection(function(err, db) {
-	        if (!err) {
-	        	var nbQuery = Object.keys(files).length;
-	        	for (var name in files) {
-	        		insertImagePromise(db, name, files[name].path).then(function(img) {
-	        			imageInfos.push(img);
-	        			if (--nbQuery === 0) {
-	        				db.release();
-	        				res.send(200, {results: imageInfos});
-	        			}
-	        		}, function(err) {
-	        			log.error(err);
-	        			if (--nbQuery === 0) {
-	        				db.release();
-	        				res.send(500, {results: imageInfos}); //FIXME Something is wrong here...
-	        			}
-	        		});
-		        }
-	        } else {
-	            log.error(err);
-	            res.send(500);
-	            return;
-	        }
+	        if (err) {
+                log.error(err);
+                res.send(500);
+                return;
+            }
+            var name = Object.keys(files)[0];
+            var image = { name: name, path: files[name].path.replace(/^public\//, '')};
+            db.query('INSERT INTO images SET ?', image, function(err, row) {
+                if (err) {
+                    db.release();
+                    res.send(500);
+                    return;
+                }
+                image.id = row.insertId;
+                db.release();
+                res.send(200, image);
+            });
 	    });
     });
 };
