@@ -5,14 +5,14 @@ doctype html
 			span.icon-back
 			a.backlink(data-ui-sref='categories.home') retour
 		.article-glob
-			span(ng-click="removeAction()", data-ng-if="user.islogged") X
+			span(ng-click="removeAction()", data-ng-if="$root.user.islogged") X
 			.articleimage.col-centered(data-ng-class="post.category.color + 'shadow'")
 				img(src="{{post.image.path}}",alt="{{post.image.name}}")
 			span.category {{post.category.name}}
 			h2.title {{post.title}}
-			div(data-ng-if="user.islogged")
+			div(data-ng-if="$root.user.islogged")
 				p.article-full(data-ckedit="post.text")
 				pre {{post.text}}
-			div(data-ng-if="!user.islogged")
+			div(data-ng-if="!$root.user.islogged")
 				p.article-full(data-ng-bind-html="fullhtmlarticle()")
 			span.date Ecrit le {{post.creationDate}}

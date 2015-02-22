@@ -2,11 +2,8 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    function CategoryController($scope, user, CategoryService, $state, AuthService) {
-    	if (typeof AuthService.getCookie() != "undefined") {
-            user = AuthService.getCookie();
-        }
-		$scope.user = user;
+    function CategoryController($scope, CategoryService, $state) {
+
 		$scope.removeCategory = function(categoryId) {
 		    CategoryService.removeCategory(categoryId).success(function(res, status, headers){
 		        if (res.status === "impossible") alert(res.description);
@@ -21,7 +18,7 @@ define(function(require, exports, module) {
 		}
     }
 
-    CategoryController.$inject = ['$scope', 'user', 'CategoryService', '$state', 'AuthService'];
+    CategoryController.$inject = ['$scope', 'CategoryService', '$state'];
 
     module.exports = CategoryController;
 });

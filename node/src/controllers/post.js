@@ -82,7 +82,9 @@ exports.addPost = function(req, res) {
                 db.query('INSERT INTO posts SET ?', newpost, function(err, rows) {
                     if (err) {
                         log.error(err);
-                        res.send(500);
+                        res.send(500, {
+                            status: 'Bad request'
+                        });
                     } else {
                         res.send(200);
                     }

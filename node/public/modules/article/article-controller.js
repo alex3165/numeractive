@@ -2,11 +2,7 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    function ArticleController($scope, post, user, AuthService, $sce, ArticleService, $state) {
-        if (typeof AuthService.getCookie() != "undefined") {
-            user = AuthService.getCookie();
-        }
-        $scope.user = user;
+    function ArticleController($scope, post, $sce, ArticleService, $state) {
         post.creationDate = post.creationDate.substr(0, 10);
         $scope.post = post;
         
@@ -24,7 +20,7 @@ define(function(require, exports, module) {
         }
     }
 
-    ArticleController.$inject = ['$scope', 'post', 'user', 'AuthService', '$sce', 'ArticleService', '$state'];
+    ArticleController.$inject = ['$scope', 'post', '$sce', 'ArticleService', '$state'];
 
     module.exports = ArticleController;
 });

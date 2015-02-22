@@ -26,11 +26,11 @@ exports.categories = function(req, res) {
                 } else {
                     rows.forEach(function(category, i) {
                         categories.push({
-                            id: category.id_cat,
+                            id: category.id,
                             type: category.type
                         });
                     });
-                    res.send(categories);
+                    res.send(200, categories);
                 }
                 db.release();
             });
@@ -50,7 +50,7 @@ exports.category = function(req, res) {
     var posts = [];
     db.getConnection(function(err, db) {
         if (!err) {
-            db.query('SELECT * FROM posts WHERE id_cat = ?', id_cat, function(err, rows) {
+            db.query('SELECT * FROM posts WHERE id = ?', id_cat, function(err, rows) {
                 if (err) {
                     res.send(500, err);
                 } else {
@@ -87,7 +87,7 @@ exports.addCategory = function(req, res) {
 
     log.debug(req.body.type);
 
-    var user_token = req.body.token;
+    var user_token = req.get('Auth-Token');
 
     db.getConnection(function(err, db) {
         if (!err) {
@@ -118,13 +118,13 @@ exports.addCategory = function(req, res) {
 *
 */
 exports.deleteCategory = function(req, res) {
-    var id = req.params.id;
-    var user_token = req.body.token;
+    var id = parseInt(req.params.id);
+    var user_token = req.get('Auth-Token');
 
     AuthService.isAuthenticated(user_token).then(function(){
         db.getConnection(function(err, db){
             if (!err) {
-                db.query('DELETE categories FROM categories WHERE id_cat=?', id, function(err, rows){
+                db.query('DELETE categories FROM categories WHERE id=?', id, function(err, rows){
                     if (!err) {
                         res.send({
                             status: 'success',
@@ -138,7 +138,7 @@ exports.deleteCategory = function(req, res) {
                             });
                         }else {
                             res.send(404, {
-                                status: 'error',
+                                status: 'error 1',
                                 description: err
                             });
                         }
@@ -147,7 +147,7 @@ exports.deleteCategory = function(req, res) {
                 });
             }else{
                 res.send(404, {
-                    status: 'error',
+                    status: 'error 2',
                     description: err
                 });
             }
@@ -170,7 +170,7 @@ exports.editCategory = function(req, res) {
         color: req.body.color
     };
 
-    var user_token = req.body.token;
+    var user_token = req.get('Auth-Token');
 
     AuthService.isAuthenticated(user_token).then(function(){
         db.getConnection(function(err, db) {

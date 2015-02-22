@@ -2,20 +2,14 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    function AdminController($scope, user, AuthService, $state) {
-        if (typeof AuthService.getCookie() != "undefined") {
-            user = AuthService.getCookie();
-        }
-        
-        $scope.user = user;
-
+    function AdminController($scope, AuthService, $state) {
         $scope.disconnect = function(){
             AuthService.destroy();
             $state.go($state.$current, null, { reload: true });
         };
     }
 
-    AdminController.$inject = ['$scope', 'user', 'AuthService', '$state'];
+    AdminController.$inject = ['$scope', 'AuthService', '$state'];
 
     module.exports = AdminController;
 

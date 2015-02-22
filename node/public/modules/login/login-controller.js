@@ -2,11 +2,8 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    function LoginController($scope, $http, $rootScope, AuthService, $state, $alert, user) {
-        if (AuthService.getCookie() != undefined) {
-            user = AuthService.getCookie();
-        }
-        if (user.islogged) {
+    function LoginController($scope, $http, $rootScope, AuthService, $state, $alert) {
+        if ($rootScope.user.islogged) {
             $state.go('categories.home');
         }
         $scope.credentials = {
@@ -15,7 +12,6 @@ define(function(require, exports, module) {
         };
         $scope.login = function(credentials) {
             AuthService.login(credentials).then(function() {
-                // $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 $state.go('categories.home', null, { reload: true });
             }, function() {
                 $alert({
@@ -25,12 +21,11 @@ define(function(require, exports, module) {
                     duration: 1,
                     show: true
                 });
-                // $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             });
         };
     }
 
-    LoginController.$inject = ['$scope', '$http', '$rootScope', 'AuthService', '$state', '$alert', 'user'];
+    LoginController.$inject = ['$scope', '$http', '$rootScope', 'AuthService', '$state', '$alert'];
 
     module.exports = LoginController;
 });

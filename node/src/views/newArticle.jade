@@ -13,7 +13,7 @@ form(role="form", class="add-article")
     div(class="form-group")
         label(for="categories") Entrer la catégorie de l'article
         select(class="form-control", data-ng-model="categorySelected" id="categories")
-          option(data-ng-repeat="category in categories", data-ng-model="category.id") {{category.type}}
+          option(data-ng-repeat="category in categories", data-category-id="{{category.id}}") {{category.type}}
     div(class="form-group")
         label(for="contenu") Contenu de l'article (format html supporté)
         textarea(class="form-control", rows="6", id="contenu", data-ng-model="text")

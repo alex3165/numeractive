@@ -41,6 +41,15 @@ define(function(require, exports, module) {
     NumeractiveApplication.factory('CategoryService', CategoryService);
     NumeractiveApplication.factory('AuthService', AuthService);
 
+    /**
+    *   Check credentials
+    */
+    NumeractiveApplication.run(function($rootScope, AuthService, user){
+
+        $rootScope.user = AuthService.getCookie() ? AuthService.getCookie() : user;
+
+    });
+
     NumeractiveApplication.directive('slider', HeaderDirective);
     NumeractiveApplication.directive('ckeditor', CkeditorDirective);
 

@@ -2,18 +2,18 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    function AuthService($http, user, $cookieStore) {
+    function AuthService($http, $cookieStore, $rootScope) {
         return {
             login: function (credentials) {
                 var request = $http.post('/api/login', credentials)
                 .success(function (res, status, headers) {
                     console.log('request status : '+status);
                     if (res.token != 'undefined'){
-                        user.token = res.token;
-                        user.login = credentials.login;
-                        user.userid = res.userid;
-                        user.islogged = true;
-                        $cookieStore.put("user", user);
+                        $rootScope.user.token = res.token;
+                        $rootScope.user.login = credentials.login;
+                        $rootScope.user.userid = res.userid;
+                        $rootScope.user.islogged = true;
+                        $cookieStore.put("user", $rootScope.user);
                     }
                 }).error(function(data, status, headers, config) {
                     console.log(data);
@@ -22,11 +22,11 @@ define(function(require, exports, module) {
                 return request;
             },
             destroy: function(){
-                user.token = '';
-                user.login = '';
-                user.userid = '';
-                user.islogged = false;
-                $cookieStore.put("user", user);
+                $rootScope.user.token = '';
+                $rootScope.user.login = '';
+                $rootScope.user.userid = '';
+                $rootScope.user.islogged = false;
+                $cookieStore.put("user", $rootScope.user);
                 return;
             },
             getCookie: function(){
@@ -35,7 +35,7 @@ define(function(require, exports, module) {
         };
     }
 
-    AuthService.$inject = ['$http', 'user', '$cookieStore'];
+    AuthService.$inject = ['$http', '$cookieStore', '$rootScope'];
 
     module.exports = AuthService;
 });

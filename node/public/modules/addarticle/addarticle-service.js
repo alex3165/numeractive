@@ -2,7 +2,7 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    var imagePath = '';
+    var imageId;
 
     var uploadInProgress = function(evt) {
         var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
@@ -10,13 +10,12 @@ define(function(require, exports, module) {
     }
 
     var uploadSuccess = function(data, status, headers, config) {
-        console.log(imagePath);
-        imagePath = data.results[0].path;
+        imageId = data.results[0].id;
         $('#file__upload').removeClass('btn-primary').addClass('btn-success').attr("disabled", "disabled");
         console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
     }
 
-    function AddArticleService($upload, $http, user) {
+    function AddArticleService($upload, $http, $rootScope) {
         return {
             upload : function(files) {
                 if (files && files.length) {
@@ -30,11 +29,9 @@ define(function(require, exports, module) {
                 }
             },
             insertArticle: function(article) {
-                console.log('image path : '+imagePath);
-                console.log('user token'+user.token);
-                article.imagePath = imagePath;
-
-                $http.defaults.headers.common['Auth-Token'] = user.token;
+                article.imageid = imageId;
+                debugger;
+                $http.defaults.headers.common['Auth-Token'] = $rootScope.user.token;
                 return $http.post('/api/post',article).success(function(res, status, headers){
                     console.log(res);
                 }).error(function(err){
@@ -44,7 +41,7 @@ define(function(require, exports, module) {
         }
     }
 
-    AddArticleService.$inject = ['$upload', '$http', 'user'];
+    AddArticleService.$inject = ['$upload', '$http', '$rootScope'];
 
     module.exports = AddArticleService;
 });

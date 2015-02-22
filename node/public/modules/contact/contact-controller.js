@@ -4,10 +4,8 @@ define(function(require, exports, module) {
 
     var NumeractiveApplication = require('app');
 
-    module.exports = NumeractiveApplication.controller('contact', ['$scope', 'user', 'AuthService', '$state',
-	    function($scope, posts, user, AuthService, $state) {
-
-	        $scope.user = user;
+    module.exports = NumeractiveApplication.controller('contact', ['$scope', '$state',
+	    function($scope, $state) {
 	        
 	    }
 	]);
