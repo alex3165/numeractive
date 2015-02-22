@@ -214,7 +214,7 @@ NumeractiveInstaller.addUser = function(){
         };
         db.getConnection(function(err, db) {
             if (!err) {
-                db.query('INSERT INTO users  (login, mdp, name) VALUES (?, ?, ?)', [user.login, user.password, user.name], function (err, rows) {
+                db.query('INSERT INTO users  (login, password, name) VALUES (?, ?, ?)', [user.login, user.password, user.name], function (err, rows) {
                 if (err) {
                     console.log('error: ' + err);
                 }

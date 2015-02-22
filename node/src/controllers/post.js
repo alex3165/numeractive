@@ -5,16 +5,28 @@ var log = require('../services/loginfo');
 var AuthService = require('../services/auth');
 var moment = require('moment');
 
-var postQuery = {sql: 'SELECT post.id, post.title, post.text, post.creation, cat.type, cat.color, image.name, image.path ' +
-                    'FROM posts AS post INNER JOIN categories AS cat ON post.id_cat = cat.id INNER JOIN images AS image ON post.id_image = image.id ', nestTables: true };
+var postQuery = {
+    sql: 'SELECT post.id, post.title, post.text, post.creation, cat.type, cat.color, image.name, image.path ' + 'FROM posts AS post INNER JOIN categories AS cat ON post.id_cat = cat.id INNER JOIN images AS image ON post.id_image = image.id ',
+    nestTables: true
+};
 
 function serialize(row) {
     return {
         id: row.post.id,
         title: row.post.title,
         text: row.post.text.substr(0, 300) + ' ...',
-        category: { name: row.cat.type, color: row.cat.color },
-        image: { name: row.image.name, path: row.image.path },
+        category: {
+            name: row.cat.type,
+            color: row.cat.color
+        },
+        image: {
+            name: row.image.name,
+            path: row.image.path
+        },
+        // user: {
+        //     id: row.id_user,
+        //     name: row.name
+        // },
         creationDate: row.post.creation
     }
 }
@@ -53,17 +65,19 @@ exports.posts = function(req, res) {
 };
 
 exports.post = function(req, res) {
-    var id = req.param('id');
+    var postId = req.param('id');
+
     db.getConnection(function(err, db) {
         if (!err) {
             var query = postQuery;
             query.sql += ' WHERE post.id = ?';
-            db.query(query, id, function(err, rows) {
+            db.query(query, postId, function(err, rows) {
                 if (err) {
                     res.send(500, err);
                 } else if (rows.length == 0) {
                     res.send(404);
                 } else {
+                    db.query('UPDATE posts SET views=views+1 WHERE id=?', postId);
                     res.send(serialize(rows[0]));
                 }
                 db.release();

@@ -17,6 +17,7 @@ require.config({
           'ckeditor': 'bower_components/ckeditor/ckeditor',
           'jquery': 'bower_components/jquery/dist/jquery',
           'underscore': 'bower_components/underscore/underscore',
+          'awesomplete': 'libraries/awesomplete',
 
           /**
           *
@@ -74,8 +75,9 @@ require.config({
         'angular-strap': ['angular'],
         'router': ['angular', 'angular-ui-router'],
         'angular-file-upload': ['angular'],
+        'awesomplete': ['jquery'],
         'app': ['angular', 'angular-ui-router', 'angular-animate', 'angular-sanatize', 'angular-cookie', 'angular-strap', 'angular-file-upload']
     },
 
-    deps: ['jquery', 'app']
+    deps: ['jquery', 'awesomplete', 'app']
 });

@@ -19,7 +19,7 @@ exports.login = function(req, res) {
                     if (rows.length == 0) {
                         log.info('Someone tried to login with bad credentials... This incident will be reported (or not ?)');
                         res.send(401);
-                    } else if (user.password == rows[0].mdp) {
+                    } else if (user.password == rows[0].password) {
                         res.send(200, {
                             token: AuthService.createToken(rows[0].login),
                             userid: rows[0].id
