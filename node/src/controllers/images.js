@@ -42,7 +42,7 @@ exports.image = function(req, res) {
     var id = req.param('id');
     db.getConnection(function(err, db) {
         if (!err) {
-            var query = imageQuery;
+            var query = extend({}, imageQuery);
             query += ' WHERE id = ?';
             db.query(query, id, function(err, rows) {
                 if (err) {
@@ -104,7 +104,7 @@ exports.deleteImage = function(req, res) {
     var id = req.param('id');
     db.getConnection(function(err, db) {
         if (!err) {
-            var query = imageQuery;
+            var query = extend({}, imageQuery);
             query += ' WHERE id = ?';
             db.query(query, id, function(err, rows) {
                 if (err) {

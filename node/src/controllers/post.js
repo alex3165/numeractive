@@ -4,6 +4,7 @@ var db = require('../services/db');
 var log = require('../services/loginfo');
 var AuthService = require('../services/auth');
 var moment = require('moment');
+var extend = require('util')._extend;
 
 var postQuery = {
     sql: 'SELECT post.id, post.title, post.text, post.creation, cat.type, cat.color, image.name, image.path ' + 'FROM posts AS post INNER JOIN categories AS cat ON post.id_cat = cat.id INNER JOIN images AS image ON post.id_image = image.id ',
@@ -69,8 +70,9 @@ exports.post = function(req, res) {
 
     db.getConnection(function(err, db) {
         if (!err) {
-            var query = postQuery;
+            var query = extend({}, postQuery);
             query.sql += ' WHERE post.id = ?';
+            console.log(query);
             db.query(query, postId, function(err, rows) {
                 if (err) {
                     res.send(500, err);
