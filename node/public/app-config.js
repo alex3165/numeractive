@@ -18,6 +18,8 @@ require.config({
           'jquery': 'bower_components/jquery/dist/jquery',
           'underscore': 'bower_components/underscore/underscore',
           'awesomplete': 'libraries/awesomplete',
+          'moment': 'bower_components/moment/min/moment.min',
+          'moment-fr-support': 'services/moment-fr-support',
 
           /**
           *

@@ -15,4 +15,6 @@ doctype html
 				pre {{post.text}}
 			div(data-ng-if="!$root.user.islogged")
 				p.article-full(data-ng-bind-html="fullhtmlarticle()")
-			span.date Ecrit le {{post.creationDate}}
+			p
+				span.date Ecrit le {{post.creationDate}}, 
+				span.author par {{post.user.name}}

@@ -8,40 +8,55 @@ define(function(require, exports, module) {
         $stateProvider
             .state('categories', {
                 abstract: true,
-                templateUrl: 'partials/categories',
-                resolve: {
-                    categories: ['$stateParams', '$http',
-                        function($stateParams, $http) {
-                            return $http.get('/api/categories').then(function(res) {
-                                return res.data;
-                            });
+                views: {
+                    sidemenu: {
+                        controller: function($scope, categories) {
+                            $scope.categories = categories;
+                        },
+                        templateUrl: 'partials/categories',
+                        resolve: {
+                            categories: [ '$stateParams', '$http',
+                                function($stateParams, $http) {
+                                    return $http.get('/api/categories').then(function(res) {
+                                        return res.data;
+                                    });
+                                }
+                            ]
                         }
-                    ]
-                },
-                controller: function($scope, categories) {
-                    $scope.categories = categories;
+                    }
                 }
             })
             .state('categories.home', {
                 url: '/',
-                templateUrl: 'partials/articles',
-                controller: 'HomeCtrl',
-                resolve: {
-                    posts: ['$http',
-                        function($http) {
-                            return $http.get('/api/posts').then(function(res) {
-                                return res.data;
-                            });
+                views: {
+                    "main@categories": {
+                        controller: 'HomeCtrl',
+                        templateUrl: 'partials/articles',
+                        resolve: {
+                            posts: [ '$http',
+                                function($http) {
+                                    return $http.get('/api/posts').then(function(res) {
+                                        return res.data;
+                                    });
+                                }
+                            ]
                         }
-                    ]
+                    },
+                    "footer@categories": {
+                        templateUrl: 'partials/footer'
+                    }
                 }
             })
             .state('categories.list', {
                 url: '/cat/:categoryId',
-                templateUrl: 'partials/articles',
-                controller: 'HomeCtrl',
+                views : {
+                    main: {
+                        controller: 'HomeCtrl',
+                        templateUrl: 'partials/articles'
+                    }
+                },
                 resolve: {
-                    posts: ['$stateParams', '$http',
+                    posts: [ '$stateParams', '$http',
                         function($stateParams, $http) {
                             return $http.get('/api/category/' + $stateParams.categoryId)
                                 .then(function(res) {
@@ -53,10 +68,14 @@ define(function(require, exports, module) {
             })
             .state('categories.article', {
                 url: '/article/:articleId',
-                templateUrl: 'partials/article',
-                controller: 'ArticleCtrl',
+                views : {
+                    "main": {
+                        controller: 'ArticleCtrl',
+                        templateUrl: 'partials/article'
+                    }
+                },
                 resolve: {
-                    post: ['$stateParams', '$http',
+                    post: [ '$stateParams', '$http',
                         function($stateParams, $http) {
                             return $http.get('/api/post/' + $stateParams.articleId)
                                 .then(function(res) {
@@ -68,15 +87,23 @@ define(function(require, exports, module) {
             })
             .state('login', {
                 url: '/login',
-                templateUrl: 'partials/login',
-                controller: 'LoginCtrl'
+                views : {
+                    "main": {
+                        controller: 'LoginCtrl',
+                        templateUrl: 'partials/login'
+                    }
+                }
             })
             .state('newArticle', {
                 url: '/add',
-                templateUrl: 'partials/newArticle',
-                controller: 'NewArticleCtrl',
+                views : {
+                    main: {
+                        controller: 'NewArticleCtrl',
+                        templateUrl: 'partials/newArticle'
+                    }
+                },
                 resolve: {
-                    categories: ['$http', function($http){
+                    categories: [ '$http', function($http){
                         return $http.get('/api/categories').then(function(res) {
                                 return res.data;
                         });

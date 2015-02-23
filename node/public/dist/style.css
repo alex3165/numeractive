@@ -309,10 +309,17 @@ article .article-glob .articleimage img {
   -o-background-size: cover;
   background-size: cover;
 }
-.post__search {
+textarea:focus,
+input:focus {
+  outline: 0;
+}
+input[type=text] {
   margin-top: 30px;
-  height: 40px;
+  height: 50px;
   width: 100%;
+  padding: 10px 20px;
+  border: none;
+  background-color: #eef1f3;
 }
 article .seperate {
   width: 200px;

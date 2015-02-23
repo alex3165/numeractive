@@ -2,8 +2,14 @@ define(function(require, exports, module) {
 
     'use strict';
 
+    var moment = require('moment');
+    var momentFrSupport = require('moment-fr-support');
+
     function ArticleController($scope, post, $sce, ArticleService, $state) {
-        post.creationDate = post.creationDate.substr(0, 10);
+
+        moment.locale('fr', momentFrSupport);
+
+        post.creationDate = moment(post.creationDate).format('LL');
         $scope.post = post;
         
         $scope.removeAction = function() {
