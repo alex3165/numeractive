@@ -7,27 +7,28 @@ var moment = require('moment');
 var extend = require('util')._extend;
 
 var postQuery = {
-    sql: 'SELECT post.id, post.title, post.text, post.creation, cat.type, cat.color, image.name, image.path ' + 'FROM posts AS post INNER JOIN categories AS cat ON post.id_cat = cat.id INNER JOIN images AS image ON post.id_image = image.id ',
+    sql: 'SELECT post.id, post.title, post.text, post.creation, post.views, cat.type, cat.color, image.name, image.path, user.id, user.name ' +
+    'FROM posts AS post INNER JOIN categories AS cat ON post.id_cat = cat.id ' +
+    'INNER JOIN images AS image ON post.id_image = image.id INNER JOIN users AS user ON post.id_user = user.id ',
     nestTables: true
 };
 
-function serialize(row) {
+function serialize(row, subText) {
+    if (subText)
+        var text = row.post.text.substr(0, 300) + ' ...';
+    else
+        var text = row.post.text;
     return {
         id: row.post.id,
         title: row.post.title,
-        text: row.post.text.substr(0, 300) + ' ...',
+        text: text,
+        views: row.post.views,
         category: {
             name: row.cat.type,
             color: row.cat.color
         },
-        image: {
-            name: row.image.name,
-            path: row.image.path
-        },
-        // user: {
-        //     id: row.id_user,
-        //     name: row.name
-        // },
+        image: row.image,
+        user: row.user,
         creationDate: row.post.creation
     }
 }
@@ -53,7 +54,7 @@ exports.posts = function(req, res) {
                     res.send(500, err);
                 } else {
                     rows.forEach(function(row, i) {
-                        posts.push(serialize(row));
+                        posts.push(serialize(row, true));
                     });
                     res.send(posts);
                 }
@@ -72,7 +73,6 @@ exports.post = function(req, res) {
         if (!err) {
             var query = extend({}, postQuery);
             query.sql += ' WHERE post.id = ?';
-            console.log(query);
             db.query(query, postId, function(err, rows) {
                 if (err) {
                     res.send(500, err);
@@ -80,7 +80,7 @@ exports.post = function(req, res) {
                     res.send(404);
                 } else {
                     db.query('UPDATE posts SET views=views+1 WHERE id=?', postId);
-                    res.send(serialize(rows[0]));
+                    res.send(serialize(rows[0], false));
                 }
                 db.release();
             });
