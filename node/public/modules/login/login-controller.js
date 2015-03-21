@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     function LoginController($scope, $http, $rootScope, AuthService, $state, $alert) {
         if ($rootScope.user.islogged) {
-            $state.go('categories.home');
+            $state.go('home');
         }
         $scope.credentials = {
             login: '',
@@ -12,7 +12,7 @@ define(function(require, exports, module) {
         };
         $scope.login = function(credentials) {
             AuthService.login(credentials).then(function() {
-                $state.go('categories.home', null, { reload: true });
+                $state.go('home', null, { reload: true });
             }, function() {
                 $alert({
                     content: 'Mauvais login ou mot de passe.',

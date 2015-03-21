@@ -16,6 +16,7 @@ exports.login = function(req, res) {
         if (!err) {
             db.query('SELECT * FROM users WHERE login = ?', user.login, function(err, rows) {
                 if (!err) {
+                    // log.info(rows[0].password + ' | ' + user.password);
                     if (rows.length == 0) {
                         log.info('Someone tried to login with bad credentials... This incident will be reported (or not ?)');
                         res.send(401);

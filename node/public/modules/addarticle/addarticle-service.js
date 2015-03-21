@@ -23,6 +23,7 @@ define(function(require, exports, module) {
                 if (files && files.length) {
                     for (var i = 0; i < files.length; i++) {
                         var file = files[i];
+                        $http.defaults.headers.common['Auth-Token'] = $rootScope.user.token;
                         $upload.upload({
                             url: 'api/image',
                             file: file

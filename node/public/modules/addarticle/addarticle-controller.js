@@ -19,11 +19,11 @@ define(function(require, exports, module) {
                 article.categorie = $('select').find(':selected').data('category-id');
                 article.text = $scope.text;
                 AddArticleService.insertArticle(article);
-                $state.go('categories.home');
+                $state.go('home');
             }
         }else{
             console.log('User not logged');
-            $state.go('categories.home');
+            $state.go('home');
         }
     }
 

@@ -2,34 +2,32 @@ define(function(require, exports, module) {
     
     'use strict';
 
+    var SideMenuState = {
+        controller: function($scope, categories) {
+            $scope.categories = categories;
+        },
+        templateUrl: 'partials/categories',
+        resolve: {
+            categories: [ '$stateParams', '$http',
+                function($stateParams, $http) {
+                    return $http.get('/api/categories').then(function(res) {
+                        return res.data;
+                    });
+                }
+            ]
+        }
+    }
+
+
     function NumeractiveRouter($urlRouterProvider, $stateProvider) {
         $urlRouterProvider.otherwise('/');
 
         $stateProvider
-            .state('categories', {
-                abstract: true,
-                views: {
-                    sidemenu: {
-                        controller: function($scope, categories) {
-                            $scope.categories = categories;
-                        },
-                        templateUrl: 'partials/categories',
-                        resolve: {
-                            categories: [ '$stateParams', '$http',
-                                function($stateParams, $http) {
-                                    return $http.get('/api/categories').then(function(res) {
-                                        return res.data;
-                                    });
-                                }
-                            ]
-                        }
-                    }
-                }
-            })
-            .state('categories.home', {
+            .state('home', {
                 url: '/',
                 views: {
-                    "main@categories": {
+                    sidemenu: SideMenuState,
+                    main: {
                         controller: 'HomeCtrl',
                         templateUrl: 'partials/articles',
                         resolve: {
@@ -42,53 +40,63 @@ define(function(require, exports, module) {
                             ]
                         }
                     },
-                    "footer@categories": {
+                    footer: {
                         templateUrl: 'partials/footer'
                     }
-                }
+                },
+
             })
-            .state('categories.list', {
+            .state('list', {
                 url: '/cat/:categoryId',
                 views : {
+                    sidemenu: SideMenuState,
                     main: {
                         controller: 'HomeCtrl',
-                        templateUrl: 'partials/articles'
+                        templateUrl: 'partials/articles',
+                        resolve: {
+                            posts: [ '$stateParams', '$http',
+                                function($stateParams, $http) {
+                                    return $http.get('/api/category/' + $stateParams.categoryId)
+                                        .then(function(res) {
+                                            return res.data;
+                                        });
+                                }
+                            ]
+                        }
+                    },
+                    footer: {
+                        templateUrl: 'partials/footer'
                     }
                 },
-                resolve: {
-                    posts: [ '$stateParams', '$http',
-                        function($stateParams, $http) {
-                            return $http.get('/api/category/' + $stateParams.categoryId)
-                                .then(function(res) {
-                                    return res.data;
-                                });
-                        }
-                    ]
-                }
+
             })
-            .state('categories.article', {
+            .state('article', {
                 url: '/article/:articleId',
-                views : {
-                    "main": {
+                views: {
+                    sidemenu: SideMenuState,
+                    main: {
                         controller: 'ArticleCtrl',
-                        templateUrl: 'partials/article'
-                    }
-                },
-                resolve: {
-                    post: [ '$stateParams', '$http',
-                        function($stateParams, $http) {
-                            return $http.get('/api/post/' + $stateParams.articleId)
-                                .then(function(res) {
-                                    return res.data;
-                                });
+                        templateUrl: 'partials/article',
+                        resolve: {
+                            post: [ '$stateParams', '$http',
+                                function($stateParams, $http) {
+                                    return $http.get('/api/post/' + $stateParams.articleId)
+                                        .then(function(res) {
+                                            return res.data;
+                                        });
+                                }
+                            ]
                         }
-                    ]
+                    },
+                    footer: {
+                        templateUrl: 'partials/footer'
+                    }
                 }
             })
             .state('login', {
                 url: '/login',
                 views : {
-                    "main": {
+                    main: {
                         controller: 'LoginCtrl',
                         templateUrl: 'partials/login'
                     }
@@ -99,21 +107,25 @@ define(function(require, exports, module) {
                 views : {
                     main: {
                         controller: 'NewArticleCtrl',
-                        templateUrl: 'partials/newArticle'
+                        templateUrl: 'partials/newArticle',
+                        resolve: {
+                            categories: [ '$http', function($http){
+                                return $http.get('/api/categories').then(function(res) {
+                                        return res.data;
+                                });
+                            }]
+                        }
                     }
-                },
-                resolve: {
-                    categories: [ '$http', function($http){
-                        return $http.get('/api/categories').then(function(res) {
-                                return res.data;
-                        });
-                    }]
                 }
             })
             .state('contact', {
                 url: '/contact',
-                templateUrl: 'partials/contact',
-                controller: 'ContactCtrl'
+                views : {
+                    main: {
+                        templateUrl: 'partials/contact',
+                        controller: 'ContactCtrl'
+                    }
+                }
             });
     }
 

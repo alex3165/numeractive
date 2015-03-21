@@ -3,7 +3,7 @@ doctype html
 	article
 		.back-button
 			span.icon-back
-			a.backlink(data-ui-sref='categories.home') retour
+			a.backlink(data-ui-sref='home') retour
 		.article-glob
 			span(ng-click="removeAction()", data-ng-if="$root.user.islogged") X
 			.articleimage.col-centered(data-ng-class="post.category.color + 'shadow'")

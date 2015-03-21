@@ -15,7 +15,7 @@ define(function(require, exports, module) {
         $scope.removeAction = function() {
             ArticleService.removeArticle($scope.post.id).success(function(res, status, headers){
                 console.log(res);
-                $state.go('categories.home');
+                $state.go('home');
             }).error(function(err){
                 console.log(err);
             });;

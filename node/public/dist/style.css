@@ -172,14 +172,31 @@ a {
   margin: 0 auto;
   text-align: center;
 }
+section.main,
+section.footer {
+  max-width: 100%;
+  margin-right: 0px;
+  margin-left: 0px;
+}
+.sidemenu input[type=text] {
+  width: auto;
+}
+.footer {
+  background-color: #282828;
+  padding: 10px 0px;
+}
+.footer footer {
+  margin-left: 20px;
+  color: #eef1f3;
+}
 .admin-bg {
   background-color: #e8e8e8;
   padding: 20px;
+  text-align: center;
 }
 .adminbtn {
   margin: 0px 20px;
   cursor: pointer;
-  text-align: center;
 }
 form.add-article {
   width: 640px;
@@ -338,6 +355,9 @@ article .post .postimage {
   overflow: hidden;
   display: block;
   margin-bottom: 14px;
+}
+article .post .postimage img {
+  transform: translateX(-100px);
 }
 article .post .cat-container {
   text-align: center;

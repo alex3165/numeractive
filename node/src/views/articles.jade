@@ -4,7 +4,7 @@ div(data-ng-controller="AdminCtrl")
 	div.admin-bg(data-ng-if="$root.user.islogged") 
 		a.btn.btn-primary.adminbtn(data-ui-sref='newArticle', role="button") Ajouter un article
 		a.btn.btn-primary.adminbtn(role="button", ng-click="disconnect()") Déconnexion
-.col-lg-6
+.col-lg-12
 	input(type="text", id="post-search", class="post__search awesomplete", placeholder="Search an article", list="postsTitles")
 	datalist(id="postsTitles")
 		option(data-ng-repeat="post in posts") {{post.title}}
@@ -15,7 +15,7 @@ div(data-ng-controller="AdminCtrl")
 			.cat-container
 				span.category(data-ng-class="post.category.color+'category'") {{post.category.name}}
 			h2.title
-				a(data-ui-sref='categories.article({articleId: post.id})') {{post.title}}
+				a(data-ui-sref='article({articleId: post.id})') {{post.title}}
 			p.preview(data-ng-bind-html="post.text")
 			p
 				span.date Écrit le {{post.creationDate}}, 

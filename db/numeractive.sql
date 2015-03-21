@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:8889
--- Généré le :  Dim 22 Février 2015 à 22:40
+-- Généré le :  Sam 21 Mars 2015 à 18:38
 -- Version du serveur :  5.5.34
 -- Version de PHP :  5.5.10
 
@@ -32,18 +32,15 @@ CREATE TABLE `categories` (
   `color` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `type` (`type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `categories`
 --
 
 INSERT INTO `categories` (`id`, `type`, `color`) VALUES
-(0, 'programmation', 'blue'),
-(1, 'inspiration', 'yellow'),
-(2, 'creative coding', 'purple'),
-(3, 'design', 'red'),
-(4, 'vie quotidienne', 'green');
+(5, 'Design', '#fff'),
+(6, 'Travel', '#fff');
 
 -- --------------------------------------------------------
 
@@ -58,27 +55,18 @@ CREATE TABLE `images` (
   `thumb_path` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `path` (`path`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `images`
 --
 
 INSERT INTO `images` (`id`, `name`, `path`, `thumb_path`) VALUES
-(1, 'img7', 'images/img7.png', ''),
-(2, 'img1', 'images/img1.jpg', ''),
-(3, 'img5', 'images/img5.jpg', ''),
-(4, 'img2', 'images/img2.png', ''),
-(31, 'file', 'public/images/upload/1424632091093_dec-14-christmas-lights-under-the-sea-nocal-1920x1440.png', ''),
-(32, 'file', 'public/images/upload/1424632138474_Capture d’écran 2014-10-08 à 20.41.21.png', ''),
-(33, 'file', 'public/images/upload/1424632240283_P1120404.jpg', ''),
-(34, 'file', 'public/images/upload/1424632324655_P1120404.jpg', ''),
-(35, 'file', 'public/images/upload/1424632358449_10688421_10203717737238766_222659812760738027_o.jpg', ''),
-(36, 'file', 'public/images/upload/1424632614142_IMG_0078.JPG', ''),
-(37, 'file', 'images/upload/1424632953134_IMG_0082.PNG', ''),
-(38, 'file', 'images/upload/1424633012296_P1120404.jpg', ''),
-(39, 'file', 'images/upload/1424633143350_Numériser.jpeg', ''),
-(40, 'file', 'images/upload/1424634278350_469651_3630394110800_1983360779_o.jpg', '');
+(1, 'file', 'images/upload/1426958113715_Fotolia_29467349.jpg', ''),
+(2, 'file', 'images/upload/1426958158730_rota_vicentina.jpg', ''),
+(3, 'file', 'images/upload/1426958347796_design.jpeg', ''),
+(4, 'file', 'images/upload/1426958591524_peru.jpg', ''),
+(5, 'file', 'images/upload/1426958667169_architecture.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -99,17 +87,17 @@ CREATE TABLE `posts` (
   KEY `fk_idcat` (`id_cat`),
   KEY `id_user` (`id_user`),
   KEY `fk_idimage` (`id_image`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `posts`
 --
 
 INSERT INTO `posts` (`id`, `title`, `text`, `creation`, `id_cat`, `id_user`, `id_image`, `views`) VALUES
-(5, 'Qui frappuccino trifecta to go milk', 'Extraction skinny, sweet plunger pot wings turkish saucer single shot cappuccino, fair trade coffee as in, mazagran, caramelization cortado est acerbic cortado roast sit siphon. Siphon fair trade, est filter est siphon extraction instant crema, cup, shop, aged sugar to go filter variety at roast seasonal barista seasonal. Macchiato, half and half iced medium chicory single shot, whipped, galão, strong aromatic, a bar milk americano plunger pot. Carajillo half and half sweet et cappuccino est chicory, steamed aftertaste instant in spoon rich spoon galão frappuccino, organic, café au lait in shop dripper eu steamed. Blue mountain instant, as roast extraction arabica brewed cup, body iced, pumpkin spice to go id organic frappuccino caffeine percolator cup qui percolator cream.', '2014-04-29 18:19:09', 3, 4, 4, 1),
-(6, 'Skinny, coffee aromatic, acerbic crema eu acerbic single shot', 'Aromatic, sit french press cinnamon, aftertaste java aroma and, dripper variety qui to go, at to go affogato macchiato extra carajillo saucer affogato con panna. Grounds, frappuccino cinnamon turkish espresso filter seasonal, so whipped, spoon to go that aromatic flavour. Spoon trifecta latte, flavour macchiato brewed strong so whipped spoon acerbic mocha rich. Milk, cream seasonal decaffeinated fair trade et robust to go grounds, extra galão, mocha latte cup, aged shop beans, cortado crema macchiato mocha steamed.', '2014-04-29 18:20:09', 2, 4, 2, 0),
-(7, 'Leave dead animals as gifts climb leg sun bathe', 'Hate dog climb leg or chase imaginary bugs. Nap all day. Swat at dog sleep on keyboard yet leave dead animals as gifts so hunt anything that moves leave dead animals as gifts or intrigued by the shower chase imaginary bugs. Hate dog destroy couch and need to chase tail. Stick butt in face destroy couch for leave hair everywhere and shake treat bag chew iPad power cord for throwup on your pillow for missing until dinner time. Chase imaginary bugs.', '2014-04-29 18:20:57', 4, 4, 3, 0),
-(16, 'qzdqzdz', 'a"ar''"r', '2015-02-22 20:44:44', 1, 4, 40, 0);
+(1, 'Rota vicentina', 'Rota Vicentina is a long distance path along the Sw coast of Portugal. Comprising the Historical Way and the Fishermen’s Trail, totals 350 km to walk, between the city of Santiago do Cacém and the Cape of St. Vincent, the most southwestern point of Europe.', '2015-03-21 18:16:29', 6, 4, 2, 1),
+(2, 'What is design', 'Design is the creation of a plan or convention for the construction of an object or a system (as in architectural blueprints, engineering drawings, business processes, circuit diagrams and sewing patterns).[1] Design has different connotations in different fields (see design disciplines below). In some cases the direct construction of an object (as in pottery, engineering, management, cowboy coding and graphic design) is also considered to be design.', '2015-03-21 18:19:46', 5, 4, 3, 1),
+(3, 'The peru', 'Peru is a country in western South America. It is bordered in the north by Ecuador and Colombia, in the east by Brazil, in the southeast by Bolivia, in the south by Chile, and in the west by the Pacific Ocean. Peru is an extremely biodiverse country with habitats ranging from the arid plains of the Pacific coastal region in the west to the peaks of the Andes mountains vertically extending from the north to the southeast of the country to the tropical Amazon Basin rainforest in the east with the Amazon river.', '2015-03-21 18:23:31', 6, 4, 4, 0),
+(4, 'The architecture', 'Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures. Architectural works, in the material form of buildings, are often perceived as cultural symbols and as works of art. Historical civilizations are often identified with their surviving architectural achievements.', '2015-03-21 18:25:24', 5, 4, 5, 2);
 
 -- --------------------------------------------------------
 

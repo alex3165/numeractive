@@ -4,6 +4,7 @@ var log = require('../services/loginfo');
 module.exports = {
 	checkAuth: function(req, res, next) {
 		var user_token = req.get('Auth-Token');
+
 		AuthService.isAuthenticated(user_token).then(function(){
 			next();
 		}, function(err){

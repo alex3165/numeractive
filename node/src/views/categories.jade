@@ -2,11 +2,11 @@ doctype html
 .col-lg-3.contain-menu(data-ng-controller="CategoriesCtrl")
 	ul(role="menu").menu
 		li(role="presentation")
-			a(data-ui-sref='categories.home') Accueil
+			a(data-ui-sref='home') Accueil
 		li(data-ng-repeat="(i, category) in categories track by $index", role="presentation")
-			a(data-ui-sref='categories.list({categoryId: i})') {{category.type}}
+			a(data-ui-sref='list({categoryId: i})') {{category.type}}
 			span(data-ng-if="$root.user.islogged", data-ng-click="removeCategory(category.id)") remove
 	form(novalidate, data-ng-if="$root.user.islogged")
 		input(type="text", width="200", data-ng-model="newcat")
-		button(type="submit", width="200", data-ng-click="addCategory(newcat)") Add
+		button(type="submit", class="btn btn-primary", width="200", data-ng-click="addCategory(newcat)") Add
 main(data-ui-view)
