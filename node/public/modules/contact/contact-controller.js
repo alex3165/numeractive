@@ -2,14 +2,11 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    var NumeractiveApplication = require('app');
+    function ContactController($scope, $state) {
 
-    module.exports = NumeractiveApplication.controller('contact', ['$scope', '$state',
-	    function($scope, $state) {
-	        
-	    }
-	]);
+    }
+
+    ContactController.$inject = ['$scope'];
+
+    module.exports = ContactController;
 });
-
-
-
