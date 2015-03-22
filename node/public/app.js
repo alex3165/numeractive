@@ -11,6 +11,7 @@ define(function(require, exports, module) {
     var ArticleController = require('article-controller');
     var AddArticleController = require('addarticle-controller');
     var PreviewArticlesController = require('previewarticles-controller');
+    var ContactController = require('contact-controller');
 
     var ArticleModel = require('article-model');
     var UserModel = require('user-model');
@@ -60,6 +61,7 @@ define(function(require, exports, module) {
     NumeractiveApplication.controller('NewArticleCtrl', AddArticleController);
     NumeractiveApplication.controller('HomeCtrl', PreviewArticlesController);
     NumeractiveApplication.controller('AdminCtrl', AdminController);
+    NumeractiveApplication.controller('ContactCtrl', ContactController);
 
     $('.loading-container').fadeOut('slow');
 
