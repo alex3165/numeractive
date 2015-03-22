@@ -252,13 +252,16 @@ article .article-glob .articleimage img {
 .contain-menu .menu li a {
   text-decoration: none;
 }
-.author-logo {
+.author-img {
   margin: 60px auto;
 }
 .page-title {
   text-align: center;
   margin-top: 40px;
   margin-bottom: 40px;
+}
+p.article-full {
+  margin-bottom: 60px;
 }
 .slider {
   position: absolute;
